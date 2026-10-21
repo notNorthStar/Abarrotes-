@@ -5,7 +5,7 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 
 | ID | Tarea | HU | Pts | Responsable | Estado | PR | Terminado |
 |---|---|---|---|---|---|---|---|
-| T-00 | Monorepo, Docker Postgres, schema, seed, layout, cliente API | — | — | Sosa | ⬜ | | |
+| T-00 | Monorepo, Docker Postgres, schema, seed, layout, cliente API | — | — | Sosa | 🟦 | | |
 | T-01 | Login API + JWT + middleware `requireRol` | HU-01 | 3 | Sosa | ⬜ | | |
 | T-02 | Pantalla login, contexto de sesión, guard por rol, logout | HU-01 | | Sosa | ⬜ | | |
 | T-03 | Store del carrito + input de escaneo | HU-02 | 5 | Gonzalo | ⬜ | | |

@@ -101,10 +101,18 @@ Base: `/api`. Auth: header `Authorization: Bearer <jwt>`. Payload del JWT: `{ su
 
 ```
 npm install
-docker compose up -d          # postgres en localhost:5432
+cp .env.example apps/api/.env # API_PORT, DATABASE_URL, DATABASE_URL_TEST, JWT_SECRET
+docker compose up -d          # postgres en localhost:5432 (BD abarrotes y abarrotes_test)
 npm run db:migrate            # prisma migrate dev
 npm run db:seed
 npm run dev                   # api :3000 + web :5173
-npm test
-npm run lint
+npm test                      # usa abarrotes_test: migra desde cero + seed antes de correr
+npm run lint                  # ESLint + typecheck de api y web
 ```
+
+## Lo que dejó T-00
+
+- **Funciona:** `POST /auth/login`, `GET /auth/me` (login base, sin validar estado — eso es HU-01), `GET /productos?q=`, `GET /productos/codigo/:codigo`, `requireRol`, `sucursalDe(req)`, `lib/dinero.ts`.
+- **Responden 501 `Pendiente: HU-XX`:** el resto de las rutas de la tabla. Reemplaza el `noImplementado(...)` de tu ruta por la implementación real.
+- **Front:** login, sesión (`useAuth`), `<RequireRol>`, layout con menú por rol, páginas placeholder y `features/venta/carrito/store.ts` (`useCarrito`).
+- **Pruebas:** helper `tokenDe('cajero1')` en `src/test/helpers.ts` para llamar rutas protegidas con supertest. Ejemplos en `productos.test.ts`.
