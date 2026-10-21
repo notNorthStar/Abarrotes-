@@ -31,3 +31,33 @@ Actualizar cada día con los puntos de HU **completamente hechas** (DoD) al cier
 | 4 | 29 nov | 80 | |
 
 Para la gráfica: pedir a la IA `genera la gráfica de burndown/burnup como Mermaid xychart desde docs/scrum/burndown.md` o pasar la tabla a Sheets.
+
+## Gráficas
+
+Actualizar las series "real" al llenar las tablas de arriba.
+
+### Burndown Sprint 2 (al 21 oct)
+
+Línea 1: ideal (47 → 0). Línea 2: real restante (días 1–3).
+
+```mermaid
+xychart-beta
+    title "Burndown Sprint 2 (47 pts)"
+    x-axis ["19 oct", "20 oct", "21 oct", "22 oct", "23 oct", "24 oct", "25 oct", "26 oct", "27 oct", "28 oct", "29 oct", "30 oct", "31 oct", "1 nov"]
+    y-axis "Puntos restantes" 0 --> 50
+    line [47.0, 43.4, 39.8, 36.2, 32.5, 28.9, 25.3, 21.7, 18.1, 14.5, 10.8, 7.2, 3.6, 0.0]
+    line [47, 47, 47]
+```
+
+### Burnup del producto (80 pts)
+
+Línea: plan acumulado. Barras: real acumulado (Sprint 1 = 0).
+
+```mermaid
+xychart-beta
+    title "Burnup del producto (80 pts)"
+    x-axis ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"]
+    y-axis "Puntos acumulados" 0 --> 80
+    line [24, 47, 70, 80]
+    bar [0]
+```
