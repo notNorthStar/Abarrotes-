@@ -22,6 +22,6 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-14 | Alta de producto y entrada de existencias + movimientos | HU-08 | 5 | Miguel | ⬜ | | |
 | D-01 | Diagrama de casos de uso + descripciones | Doc | — | Miguel | ⬜ | | |
 | D-02 | Prototipos principales y de alertas | Doc | — | Gonzalo | ⬜ | | |
-| D-03 | Diagrama de clases, burndown/burnup, documento Scrum | Doc | — | Sosa | ⬜ | | |
+| D-03 | Diagrama de clases, burndown/burnup, documento Scrum | Doc | — | Sosa | 🟨 | | |
 
 **Total comprometido:** 47 pts · **Completado:** 0 pts
