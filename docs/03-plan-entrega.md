@@ -58,7 +58,7 @@ Una HU está hecha cuando:
 1. Cumple **todos** sus criterios de aceptación (`02-backlog.md`).
 2. Tiene pruebas de API (Vitest + supertest) para los CA con lógica (cálculos, permisos, validaciones).
 3. `npm run lint` y `npm test` pasan.
-4. Se mergeó a `main` por **PR revisado por otro integrante**.
+4. Se mergeó a `develop` por **PR revisado por otro integrante**.
 5. Se marcó en `docs/scrum/sprint-backlog.md` y se puede demostrar con datos del seed.
 
 ## Plan de contingencia

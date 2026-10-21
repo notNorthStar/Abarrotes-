@@ -6,6 +6,8 @@ Sistema de punto de venta multisucursal para tiendas de abarrotes. Proyecto en S
 
 ## Para el equipo: cómo empezar (5 min)
 
+👉 **Lee primero [docs/00-empieza-aqui.md](docs/00-empieza-aqui.md)**: qué te toca, cómo instalar y cómo trabajar cada día. Se trabaja sobre la rama **`develop`**.
+
 1. Instala Node 20, Docker Desktop y Git. Ten tu herramienta de IA (Claude Code, Cursor o Copilot).
 2. `git clone https://github.com/notNorthStar/Abarrotes-.git` y ábrelo con tu IA.
 3. Lee `AGENTS.md` (tu IA lo lee sola) y busca tu nombre en [docs/03-plan-entrega.md](docs/03-plan-entrega.md).
