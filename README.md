@@ -11,14 +11,17 @@ Sistema de punto de venta multisucursal para tiendas de abarrotes. Proyecto en S
 1. Instala Node 20, Docker Desktop y Git. Ten tu herramienta de IA (Claude Code, Cursor o Copilot).
 2. `git clone https://github.com/notNorthStar/Abarrotes-.git` y ábrelo con tu IA.
 3. Lee `AGENTS.md` (tu IA lo lee sola) y busca tu nombre en [docs/03-plan-entrega.md](docs/03-plan-entrega.md).
-4. Cuando exista el esqueleto (T-00, lo hace Sosa):
+4. Levanta el proyecto (Docker Desktop debe estar abierto):
    ```
    npm install
+   cp .env.example apps/api/.env
    docker compose up -d
    npm run db:migrate
    npm run db:seed
    npm run dev
    ```
+   Web en http://localhost:5173 (entra con `cajero1` / `abarrotes123`), API en http://localhost:3000/api.
+   Antes de cada PR: `npm test` (crea y llena la BD `abarrotes_test` sola) y `npm run lint` (ESLint + tipos).
 5. Trabaja tu HU: en Claude Code `/hu HU-XX`; en otra IA pega `docs/prompts/implementar-hu.md`.
 6. Cada día: `/daily` (o `docs/prompts/daily.md`).
 

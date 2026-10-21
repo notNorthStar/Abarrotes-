@@ -1,5 +1,7 @@
 # 05 · Modelo de datos
 
+> **Fuente de verdad:** `apps/api/prisma/schema.prisma`. El bloque de abajo es una referencia de lectura (el real agrega las relaciones inversas, p. ej. `VentaRenglon.producto` y `VisitaProveedor.sucursal`).
+
 La estructura **multisucursal se define desde el Sprint 1** (aunque HU-16 se construya en el Sprint 4). Este schema es el punto de partida de T-00; incluye ya las tablas de sprints futuros para no romper migraciones después. **Cambios al schema: solo por PR propio y avisando al equipo.**
 
 ```prisma
