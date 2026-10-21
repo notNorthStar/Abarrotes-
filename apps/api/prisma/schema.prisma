@@ -1,0 +1,184 @@
+// Modelo de datos de Abarrotes+. Ver docs/05-modelo-datos.md.
+// Cambios: solo por PR propio y avisando al equipo.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Rol {
+  CAJERO
+  ADMIN
+  JEFE
+}
+
+enum Estado {
+  ACTIVO
+  SUSPENDIDO
+  ELIMINADO
+}
+
+enum UnidadVenta {
+  PIEZA
+  KILO
+}
+
+enum MetodoPago {
+  EFECTIVO
+  TARJETA
+  TRANSFERENCIA
+}
+
+enum TipoMovimiento {
+  ALTA
+  ENTRADA
+  VENTA
+  MERMA
+}
+
+enum MotivoMerma {
+  CADUCADO
+  DANADO
+}
+
+model Sucursal {
+  id        Int               @id @default(autoincrement())
+  nombre    String
+  direccion String?
+  estado    Estado            @default(ACTIVO)
+  creadoEn  DateTime          @default(now())
+  usuarios  Usuario[]
+  productos Producto[]
+  turnos    TurnoCaja[]
+  visitas   VisitaProveedor[]
+}
+
+model Usuario {
+  id           Int                    @id @default(autoincrement())
+  nombre       String
+  usuario      String                 @unique
+  passwordHash String
+  rol          Rol
+  estado       Estado                 @default(ACTIVO)
+  sucursalId   Int? // null solo para JEFE
+  sucursal     Sucursal?              @relation(fields: [sucursalId], references: [id])
+  creadoEn     DateTime               @default(now())
+  turnos       TurnoCaja[]
+  ventas       Venta[]
+  movimientos  MovimientoInventario[]
+}
+
+model Producto {
+  id           Int                    @id @default(autoincrement())
+  codigoBarras String
+  nombre       String
+  precio       Decimal                @db.Decimal(10, 2) // por pieza o por kg
+  unidad       UnidadVenta            @default(PIEZA)
+  existencia   Decimal                @default(0) @db.Decimal(10, 3)
+  estado       Estado                 @default(ACTIVO)
+  sucursalId   Int
+  sucursal     Sucursal               @relation(fields: [sucursalId], references: [id])
+  creadoEn     DateTime               @default(now())
+  movimientos  MovimientoInventario[]
+  renglones    VentaRenglon[]
+
+  @@unique([sucursalId, codigoBarras])
+}
+
+// Quién movió inventario y cuándo (HU-08, HU-10, HU-13)
+model MovimientoInventario {
+  id         Int            @id @default(autoincrement())
+  tipo       TipoMovimiento
+  cantidad   Decimal        @db.Decimal(10, 3) // + entra, - sale
+  motivo     MotivoMerma?
+  comentario String?
+  productoId Int
+  producto   Producto       @relation(fields: [productoId], references: [id])
+  usuarioId  Int
+  usuario    Usuario        @relation(fields: [usuarioId], references: [id])
+  creadoEn   DateTime       @default(now())
+}
+
+model TurnoCaja {
+  id               Int             @id @default(autoincrement())
+  usuarioId        Int
+  usuario          Usuario         @relation(fields: [usuarioId], references: [id])
+  sucursalId       Int
+  sucursal         Sucursal        @relation(fields: [sucursalId], references: [id])
+  montoInicial     Decimal         @db.Decimal(10, 2)
+  abiertoEn        DateTime        @default(now())
+  cerradoEn        DateTime?
+  efectivoEsperado Decimal?        @db.Decimal(10, 2)
+  efectivoContado  Decimal?        @db.Decimal(10, 2)
+  diferencia       Decimal?        @db.Decimal(10, 2)
+  comentario       String?
+  ventas           Venta[]
+  pagosProveedor   PagoProveedor[]
+}
+
+model Venta {
+  id        Int            @id @default(autoincrement())
+  turnoId   Int
+  turno     TurnoCaja      @relation(fields: [turnoId], references: [id])
+  usuarioId Int
+  usuario   Usuario        @relation(fields: [usuarioId], references: [id])
+  total     Decimal        @db.Decimal(10, 2)
+  cambio    Decimal        @default(0) @db.Decimal(10, 2)
+  creadoEn  DateTime       @default(now())
+  renglones VentaRenglon[]
+  pagos     PagoVenta[]
+}
+
+model VentaRenglon {
+  id             Int      @id @default(autoincrement())
+  ventaId        Int
+  venta          Venta    @relation(fields: [ventaId], references: [id])
+  productoId     Int
+  producto       Producto @relation(fields: [productoId], references: [id])
+  cantidad       Decimal  @db.Decimal(10, 3)
+  precioUnitario Decimal  @db.Decimal(10, 2) // copia del precio al momento de vender
+  subtotal       Decimal  @db.Decimal(10, 2)
+}
+
+model PagoVenta {
+  id         Int        @id @default(autoincrement())
+  ventaId    Int
+  venta      Venta      @relation(fields: [ventaId], references: [id])
+  metodo     MetodoPago
+  monto      Decimal    @db.Decimal(10, 2) // en EFECTIVO: lo recibido
+  referencia String? // TARJETA / TRANSFERENCIA
+}
+
+model Proveedor {
+  id      Int               @id @default(autoincrement())
+  nombre  String            @unique
+  pagos   PagoProveedor[]
+  visitas VisitaProveedor[]
+}
+
+model PagoProveedor {
+  id          Int        @id @default(autoincrement())
+  turnoId     Int
+  turno       TurnoCaja  @relation(fields: [turnoId], references: [id])
+  proveedorId Int
+  proveedor   Proveedor  @relation(fields: [proveedorId], references: [id])
+  monto       Decimal    @db.Decimal(10, 2)
+  metodo      MetodoPago // EFECTIVO o TRANSFERENCIA
+  comentario  String?
+  creadoEn    DateTime   @default(now())
+}
+
+// HU-07 (Sprint 3)
+model VisitaProveedor {
+  id          Int       @id @default(autoincrement())
+  proveedorId Int
+  proveedor   Proveedor @relation(fields: [proveedorId], references: [id])
+  sucursalId  Int
+  sucursal    Sucursal  @relation(fields: [sucursalId], references: [id])
+  fecha       DateTime
+  nota        String?
+}
