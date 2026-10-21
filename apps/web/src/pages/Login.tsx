@@ -4,23 +4,31 @@ import { ApiError } from '../api/client'
 import { useAuth } from '../auth/AuthContext'
 import { rutaInicial } from '../rutaInicial'
 
-// T-00: login base. HU-01 (Sosa) completa validaciones, estados y pruebas.
+// HU-01: login con usuario y contraseña; redirige según el rol.
 export function Login() {
   const { usuario, iniciarSesion } = useAuth()
   const navigate = useNavigate()
   const [form, setForm] = useState({ usuario: '', password: '' })
   const [error, setError] = useState('')
+  const [enviando, setEnviando] = useState(false)
 
   if (usuario) return <Navigate to={rutaInicial(usuario.rol)} replace />
 
   async function enviar(e: FormEvent) {
     e.preventDefault()
+    if (!form.usuario.trim() || !form.password) {
+      setError('Escribe tu usuario y contraseña')
+      return
+    }
     setError('')
+    setEnviando(true)
     try {
-      const u = await iniciarSesion(form.usuario, form.password)
+      const u = await iniciarSesion(form.usuario.trim(), form.password)
       navigate(rutaInicial(u.rol), { replace: true })
     } catch (err) {
       setError(err instanceof ApiError ? err.message : 'Error de conexión')
+    } finally {
+      setEnviando(false)
     }
   }
 
@@ -43,8 +51,11 @@ export function Login() {
           onChange={(e) => setForm({ ...form, password: e.target.value })}
         />
         {error && <p className="text-sm text-red-600">{error}</p>}
-        <button className="w-full rounded bg-emerald-700 py-2 font-semibold text-white hover:bg-emerald-800">
-          Entrar
+        <button
+          disabled={enviando}
+          className="w-full rounded bg-emerald-700 py-2 font-semibold text-white hover:bg-emerald-800 disabled:opacity-60"
+        >
+          {enviando ? 'Entrando…' : 'Entrar'}
         </button>
       </form>
     </div>
