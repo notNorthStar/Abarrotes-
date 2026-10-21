@@ -12,8 +12,8 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-04 | Producto no encontrado + búsqueda manual | HU-02 | | Gonzalo | ⬜ | | |
 | T-05 | Captura de peso, conversión g→kg, validaciones | HU-03 | 8 | Miguel | ⬜ | | |
 | T-06 | Cálculo de precio a granel + integración al carrito + pruebas | HU-03 | | Miguel | ⬜ | | |
-| T-07 | `POST /ventas`: recálculo, pagos mixtos, cambio, descuento de stock | HU-06 | 8 | Sosa | ⬜ | | |
-| T-08 | Pantalla de cobro (pago mixto, referencia, cambio) | HU-06 | | Sosa | ⬜ | | |
+| T-07 | `POST /ventas`: recálculo, pagos mixtos, cambio, descuento de stock | HU-06 | 8 | Sosa | 🟦 | | |
+| T-08 | Pantalla de cobro (pago mixto, referencia, cambio) | HU-06 | | Sosa | 🟦 | | |
 | T-09 | Abrir caja (turno) y bloqueo de venta sin turno | HU-05 | 8 | Gonzalo | ⬜ | | |
 | T-10 | Registrar pago a proveedor | HU-09 | 3 | Gonzalo | ⬜ | | |
 | T-11 | Corte: totales por método, efectivo esperado, cierre con diferencia | HU-05 | | Gonzalo | ⬜ | | |
