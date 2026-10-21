@@ -1,0 +1,20 @@
+# Prompt: implementar una historia de usuario
+
+> Uso: en Claude Code `/hu HU-XX`. En otra herramienta, copia este archivo al chat y reemplaza `{HU}`.
+
+Vas a implementar **{HU}** de Abarrotes+. Sigue estos pasos en orden y no te saltes ninguno:
+
+1. **Contexto.** Lee `AGENTS.md`, la sección de {HU} en `docs/02-backlog.md`, `docs/04-arquitectura.md` y `docs/05-modelo-datos.md`. Si no sabes cuál integrante soy, pregúntame y verifica en `docs/03-plan-entrega.md` que {HU} me corresponde. Si no me corresponde, avísame y detente.
+2. **Estado del repo.** `git status` y `git pull --rebase origin main`. Si el esqueleto (T-00) aún no existe, dímelo y detente. Crea la rama `hu-XX-descripcion-corta`.
+3. **Plan.** Muéstrame:
+   - Los criterios de aceptación numerados.
+   - Endpoints, servicios, componentes y archivos a crear/modificar.
+   - Pruebas que escribirás (una o más por CA con lógica).
+   - Dudas de alcance (si las hay, pregúntalas ahora).
+   Espera mi OK.
+4. **Implementa** primero el backend (schemas Zod → service → routes → pruebas), luego el front. Respeta los dueños de módulo; si necesitas algo de otro módulo, usa su contrato público o dímelo.
+5. **Verifica.** `npm test` y `npm run lint`. Prueba el flujo con los usuarios del seed. Reporta resultados reales; si algo falla, arréglalo o explícalo.
+6. **Sprint backlog.** Marca mis tareas de {HU} en `docs/scrum/sprint-backlog.md` como 🟦.
+7. **Commits** pequeños: `tipo(modulo): descripción [{HU}]`.
+8. **PR.** Prepara título `[{HU}] Nombre` y cuerpo con la plantilla `.github/pull_request_template.md` (CA cubiertos con ✅, cómo probar, dudas). Pregúntame antes de hacer push / abrir el PR. Sugiere como reviewer al siguiente en la rotación Sosa → Gonzalo → Miguel → Sosa.
+9. **Explícame** en 5–10 líneas qué hace cada archivo nuevo, para que pueda defenderlo en la demo.

@@ -1,0 +1,6 @@
+---
+description: Reglas del proyecto Abarrotes+
+alwaysApply: true
+---
+
+Sigue todas las instrucciones de `AGENTS.md` en la raíz del repo. Para tareas comunes usa los prompts de `docs/prompts/` (implementar-hu, daily, revisar-pr, estado, cierre-sprint, setup).
