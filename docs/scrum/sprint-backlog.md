@@ -17,7 +17,7 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-09 | Abrir caja (turno) y bloqueo de venta sin turno | HU-05 | 8 | Gonzalo | ⬜ | | |
 | T-10 | Registrar pago a proveedor | HU-09 | 3 | Gonzalo | ⬜ | | |
 | T-11 | Corte: totales por método, efectivo esperado, cierre con diferencia | HU-05 | | Gonzalo | ⬜ | | |
-| T-12 | CRUD cajeros (crear, suspender, eliminar lógico, reset password) | HU-12 | 5 | Sosa | ⬜ | | |
+| T-12 | CRUD cajeros (crear, suspender, eliminar lógico, reset password) | HU-12 | 5 | Sosa | 🟦 | | |
 | T-13 | Consulta de inventario con búsqueda | HU-04 | 2 | Miguel | ⬜ | | |
 | T-14 | Alta de producto y entrada de existencias + movimientos | HU-08 | 5 | Miguel | ⬜ | | |
 | D-01 | Diagrama de casos de uso + descripciones | Doc | — | Miguel | ⬜ | | |
