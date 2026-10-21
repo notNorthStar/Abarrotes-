@@ -20,3 +20,15 @@ export type Producto = {
   existencia: string
   sucursalId: number
 }
+
+export type EstadoCuenta = 'ACTIVO' | 'SUSPENDIDO' | 'ELIMINADO'
+
+/** Cuenta gestionada en HU-12 (cajeros). GET /api/usuarios */
+export type CuentaUsuario = {
+  id: number
+  nombre: string
+  usuario: string
+  rol: Rol
+  estado: EstadoCuenta
+  creadoEn: string
+}
