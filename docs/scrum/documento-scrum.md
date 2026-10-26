@@ -110,7 +110,11 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 
 ### 4.3 Diagrama de clases
 
-El diagrama de clases y el diagrama entidad-relación se generan desde el modelo de datos (`apps/api/prisma/schema.prisma`) y se encuentran en `docs/diagramas/clases.md`, junto con las decisiones de diseño: multisucursal desde el inicio, borrado lógico mediante el atributo `estado`, copia de `precioUnitario` en cada renglón de venta y registro de `MovimientoInventario` para trazabilidad. Para el documento final se exportan como imagen.
+El diagrama de clases y el diagrama entidad-relación se generan desde el modelo de datos (`apps/api/prisma/schema.prisma`) y se encuentran en `docs/diagramas/clases.md`, junto con las decisiones de diseño: multisucursal desde el inicio, borrado lógico mediante el atributo `estado`, copia de `precioUnitario` en cada renglón de venta y registro de `MovimientoInventario` para trazabilidad. 
+
+![Diagrama de clases](../diagramas/img/clases.png)
+
+![Diagrama entidad-relación](../diagramas/img/er.png)
 
 ### 4.4 Diagrama de casos de uso
 
@@ -147,9 +151,13 @@ Los sprints duran **2 semanas**. El calendario del proyecto es:
 
 La gráfica de burnup del producto (puntos acumulados completados contra el plan de 80 puntos: 24 / 47 / 70 / 80) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas". Al cierre del Sprint 1 el real acumulado es 0.
 
+![Burnup del producto](../diagramas/img/burnup.png)
+
 ### 4.11 Burn Down
 
-La gráfica de burndown del Sprint 2 (puntos restantes por día contra la línea ideal de 47 a 0) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas", y se actualiza diariamente. Al día 3 (21 oct) quedan 47 puntos.
+La gráfica de burndown del Sprint 2 (puntos restantes por día contra la línea ideal de 47 a 0) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas", y se actualiza diariamente. Al día 8 (26 oct) quedan 47 puntos: las HU-01, HU-06 y HU-12 están en revisión (PRs #1–#3) y aún no se integran.
+
+![Burndown Sprint 2](../diagramas/img/burndown.png)
 
 ### 4.12 Reunión de inicio de sprint
 

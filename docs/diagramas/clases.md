@@ -4,6 +4,8 @@ Generado desde `apps/api/prisma/schema.prisma` (fuente de verdad). Si el schema 
 
 ## Diagrama de clases
 
+Imagen para el documento: [`img/clases.png`](img/clases.png)
+
 ```mermaid
 classDiagram
     direction LR
@@ -176,6 +178,8 @@ Restricciones de unicidad: `Usuario.usuario` es único global; `Proveedor.nombre
 - **Pagos separados de la venta:** `PagoVenta` permite el pago mixto (HU-06) y `PagoProveedor` ligado a `TurnoCaja` permite calcular el efectivo esperado del corte (HU-05, HU-09).
 
 ## Diagrama ER (simplificado)
+
+Imagen para el documento: [`img/er.png`](img/er.png)
 
 ```mermaid
 erDiagram
