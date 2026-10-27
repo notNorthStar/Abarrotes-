@@ -1,4 +1,5 @@
 import { useCarrito } from './carrito/store'
+import { Cobro } from './cobro/Cobro'
 
 // HU-02 (Gonzalo): escaneo y carrito · HU-03 (Miguel): granel · HU-06 (Sosa): cobro
 export function VentaPage() {
@@ -13,6 +14,7 @@ export function VentaPage() {
         <p>{renglones.length} productos en la cuenta</p>
         <p className="text-xl font-bold">Total: ${total()}</p>
       </div>
+      <Cobro />
     </section>
   )
 }
