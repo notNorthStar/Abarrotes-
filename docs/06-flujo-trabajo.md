@@ -1,6 +1,8 @@
 # 06 · Flujo de trabajo (Git + IA + colaboración)
 
-La maestra evalúa que el trabajo sea **colaborativo**. GitHub es la evidencia: cada quien **commitea desde su propia cuenta** sus propias HU, y cada PR lo **revisa otro integrante**.
+La maestra evalúa que el trabajo sea **colaborativo**. GitHub es la evidencia: cada quien **commitea desde su propia cuenta** sus propias HU y abre sus PRs.
+
+**Revisión centralizada (acuerdo del 26 oct):** Sosa (Scrum Master) es el único que revisa, aprueba e integra. Gonzalo y Miguel solo implementan y mandan PRs; no revisan. Los PRs de Sosa se integran directamente (ya revisados por él con la IA).
 
 ## Ramas
 
@@ -15,7 +17,7 @@ main         ← entregas. Solo recibe develop al cierre de cada sprint (tag v0.
 | Rama | Para qué | Quién escribe |
 |---|---|---|
 | `main` | Lo que se entrega a la maestra | Solo PR `develop → main` al cierre de sprint (Sosa, como SM) |
-| `develop` | Integración continua / demo | Solo por PR desde ramas `hu-*`, `doc-*`, `fix-*`, con 1 aprobación |
+| `develop` | Integración continua / demo | Solo por PR desde ramas `hu-*`, `doc-*`, `fix-*`; integra Sosa |
 | `hu-XX-descripcion` | Una historia de usuario | Su responsable |
 | `doc-descripcion` | Diagramas, prototipos, documento Scrum | Su responsable |
 | `fix-descripcion` | Corrección de algo ya mergeado | Quien lo encuentre |
@@ -60,20 +62,22 @@ Si la IA generó el código, se permite el trailer `Co-Authored-By:` de la herra
 
 1. **Base: `develop`** (nunca `main`). Título: `[HU-05] Corte y cierre de caja`.
 2. Llenar la plantilla: qué CA cubre, cómo probarlo, capturas.
-3. Reviewer: **otro integrante**, rotando: Sosa → Gonzalo → Miguel → Sosa.
-4. El reviewer revisa (con `/revisar-pr <n>` o a mano), prueba localmente y deja **aprobación o comentarios en GitHub**. Revisar el mismo día que se pide.
-5. Merge con **squash** y borrar la rama.
-6. Avisar en el grupo: "entró HU-XX a develop, hagan rebase".
+3. **Reviewer: siempre Sosa (`notNorthStar`)**. `.github/CODEOWNERS` lo asigna automáticamente.
+4. Sosa revisa con su IA (`/revisar-pr <n>`), prueba localmente y deja **aprobación o cambios solicitados en GitHub**, el mismo día.
+5. Si pide cambios: el autor corrige en la misma rama y hace push; el PR se actualiza solo.
+6. Sosa integra con **squash** y borra la rama. Avisa en el grupo: "entró HU-XX a develop".
+7. **PRs de Sosa:** se abren igual (dejan registro) y Sosa los integra directo, sin esperar aprobación.
 
 ## Cierre de sprint
 
 1. Sosa abre PR `develop → main` con el resumen de HU entregadas.
-2. Todos prueban `develop` con el seed (flujo de la demo) y aprueban.
+2. Se prueba `develop` con el seed (flujo de la demo).
 3. Merge (sin squash, para conservar historial) y tag: `git tag v0.2.0 && git push origin v0.2.0`.
 
 ## Protección de ramas (GitHub → Settings → Branches)
 
-- `main` y `develop`: *Require a pull request before merging* + *Require approvals: 1*. Sin push directo.
+- `main` y `develop`: *Require a pull request before merging* + *Require approvals: 1* + *Require review from Code Owners*. **Sin** marcar "Do not allow bypassing the above settings", para que Sosa (admin) pueda integrar sus propios PRs.
+- Con `CODEOWNERS = @notNorthStar`, los PRs de Gonzalo y Miguel solo se pueden integrar con la aprobación de Sosa.
 
 ## Cómo trabajar con la IA (todos)
 

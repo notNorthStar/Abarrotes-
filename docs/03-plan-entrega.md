@@ -40,6 +40,8 @@ Para no esperar: T-00 deja **contratos** (rutas, tipos y store del carrito con f
 
 ## Calendario
 
+> **Re-planeado el 26 oct:** Sosa terminó sus HU; las fechas vigentes de Gonzalo y Miguel están en `docs/00-empieza-aqui.md`. La tabla de abajo es el plan original.
+
 | Día | Sosa | Gonzalo | Miguel |
 |---|---|---|---|
 | **Mié 21 – Jue 22 oct** | **T-00**: monorepo, Docker Postgres, schema completo, seed, login base, layout | Prototipos de pantallas (venta, cobro, caja, alertas) | Diagrama de casos de uso + descripciones |
@@ -58,7 +60,7 @@ Una HU está hecha cuando:
 1. Cumple **todos** sus criterios de aceptación (`02-backlog.md`).
 2. Tiene pruebas de API (Vitest + supertest) para los CA con lógica (cálculos, permisos, validaciones).
 3. `npm run lint` y `npm test` pasan.
-4. Se mergeó a `develop` por **PR revisado por otro integrante**.
+4. Se mergeó a `develop` por **PR aprobado e integrado por Sosa** (los PRs de Sosa se integran directo).
 5. Se marcó en `docs/scrum/sprint-backlog.md` y se puede demostrar con datos del seed.
 
 ## Plan de contingencia
