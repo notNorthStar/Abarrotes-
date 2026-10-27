@@ -66,7 +66,7 @@ Si la IA generó el código, se permite el trailer `Co-Authored-By:` de la herra
 4. Sosa revisa con su IA (`/revisar-pr <n>`), prueba localmente y deja **aprobación o cambios solicitados en GitHub**, el mismo día.
 5. Si pide cambios: el autor corrige en la misma rama y hace push; el PR se actualiza solo.
 6. Sosa integra con **squash** y borra la rama. Avisa en el grupo: "entró HU-XX a develop".
-7. **PRs de Sosa:** se abren igual (dejan registro) y Sosa los integra directo, sin esperar aprobación.
+7. **PRs de Sosa:** se abren igual (dejan registro) y Sosa los integra directo con `gh pr merge <n> --squash --delete-branch --admin` (o en GitHub marcando "Merge without waiting for requirements to be met").
 
 ## Cierre de sprint
 
