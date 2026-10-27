@@ -81,7 +81,8 @@ Tareas técnicas y de documentación sin puntos: T-00 (Sosa), D-01 (Miguel), D-0
 - **Revisión centralizada:** Sosa es el único que revisa, aprueba e integra los PRs (`CODEOWNERS = @notNorthStar`). Gonzalo y Miguel solo implementan y mandan PRs. Los PRs de Sosa se integran directo.
 - **Motivo:** al día 8 Gonzalo y Miguel no tenían avance en GitHub; quitarles la carga de revisión les deja todo el tiempo para sus HU.
 - **Herramientas:** Gonzalo y Miguel trabajan con Codex, Cursor o Antigravity; se agregan `GEMINI.md` y `.agent/rules/` y la guía `docs/00-empieza-aqui.md` con las frases para cada IA.
-- **Estado:** se integran HU-01, HU-06 y HU-12 (16 pts). Restan 31 pts, todos de Gonzalo y Miguel, re-calendarizados del 27 al 31 oct.
+- **Reasignación:** HU-08 (alta de productos, 5 pts) pasa de Miguel a Sosa para tener inventario cargable desde admin cuanto antes. Reparto vigente: Sosa 21 pts, Gonzalo 16, Miguel 10.
+- **Estado:** se integran HU-01, HU-06, HU-12 y HU-08 (21 pts). Restan 26 pts (Gonzalo 16, Miguel 10), re-calendarizados del 27 al 31 oct.
 
 ---
 

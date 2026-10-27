@@ -68,7 +68,7 @@ Mientras no se confirme el Product Owner, las dudas de alcance se resuelven con 
 | 6 | HU-05 | Corte y cierre de caja | Alto | 8 | 2 | Gonzalo |
 | 7 | HU-12 | Gestión de cuentas de cajero | Medio | 5 | 2 | Sosa |
 | 8 | HU-04 | Revisar el inventario | Medio | 2 | 2 | Miguel |
-| 9 | HU-08 | Agregar productos | Medio | 5 | 2 | Miguel |
+| 9 | HU-08 | Agregar productos | Medio | 5 | 2 | Sosa (reasignada 26 oct) |
 | 10 | HU-10 | Registro de producto caducado/dañado | Medio | 3 | 3 | — |
 | 11 | HU-11 | Operaciones de cajero (admin) | Medio | 2 | 3 | — |
 | 12 | HU-15 | Gestión de cuentas de administrador | Medio | 3 | 3 | — |
@@ -86,27 +86,27 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | ID | Tarea | HU | Pts | Responsable | Estado |
 |---|---|---|---|---|---|
 | T-00 | Monorepo, Docker Postgres, schema, seed, layout, cliente API | — | — | Sosa | ✅ Integrado en `develop` |
-| T-01 | Login API + JWT + middleware `requireRol` | HU-01 | 3 | Sosa | 🟨 Implementada en rama, pendiente de PR |
-| T-02 | Pantalla login, contexto de sesión, guard por rol, logout | HU-01 | | Sosa | 🟨 Implementada en rama, pendiente de PR |
+| T-01 | Login API + JWT + middleware `requireRol` | HU-01 | 3 | Sosa | ✅ |
+| T-02 | Pantalla login, contexto de sesión, guard por rol, logout | HU-01 | | Sosa | ✅ |
 | T-03 | Store del carrito + input de escaneo | HU-02 | 5 | Gonzalo | ⬜ |
 | T-04 | Producto no encontrado + búsqueda manual | HU-02 | | Gonzalo | ⬜ |
 | T-05 | Captura de peso, conversión g→kg, validaciones | HU-03 | 8 | Miguel | ⬜ |
 | T-06 | Cálculo de precio a granel + integración al carrito + pruebas | HU-03 | | Miguel | ⬜ |
-| T-07 | `POST /ventas`: recálculo, pagos mixtos, cambio, descuento de stock | HU-06 | 8 | Sosa | 🟨 |
-| T-08 | Pantalla de cobro (pago mixto, referencia, cambio) | HU-06 | | Sosa | 🟨 |
+| T-07 | `POST /ventas`: recálculo, pagos mixtos, cambio, descuento de stock | HU-06 | 8 | Sosa | ✅ |
+| T-08 | Pantalla de cobro (pago mixto, referencia, cambio) | HU-06 | | Sosa | ✅ |
 | T-09 | Abrir caja (turno) y bloqueo de venta sin turno | HU-05 | 8 | Gonzalo | ⬜ |
 | T-10 | Registrar pago a proveedor | HU-09 | 3 | Gonzalo | ⬜ |
 | T-11 | Corte: totales por método, efectivo esperado, cierre con diferencia | HU-05 | | Gonzalo | ⬜ |
-| T-12 | CRUD cajeros (crear, suspender, eliminar lógico, reset password) | HU-12 | 5 | Sosa | 🟨 |
+| T-12 | CRUD cajeros (crear, suspender, eliminar lógico, reset password) | HU-12 | 5 | Sosa | ✅ |
 | T-13 | Consulta de inventario con búsqueda | HU-04 | 2 | Miguel | ⬜ |
-| T-14 | Alta de producto y entrada de existencias + movimientos | HU-08 | 5 | Miguel | ⬜ |
+| T-14 | Alta de producto y entrada de existencias + movimientos | HU-08 | 5 | Sosa (reasignada) | ✅ |
 | D-01 | Diagrama de casos de uso + descripciones | Doc | — | Miguel | ⬜ |
 | D-02 | Prototipos principales y de alertas | Doc | — | Gonzalo | ⬜ |
 | D-03 | Diagrama de clases, burndown/burnup, documento Scrum | Doc | — | Sosa | 🟨 |
 
-**Total comprometido:** 47 pts · **Completado:** 0 pts (ninguna HU mergeada a `develop` al 21 de octubre).
+**Total comprometido:** 47 pts · **Completado:** 21 pts al 26 de octubre (HU-01, HU-06, HU-12, HU-08).
 
-> Nota: los estados de esta tabla reflejan el avance reportado en la re-planeación del 21 de octubre; cada responsable debe sincronizar sus renglones en `docs/scrum/sprint-backlog.md` antes de la versión final.
+> Nota: estados al 26 de octubre; la fuente viva es `docs/scrum/sprint-backlog.md`. Sincronizar antes de la versión final.
 
 ### 4.3 Diagrama de clases
 
@@ -155,7 +155,7 @@ La gráfica de burnup del producto (puntos acumulados completados contra el plan
 
 ### 4.11 Burn Down
 
-La gráfica de burndown del Sprint 2 (puntos restantes por día contra la línea ideal de 47 a 0) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas", y se actualiza diariamente. Al día 8 (26 oct) quedan 31 puntos: se integraron HU-01, HU-06 y HU-12 (16 pts).
+La gráfica de burndown del Sprint 2 (puntos restantes por día contra la línea ideal de 47 a 0) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas", y se actualiza diariamente. Al día 8 (26 oct) quedan 26 puntos: se integraron HU-01, HU-06, HU-12 y HU-08 (21 pts).
 
 ![Burndown Sprint 2](../diagramas/img/burndown.png)
 

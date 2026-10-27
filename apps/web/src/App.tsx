@@ -7,6 +7,7 @@ import { rutaInicial } from './rutaInicial'
 import { VentaPage } from './features/venta/VentaPage'
 import { CajaPage } from './features/caja/CajaPage'
 import { InventarioPage } from './features/inventario/InventarioPage'
+import { AgregarProductoPage } from './features/inventario/AgregarProductoPage'
 import { UsuariosPage } from './features/usuarios/UsuariosPage'
 
 function Inicio() {
@@ -29,6 +30,7 @@ export function App() {
         <Route path="venta" element={<VentaPage />} />
         <Route path="caja" element={<CajaPage />} />
         <Route path="inventario" element={<InventarioPage />} />
+        <Route path="productos/nuevo" element={<AgregarProductoPage />} />
         <Route
           path="usuarios"
           element={

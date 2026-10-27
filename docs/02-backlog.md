@@ -12,7 +12,7 @@
 | 6 | HU-05 | Corte y cierre de caja | Alto | 8 | 2 | Gonzalo |
 | 7 | HU-12 | Gestión de cuentas de cajero | Medio | 5 | 2 | Sosa |
 | 8 | HU-04 | Revisar el inventario | Medio | 2 | 2 | Miguel |
-| 9 | HU-08 | Agregar productos | Medio | 5 | 2 | Miguel |
+| 9 | HU-08 | Agregar productos | Medio | 5 | 2 | Sosa (reasignada 26 oct) |
 | 10 | HU-10 | Registro de producto caducado/dañado | Medio | 3 | 3 | — |
 | 11 | HU-11 | Operaciones de cajero (admin) | Medio | 2 | 3 | — |
 | 12 | HU-15 | Gestión de cuentas de administrador | Medio | 3 | 3 | — |
@@ -103,7 +103,7 @@
 - CA2: **Búsqueda por nombre o código**.
 - CA3: Solo productos de la sucursal del usuario.
 
-### HU-08 · Agregar productos (5 pts) — Miguel
+### HU-08 · Agregar productos (5 pts) — Sosa (reasignada de Miguel el 26 oct)
 > Como cajero quiero agregar productos al inventario para no depender del administrador en días de visita de proveedores.
 
 - CA1: **Alta de producto nuevo**: código de barras, nombre, precio, unidad (pieza/kilo), cantidad.
@@ -111,6 +111,7 @@
 - CA3: Código de barras **único por sucursal**.
 - CA4: **Sin aprobación del admin** en esta versión.
 - CA5: Se registra **quién y cuándo** agregó (para HU-13): tabla de movimientos de inventario.
+- Nota: por la jerarquía de roles, **admin y jefe también pueden** dar de alta productos y registrar entradas (pantalla "Agregar productos").
 
 ---
 
