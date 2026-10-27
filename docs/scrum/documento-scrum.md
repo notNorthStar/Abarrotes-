@@ -155,7 +155,7 @@ La gráfica de burnup del producto (puntos acumulados completados contra el plan
 
 ### 4.11 Burn Down
 
-La gráfica de burndown del Sprint 2 (puntos restantes por día contra la línea ideal de 47 a 0) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas", y se actualiza diariamente. Al día 8 (26 oct) quedan 47 puntos: las HU-01, HU-06 y HU-12 están en revisión (PRs #1–#3) y aún no se integran.
+La gráfica de burndown del Sprint 2 (puntos restantes por día contra la línea ideal de 47 a 0) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas", y se actualiza diariamente. Al día 8 (26 oct) quedan 31 puntos: se integraron HU-01, HU-06 y HU-12 (16 pts).
 
 ![Burndown Sprint 2](../diagramas/img/burndown.png)
 

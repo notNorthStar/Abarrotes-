@@ -1,84 +1,89 @@
-# 00 · Empieza aquí (equipo)
+# 00 · Empieza aquí (Gonzalo y Miguel)
 
-Guía para Gonzalo y Miguel (y para Sosa en otra máquina). Léela una vez completa; después tu IA se encarga del resto con `AGENTS.md`.
+Guía para trabajar en Abarrotes+ con tu IA (**Codex**, **Cursor** o **Antigravity**). Léela una vez; después tu IA se encarga del resto con `AGENTS.md`.
 
-## Situación
+## Situación (26 oct)
 
-- El Sprint 1 no se entregó. **El domingo 1 de noviembre entregamos Sprint 1 + Sprint 2** (9 HU, 47 pts) más el documento Scrum.
-- Trabajamos **full IA**, pero la maestra evalúa colaboración: **cada quien commitea desde su cuenta, abre sus PRs y revisa los de otro**. Si la IA escribe el código, tú lo revisas y debes poder explicarlo en la demo.
-- Stack: React + Node/Express + PostgreSQL (Prisma). Todo corre local con Docker.
+- **El domingo 1 de noviembre entregamos Sprint 1 + Sprint 2** (9 HU, 47 pts) más el documento Scrum.
+- Ya están en `develop`: la base del proyecto (T-00), **HU-01** login, **HU-06** cobro y **HU-12** cuentas de cajero, más el diagrama de clases y el burndown. **Faltan las tuyas.**
+- Tu trabajo es **programar tus HU y mandar tus PRs**. **No revisas PRs**: Sosa revisa, aprueba e integra todo.
+- Cada quien commitea **desde su propia cuenta de GitHub**: eso es lo que la maestra ve como tu aporte.
 
-## Tu trabajo
+## Tu trabajo (re-planeado al 26 oct)
 
-> El reparto lo propuso Sosa con IA siguiendo lo que ya estaba asignado en el Drive. **Si quieres cambiar algo, dilo en el grupo hoy** y se ajusta `03-plan-entrega.md`.
+### Gonzalo (`gxnzHer`): carrito y caja (16 pts)
 
-### Gonzalo — Carrito y caja (16 pts)
-
-| Orden | Qué | Cuándo |
+| Orden | Qué | Para |
 |---|---|---|
-| 1 | **D-02** Prototipos de pantallas (venta, cobro, caja, inventario, cuentas) y alertas | Mié 21 – Jue 22 (mientras se mergea T-00) |
-| 2 | **HU-02** Cobrar con código de barras (T-03, T-04) | Vie 23 – Sáb 24 |
-| 3 | **HU-09** Pagos a proveedores (T-10) + abrir caja (T-09) | Dom 25 – Lun 26 |
-| 4 | **HU-05** Corte y cierre de caja (T-11) | Mar 27 – Mié 28 |
+| 1 | **HU-02** Cobrar con código de barras (T-03, T-04) | Lun 27 |
+| 2 | **HU-09** Pagos a proveedores (T-10) + abrir caja (T-09) | Mar 28 |
+| 3 | **HU-05** Corte y cierre de caja (T-11). Reutiliza `turnoAbiertoDe()` de `modules/ventas/ventas.service.ts` | Jue 30 |
+| 4 | **D-02** Prototipos de pantallas y alertas | Vie 31 |
 
-Eres dueño de `features/venta/carrito` y del módulo `caja`. **Revisas los PRs de Sosa.**
+Eres dueño de `features/venta/carrito` y del módulo `caja`.
 
-### Miguel — Productos e inventario (15 pts)
+### Miguel (`MiguelTaracena`): productos e inventario (15 pts)
 
-| Orden | Qué | Cuándo |
+| Orden | Qué | Para |
 |---|---|---|
-| 1 | **D-01** Diagrama de casos de uso + descripciones | Mié 21 – Jue 22 |
-| 2 | **HU-03** Producto a granel (T-05, T-06) — usa `useCarrito().agregarProducto(p, peso)` | Vie 23 – Sáb 24 |
-| 3 | **HU-04** Consulta de inventario (T-13) | Dom 25 – Lun 26 |
-| 4 | **HU-08** Alta de productos (T-14) | Mar 27 – Mié 28 |
+| 1 | **HU-03** Producto a granel (T-05, T-06). Usa `useCarrito().agregarProducto(p, peso)` | Lun 27 |
+| 2 | **HU-04** Consulta de inventario (T-13) | Mar 28 |
+| 3 | **HU-08** Alta de productos (T-14) | Jue 30 |
+| 4 | **D-01** Diagrama de casos de uso + descripciones | Vie 31 |
 
-Eres dueño del módulo `productos` y de `features/inventario`. **Revisas los PRs de Gonzalo.**
-
-### Sosa — Base, login, cobro y cuentas (16 pts)
-
-T-00 (en PR) → HU-01 → HU-06 → HU-12, más D-03 (clases, burndown, documento Scrum). **Revisa los PRs de Miguel.**
+Eres dueño del módulo `productos` y de `features/inventario`.
 
 ## Instalación (una vez)
 
-1. Instala **Git**, **Node 20+**, **Docker Desktop** y tu IA (Claude Code recomendado; Cursor/Copilot también funcionan).
-2. Acepta la invitación de colaborador del repo en GitHub (te llega por correo).
-3. Clona y entra a `develop`:
-   ```bash
-   git clone https://github.com/notNorthStar/Abarrotes-.git abarrotes
-   cd abarrotes
-   git checkout develop
-   ```
-4. **Cuando T-00 ya esté en `develop`** (Sosa avisa en el grupo), con Docker Desktop abierto:
-   ```bash
-   npm install
-   cp .env.example apps/api/.env
-   docker compose up -d
-   npm run db:migrate
-   npm run db:seed
-   npm run dev
-   ```
-   Abre http://localhost:5173 y entra con `cajero1` / `abarrotes123`. Si ves la pantalla de Venta, estás listo.
-5. Verifica que todo pase: `npm test` y `npm run lint`.
+1. Instala **Git**, **Node 20+**, **Docker Desktop** y tu IA.
+2. Ten aceptada la invitación de colaborador del repo (ya estás agregado).
+3. Abre tu IA en una carpeta vacía y escríbele:
 
-## Cómo trabajar cada día
+   > Clona https://github.com/notNorthStar/Abarrotes-.git en la carpeta `abarrotes` y cámbiate a la rama `develop`. Luego: `npm install`, copia `.env.example` a `apps/api/.env`, `docker compose up -d`, `npm run db:migrate`, `npm run db:seed` y `npm test`. Docker Desktop ya está abierto. Dime si algo falla.
 
-1. **Daily** (asíncrono, antes de las 10 pm): en Claude Code `/daily`; en otra IA pega `docs/prompts/daily.md`. Sube tu parte al repo y al Drive (`DailyScrums/`).
-2. **Trabajar tu HU**: en Claude Code `/hu HU-XX`; en otra IA pega `docs/prompts/implementar-hu.md` cambiando `{HU}`. La IA:
-   - crea tu rama `hu-XX-…` **desde `develop`**,
-   - te muestra el plan (criterios de aceptación, archivos, pruebas) y **espera tu OK**,
-   - implementa con pruebas, corre `npm test` y `npm run lint`,
-   - prepara el PR **contra `develop`**.
-3. **Antes de empezar cada día**: trae lo de los demás → `git fetch origin && git rebase origin/develop` (la IA lo hace en el paso 2).
-4. **Abre tu PR** en cuanto la HU cumpla sus criterios; no esperes a terminar todo. Pide review a quien te toca.
-5. **Revisa el PR que te toca el mismo día**: `/revisar-pr <número>` o `docs/prompts/revisar-pr.md`. Deja comentarios/aprobación **en GitHub** (es evidencia).
-6. Marca tus tareas en `docs/scrum/sprint-backlog.md` (🟨 al empezar, 🟦 con PR, ✅ al mergear).
+4. Abre la carpeta `abarrotes` como proyecto en tu IA. Siempre trabaja desde ahí.
+5. Con `npm run dev`, entra a http://localhost:5173 como `cajero1` / `abarrotes123`. Si ves la pantalla de Venta, estás listo.
+
+### Ajustes por herramienta
+
+| IA | Qué hacer |
+|---|---|
+| **Codex** | Lee `AGENTS.md` sola. Trabaja en modo que permita editar archivos y correr comandos. |
+| **Cursor** | Lee `.cursor/rules/` (que apunta a `AGENTS.md`). Usa el chat en modo **Agent**. |
+| **Antigravity** | Lee `GEMINI.md` y `.agent/rules/` (apuntan a `AGENTS.md`). Si no los toma, empieza cada conversación con: *"Lee AGENTS.md antes de hacer nada"*. |
+
+Los comandos con `/` (como `/hu`) son de Claude Code; **tú usas las frases de abajo.**
+
+## Qué le escribes a tu IA
+
+| Para… | Escribe |
+|---|---|
+| Empezar (primera vez) | `Soy Gonzalo (o Miguel). Lee AGENTS.md y docs/00-empieza-aqui.md y dime qué me toca.` |
+| **Trabajar una HU** | `Lee y sigue docs/prompts/implementar-hu.md para HU-02.` |
+| Seguir una HU a medias | `Sigue con HU-02 usando docs/prompts/implementar-hu.md; ya tengo la rama.` |
+| Daily | `Lee y sigue docs/prompts/daily.md.` |
+| Ver cómo va el sprint | `Lee y sigue docs/prompts/estado.md.` |
+| Entender lo que hizo | `Explícame en palabras simples qué hace cada archivo que cambiaste.` |
+
+Con `implementar-hu.md` la IA:
+1. Crea tu rama `hu-XX-…` **desde `develop`**.
+2. Te muestra el plan (criterios de aceptación, archivos y pruebas) y **espera tu OK**.
+3. Programa, corre `npm test` y `npm run lint`.
+4. Hace commits, sube la rama y abre el PR **contra `develop` con Sosa (`notNorthStar`) como reviewer**. Si tu IA no puede abrir el PR, abre el link que te da GitHub al hacer push.
+
+## Después de abrir tu PR
+
+- **Sosa lo revisa.** Si pide cambios, verás sus comentarios en el PR. Dile a tu IA: `Atiende los comentarios del PR #N` (o pégale los comentarios). Corrige **en la misma rama** y haz push: el PR se actualiza solo.
+- Cuando Sosa lo integra, la rama se borra. Para la siguiente HU, tu IA vuelve a partir de `develop` actualizado.
+- **No esperes a que se apruebe un PR para empezar la siguiente HU**: empieza la siguiente desde `develop`.
 
 ## Reglas de oro
 
-- **Ramas por HU, no por persona.** Nunca push directo a `develop` ni a `main`.
-- **No toques módulos de otro** sin avisar. El schema de la BD (`schema.prisma`) solo lo cambia Sosa; si necesitas un campo, pídelo.
-- **No inventes alcance.** Lo que no está en los criterios de aceptación (`docs/02-backlog.md`) no se hace; si hay duda, pregunta en el grupo.
-- **Si te atoras más de 1 hora, dilo en el grupo.** Es un impedimento y se anota en el daily.
+- **Una rama por HU**, nunca push directo a `develop` ni a `main`, y **no hagas merge**: eso lo hace Sosa.
+- **No toques módulos de otro.** El schema de la BD (`schema.prisma`) solo lo cambia Sosa; si necesitas un campo, pídelo.
+- **No inventes alcance:** solo lo que dicen los criterios de aceptación de `docs/02-backlog.md`. Si hay duda, pregunta en el grupo.
+- **Si te atoras más de 1 hora, avisa en el grupo.**
+- Daily todos los días (`docs/prompts/daily.md`).
 
 ## Mapa de documentos
 
@@ -86,8 +91,7 @@ T-00 (en PR) → HU-01 → HU-06 → HU-12, más D-03 (clases, burndown, documen
 |---|---|
 | `AGENTS.md` | Reglas que sigue tu IA |
 | `docs/02-backlog.md` | **Criterios de aceptación** de cada HU |
-| `docs/03-plan-entrega.md` | Calendario, dueños de módulo, definición de hecho |
+| `docs/03-plan-entrega.md` | Dueños de módulo, definición de hecho |
 | `docs/04-arquitectura.md` | Estructura del código y API |
 | `docs/05-modelo-datos.md` | Base de datos y fórmulas de dinero |
 | `docs/06-flujo-trabajo.md` | Ramas, commits, PRs |
-| `docs/07-scrum-entregables.md` | Qué lleva el documento Scrum |

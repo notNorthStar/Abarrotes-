@@ -1,6 +1,6 @@
 ## [HU-XX] Nombre de la historia
 
-**Responsable:** <!-- Sosa / Gonzalo / Miguel -->  **Reviewer:** <!-- siguiente en la rotación -->
+**Responsable:** <!-- Sosa / Gonzalo / Miguel -->  **Reviewer:** @notNorthStar
 
 ### Criterios de aceptación
 <!-- Copia los CA de docs/02-backlog.md y marca cada uno -->
