@@ -5,7 +5,7 @@ Guía para trabajar en Abarrotes+ con tu IA (**Codex**, **Cursor** o **Antigravi
 ## Situación (26 oct)
 
 - **El domingo 1 de noviembre entregamos Sprint 1 + Sprint 2** (9 HU, 47 pts) más el documento Scrum.
-- Ya están en `develop`: la base del proyecto (T-00), **HU-01** login, **HU-06** cobro y **HU-12** cuentas de cajero, más el diagrama de clases y el burndown. **Faltan las tuyas.**
+- Ya están en `develop`: la base del proyecto (T-00), **HU-01** login, **HU-06** cobro, **HU-12** cuentas de cajero y **HU-08** alta de productos (reasignada a Sosa), más el diagrama de clases y el burndown. **Faltan las tuyas.**
 - Tu trabajo es **programar tus HU y mandar tus PRs**. **No revisas PRs**: Sosa revisa, aprueba e integra todo.
 - Cada quien commitea **desde su propia cuenta de GitHub**: eso es lo que la maestra ve como tu aporte.
 
@@ -22,16 +22,15 @@ Guía para trabajar en Abarrotes+ con tu IA (**Codex**, **Cursor** o **Antigravi
 
 Eres dueño de `features/venta/carrito` y del módulo `caja`.
 
-### Miguel (`MiguelTaracena`): productos e inventario (15 pts)
+### Miguel (`MiguelTaracena`): granel e inventario (10 pts)
 
 | Orden | Qué | Para |
 |---|---|---|
 | 1 | **HU-03** Producto a granel (T-05, T-06). Usa `useCarrito().agregarProducto(p, peso)` | Lun 27 |
 | 2 | **HU-04** Consulta de inventario (T-13) | Mar 28 |
-| 3 | **HU-08** Alta de productos (T-14) | Jue 30 |
-| 4 | **D-01** Diagrama de casos de uso + descripciones | Vie 31 |
+| 3 | **D-01** Diagrama de casos de uso + descripciones | Jue 30 |
 
-Eres dueño del módulo `productos` y de `features/inventario`.
+Eres dueño de la lectura de `productos` y de `features/inventario/InventarioPage.tsx`. **HU-08 (alta de productos) ya la hizo Sosa**: no la toques; la pantalla "Agregar productos" es suya. Para probar puedes dar de alta productos ahí.
 
 ## Instalación (una vez)
 

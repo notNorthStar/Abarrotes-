@@ -7,6 +7,7 @@ const menu: { to: string; texto: string; minimo: Rol }[] = [
   { to: '/venta', texto: 'Venta', minimo: 'CAJERO' },
   { to: '/caja', texto: 'Caja', minimo: 'CAJERO' },
   { to: '/inventario', texto: 'Inventario', minimo: 'CAJERO' },
+  { to: '/productos/nuevo', texto: 'Agregar productos', minimo: 'CAJERO' },
   { to: '/usuarios', texto: 'Cajeros', minimo: 'ADMIN' },
 ]
 

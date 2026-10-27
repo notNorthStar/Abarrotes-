@@ -2,13 +2,15 @@
 
 El Sprint 1 no se entregó. Para el cierre del Sprint 2 hay que entregar **las 9 HU de ambos sprints (47 pts)** más los **artefactos Scrum** que pide la maestra (ver `07-scrum-entregables.md`). Trabajando con IA es alcanzable si **nadie se bloquea con nadie**: por eso el reparto es por dominio y el modelo de datos se fija el primer día.
 
-## Reparto (≈ 16 pts por persona)
+## Reparto
+
+> **26 oct:** HU-08 se reasigna de Miguel a Sosa para tener alta de productos cuanto antes.
 
 | Persona | Sprint 1 | Sprint 2 | Pts | Además (documentación) |
 |---|---|---|---|---|
-| **Sosa** | T-00 Setup, HU-01 (3), HU-06 (8) | HU-12 (5) | 16 | Documento Scrum, diagrama de clases/ER, burndown/burnup |
+| **Sosa** | T-00 Setup, HU-01 (3), HU-06 (8) | HU-12 (5), HU-08 (5) | 21 | Documento Scrum, diagrama de clases/ER, burndown/burnup |
 | **Gonzalo** | HU-02 (5) | HU-09 (3), HU-05 (8) | 16 | Prototipos de pantallas y de alertas |
-| **Miguel** | HU-03 (8) | HU-04 (2), HU-08 (5) | 15 | Diagrama y descripciones de casos de uso |
+| **Miguel** | HU-03 (8) | HU-04 (2) | 10 | Diagrama y descripciones de casos de uso |
 
 **Dueño de cada archivo/módulo** (para evitar conflictos de merge):
 
@@ -18,7 +20,8 @@ El Sprint 1 no se entregó. Para el cierre del Sprint 2 hay que entregar **las 9
 | `apps/api/src/modules/ventas` (confirmar venta + pagos) | Sosa | — |
 | `apps/web/src/features/venta/carrito` (store del carrito, escaneo) | Gonzalo | Miguel agrega la captura de granel usando la API del store |
 | `apps/api/src/modules/caja` (turnos, pagos a proveedor, corte) | Gonzalo | Sosa usa `turnoAbierto()` al confirmar venta |
-| `apps/api/src/modules/productos` + `apps/web/src/features/inventario` | Miguel | Gonzalo usa `GET /productos/codigo/:codigo` |
+| `apps/api/src/modules/productos` (lectura) + `apps/web/src/features/inventario/InventarioPage.tsx` | Miguel | Gonzalo usa `GET /productos/codigo/:codigo` |
+| Alta y entradas de productos: `crear`/`registrarEntrada` en `productos.service.ts` + `features/inventario/AgregarProductoPage.tsx` | Sosa (HU-08, hecha) | Miguel no necesita tocarlos |
 
 ## Dependencias
 
