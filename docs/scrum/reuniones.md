@@ -70,7 +70,7 @@ Tareas técnicas y de documentación sin puntos: T-00 (Sosa), D-01 (Miguel), D-0
 
 - [ ] Confirmar quién es el Product Owner (con la maestra / el equipo).
 - [ ] Confirmar el reparto de HU con Gonzalo y Miguel.
-- [ ] Activar la protección de ramas `main` y `develop` en GitHub (PR + aprobación de Code Owner).
+- [x] Activar la protección de ramas `main` y `develop` en GitHub (PR + aprobación de Code Owner) — 26 oct.
 
 ---
 
