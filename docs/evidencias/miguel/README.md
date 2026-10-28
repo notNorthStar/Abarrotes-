@@ -56,3 +56,11 @@ Los cambios están implementados y validados; se presentan por separado en las r
 ![Producto agregado a la cuenta](granel-carrito.png)
 
 ![Consulta por código de barras](inventario.png)
+
+## PR publicados
+
+- HU-03: https://github.com/notNorthStar/Abarrotes-/pull/8
+- HU-04: https://github.com/notNorthStar/Abarrotes-/pull/9
+- D-01: https://github.com/notNorthStar/Abarrotes-/pull/10
+
+Base: develop. Revisión solicitada a notNorthStar. Pendientes de aprobación e integración.

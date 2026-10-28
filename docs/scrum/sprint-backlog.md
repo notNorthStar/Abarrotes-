@@ -20,7 +20,7 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-12 | CRUD cajeros (crear, suspender, eliminar lógico, reset password) | HU-12 | 5 | Sosa | ✅ | #2 | 26 oct |
 | T-13 | Consulta de inventario con búsqueda | HU-04 | 2 | Miguel | ⬜ | | |
 | T-14 | Alta de producto y entrada de existencias + movimientos | HU-08 | 5 | Sosa (reasignada) | ✅ | #7 | 26 oct |
-| D-01 | Diagrama de casos de uso + descripciones | Doc | — | Miguel | 🟦 | | |
+| D-01 | Diagrama de casos de uso + descripciones | Doc | — | Miguel | 🟦 | #10 | |
 | D-02 | Prototipos principales y de alertas | Doc | — | Gonzalo | ⬜ | | |
 | D-03 | Diagrama de clases, burndown/burnup, documento Scrum | Doc | — | Sosa | 🟨 | | |
 
