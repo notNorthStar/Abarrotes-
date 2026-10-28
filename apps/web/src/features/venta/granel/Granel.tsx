@@ -1,11 +1,17 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Decimal from 'decimal.js'
 import { api } from '../../../api/client'
 import type { Producto } from '../../../api/tipos'
 import { useCarrito } from '../carrito/store'
 import { cantidadValida, precioGranel, type UnidadPeso } from './calculosGranel'
 
-export function Granel() {
+export function Granel({
+  productoExterno,
+  onFinalizar,
+}: {
+  productoExterno?: Producto | null
+  onFinalizar?: () => void
+}) {
   const agregar = useCarrito((s) => s.agregarProducto)
   const [busqueda, setBusqueda] = useState('')
   const [consulta, setConsulta] = useState({ texto: '', intento: 0 })
@@ -17,6 +23,20 @@ export function Granel() {
   const [unidad, setUnidad] = useState<UnidadPeso>('kg')
   const [errorPeso, setErrorPeso] = useState('')
   const [aviso, setAviso] = useState('')
+  const pesoRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    if (producto) pesoRef.current?.focus()
+  }, [producto])
+
+  useEffect(() => {
+    if (!productoExterno) return
+    setProducto(productoExterno)
+    setPeso('')
+    setUnidad('kg')
+    setErrorPeso('')
+    setAviso('')
+  }, [productoExterno])
 
   useEffect(() => {
     let vigente = true
@@ -70,6 +90,7 @@ export function Granel() {
       setProducto(null)
       setPeso('')
       setErrorPeso('')
+      onFinalizar?.()
     } catch (e) {
       setErrorPeso(e instanceof Error ? e.message : 'Revisa el peso.')
     }
@@ -146,6 +167,7 @@ export function Granel() {
               Peso manual
               <input
                 autoFocus
+                ref={pesoRef}
                 id="peso-granel"
                 inputMode="decimal"
                 value={peso}
@@ -196,6 +218,7 @@ export function Granel() {
               onClick={() => {
                 setProducto(null)
                 setErrorPeso('')
+                onFinalizar?.()
               }}
               className="rounded border px-4 py-2"
             >
