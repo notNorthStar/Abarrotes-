@@ -8,8 +8,8 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-00 | Monorepo, Docker Postgres, schema, seed, layout, cliente API | — | — | Sosa | ✅ | | |
 | T-01 | Login API + JWT + middleware `requireRol` | HU-01 | 3 | Sosa | ✅ | #1 | 26 oct |
 | T-02 | Pantalla login, contexto de sesión, guard por rol, logout | HU-01 | | Sosa | ✅ | #1 | 26 oct |
-| T-03 | Store del carrito + input de escaneo | HU-02 | 5 | Miguel (reasignada 28 oct) | 🟦 | | |
-| T-04 | Producto no encontrado + búsqueda manual | HU-02 | | Miguel (reasignada 28 oct) | 🟦 | | |
+| T-03 | Store del carrito + input de escaneo | HU-02 | 5 | Miguel (reasignada 28 oct) | 🟦 | #14 | |
+| T-04 | Producto no encontrado + búsqueda manual | HU-02 | | Miguel (reasignada 28 oct) | 🟦 | #14 | |
 | T-05 | Captura de peso, conversión g→kg, validaciones | HU-03 | 8 | Miguel | ✅ | #8 | 28 oct |
 | T-06 | Cálculo de precio a granel + integración al carrito + pruebas | HU-03 | | Miguel | ✅ | #8 | 28 oct |
 | T-07 | `POST /ventas`: recálculo, pagos mixtos, cambio, descuento de stock | HU-06 | 8 | Sosa | ✅ | #3 | 26 oct |
