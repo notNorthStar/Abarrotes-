@@ -12,6 +12,7 @@ export default {
         linea: '#E4E1DA',
         borde: '#D9D4C9',
         papel: '#F6F5F1',
+        superficie: '#FFFFFF',
         hueso: '#FBFAF7',
         crema: '#F3F1EC',
         maiz: { DEFAULT: '#E3A13B', claro: '#FBF0DC', texto: '#7A4E0E', borde: '#E8D3AE' },
