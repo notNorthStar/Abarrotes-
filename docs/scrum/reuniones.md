@@ -86,6 +86,17 @@ Tareas técnicas y de documentación sin puntos: T-00 (Sosa), D-01 (Miguel), D-0
 
 ---
 
+## Ajuste de proceso — 28 oct 2026 (día 10)
+
+**Decide:** Luis David Sosa Fernández (Scrum Master).
+
+- **Impedimento:** Gonzalo Mendoza Herrera tuvo un problema personal y no puede continuar en este sprint. No había entregado avance de HU-02, HU-09, HU-05 ni D-02.
+- **Reasignación:** HU-02 (5 pts) y D-02 (prototipos) pasan a Miguel; HU-09 (3 pts) y HU-05 (8 pts) pasan a Sosa. Criterio: Miguel ya construyó el carrito (granel y tabla de la cuenta); la caja depende del cobro de Sosa (`turnoAbiertoDe`, ventas y pagos).
+- **Reparto vigente:** Sosa 32 pts, Miguel 15 pts, Gonzalo 0 pts.
+- **Estado:** 31/47 pts integrados (Miguel entregó HU-03, HU-04 y D-01 el 27 oct). Restan 16 pts; objetivo: cerrarlos el 28 oct.
+
+---
+
 ## Sprint Review — 1 nov 2026
 
 | Campo | Detalle |

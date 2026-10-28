@@ -45,7 +45,7 @@ Las asociaciones no representan el orden de ejecución. Para cobrar o pagar a un
 
 ## Pantallas y evidencia visual
 
-Los enlaces siguientes apuntan a pantallas fuente reales del repositorio y permiten relacionar cada descripción con su interfaz. **No son capturas ni prototipos visuales entregados.** Al elaborar este documento, [la carpeta de prototipos](../prototipos/README.md) solo contiene su README: Gonzalo debe incorporar los prototipos principales y las alertas de D-02. Una pantalla fuente puede estar todavía en desarrollo o mostrar un aviso de pendiente.
+Los enlaces siguientes apuntan a pantallas fuente reales del repositorio y permiten relacionar cada descripción con su interfaz. **No son capturas ni prototipos visuales entregados.** Al elaborar este documento, [la carpeta de prototipos](../prototipos/README.md) solo contiene su README: Miguel incorpora los prototipos principales y las alertas de D-02 (reasignada el 28 oct). Una pantalla fuente puede estar todavía en desarrollo o mostrar un aviso de pendiente.
 
 | Referencia | Ruta de la aplicación | Pantalla fuente | Evidencia que debe vincularse desde D-02 |
 |---|---|---|---|
@@ -77,7 +77,7 @@ Los enlaces siguientes apuntan a pantallas fuente reales del repositorio y permi
 
 ## CU-02 · Agregar productos por código de barras
 
-**Historia / responsable de implementación:** HU-02 · Gonzalo. **Actor principal:** cajero. **Pantalla:** P-02.
+**Historia / responsable de implementación:** HU-02 · Miguel (reasignada de Gonzalo el 28 oct). **Actor principal:** cajero. **Pantalla:** P-02.
 
 **Objetivo:** preparar la cuenta del cliente con productos identificados por código.
 
@@ -134,7 +134,7 @@ Los enlaces siguientes apuntan a pantallas fuente reales del repositorio y permi
 
 ## CU-05 · Abrir, consultar corte y cerrar caja
 
-**Historia / responsable de implementación:** HU-05 · Gonzalo. **Actor principal:** cajero. **Pantalla:** P-05.
+**Historia / responsable de implementación:** HU-05 · Sosa (reasignada de Gonzalo el 28 oct). **Actor principal:** cajero. **Pantalla:** P-05.
 
 **Objetivo:** registrar la apertura y comparar el efectivo esperado con el contado al cierre.
 
@@ -192,7 +192,7 @@ Los enlaces siguientes apuntan a pantallas fuente reales del repositorio y permi
 
 ## CU-09 · Registrar pago a proveedor
 
-**Historia / responsable de implementación:** HU-09 · Gonzalo. **Actor principal:** cajero. **Pantalla:** P-05.
+**Historia / responsable de implementación:** HU-09 · Sosa (reasignada de Gonzalo el 28 oct). **Actor principal:** cajero. **Pantalla:** P-05.
 
 **Objetivo:** registrar una salida por pago a proveedor y reflejar correctamente su efecto en caja.
 
@@ -229,5 +229,5 @@ Los enlaces siguientes apuntan a pantallas fuente reales del repositorio y permi
 
 1. Revisar las descripciones contra los criterios de aceptación y resolver con el equipo la duda de HU-05 CA5.
 2. Exportar el bloque Mermaid como imagen para el documento Scrum conservando este archivo como fuente editable.
-3. Incorporar los prototipos/capturas reales de Gonzalo en P-01–P-07 y vincularlos aquí; no sustituirlos por afirmaciones de entrega.
+3. Incorporar los prototipos/capturas reales (D-02) en P-01–P-07 y vincularlos aquí; no sustituirlos por afirmaciones de entrega.
 4. Para la demostración, usar los datos del seed y evidencias reales de pruebas y PRs. La aprobación e integración corresponde a Sosa.

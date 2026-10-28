@@ -43,9 +43,9 @@ El equipo adopta los cinco valores de Scrum:
 
 | Persona | Rol Scrum | Responsabilidades | Dominio técnico |
 |---|---|---|---|
-| Luis David Sosa Fernández | Scrum Master + Desarrollador | Facilitar eventos, remover impedimentos, mantener artefactos (burndown, sprint backlog, documento Scrum); desarrollo | Configuración del proyecto, autenticación, cobro y pagos, cuentas de cajero |
-| Gonzalo Mendoza Herrera | Desarrollador | Desarrollo de sus historias, prototipos, revisión de PR de Sosa | Carrito por código de barras, caja (pagos a proveedor, corte) |
-| Miguel Angel Marcelo Taracena | Desarrollador | Desarrollo de sus historias, casos de uso, revisión de PR de Gonzalo | Productos a granel, inventario, alta de productos |
+| Luis David Sosa Fernández | Scrum Master + Desarrollador | Facilitar eventos, remover impedimentos, mantener artefactos (burndown, sprint backlog, documento Scrum); desarrollo | Configuración del proyecto, autenticación, cobro y pagos, cuentas de cajero, alta de productos, caja (pagos a proveedor y corte); revisa e integra todos los PR |
+| Gonzalo Mendoza Herrera | Desarrollador | Sin tareas en el Sprint 2 (baja temporal desde el 28 oct); sus historias se reasignaron | — |
+| Miguel Angel Marcelo Taracena | Desarrollador | Desarrollo de sus historias, casos de uso y prototipos | Carrito (escaneo y granel), consulta de inventario |
 | Por confirmar | Product Owner | Priorizar el backlog y aceptar las historias | — |
 
 Mientras no se confirme el Product Owner, las dudas de alcance se resuelven con lo acordado en el Planning Poker. Carlos Vicente López Rosales y otro integrante formaron parte del equipo inicial y abandonaron el proyecto; no tienen trabajo asignado.
@@ -62,10 +62,10 @@ Mientras no se confirme el Product Owner, las dudas de alcance se resuelven con 
 |---|---|---|---|---|---|---|
 | 1 | HU-01 | Inicio de sesión | Alto | 3 | 1 | Sosa |
 | 2 | HU-06 | Cobros con tarjeta, efectivo y transferencia | Alto | 8 | 1 | Sosa |
-| 3 | HU-02 | Cobrar productos con código de barras | Alto | 5 | 1 | Gonzalo |
+| 3 | HU-02 | Cobrar productos con código de barras | Alto | 5 | 1 | Miguel (reasignada 28 oct) |
 | 4 | HU-03 | Producto a granel (peso/cantidad) | Alto | 8 | 1 | Miguel |
-| 5 | HU-09 | Registrar pagos a proveedores | Alto | 3 | 2 | Gonzalo |
-| 6 | HU-05 | Corte y cierre de caja | Alto | 8 | 2 | Gonzalo |
+| 5 | HU-09 | Registrar pagos a proveedores | Alto | 3 | 2 | Sosa (reasignada 28 oct) |
+| 6 | HU-05 | Corte y cierre de caja | Alto | 8 | 2 | Sosa (reasignada 28 oct) |
 | 7 | HU-12 | Gestión de cuentas de cajero | Medio | 5 | 2 | Sosa |
 | 8 | HU-04 | Revisar el inventario | Medio | 2 | 2 | Miguel |
 | 9 | HU-08 | Agregar productos | Medio | 5 | 2 | Sosa (reasignada 26 oct) |
@@ -88,20 +88,20 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-00 | Monorepo, Docker Postgres, schema, seed, layout, cliente API | — | — | Sosa | ✅ Integrado en `develop` |
 | T-01 | Login API + JWT + middleware `requireRol` | HU-01 | 3 | Sosa | ✅ |
 | T-02 | Pantalla login, contexto de sesión, guard por rol, logout | HU-01 | | Sosa | ✅ |
-| T-03 | Store del carrito + input de escaneo | HU-02 | 5 | Gonzalo | ⬜ |
-| T-04 | Producto no encontrado + búsqueda manual | HU-02 | | Gonzalo | ⬜ |
+| T-03 | Store del carrito + input de escaneo | HU-02 | 5 | Miguel (reasignada 28 oct) | ⬜ |
+| T-04 | Producto no encontrado + búsqueda manual | HU-02 | | Miguel (reasignada 28 oct) | ⬜ |
 | T-05 | Captura de peso, conversión g→kg, validaciones | HU-03 | 8 | Miguel | ✅ |
 | T-06 | Cálculo de precio a granel + integración al carrito + pruebas | HU-03 | | Miguel | ✅ |
 | T-07 | `POST /ventas`: recálculo, pagos mixtos, cambio, descuento de stock | HU-06 | 8 | Sosa | ✅ |
 | T-08 | Pantalla de cobro (pago mixto, referencia, cambio) | HU-06 | | Sosa | ✅ |
-| T-09 | Abrir caja (turno) y bloqueo de venta sin turno | HU-05 | 8 | Gonzalo | ⬜ |
-| T-10 | Registrar pago a proveedor | HU-09 | 3 | Gonzalo | ⬜ |
-| T-11 | Corte: totales por método, efectivo esperado, cierre con diferencia | HU-05 | | Gonzalo | ⬜ |
+| T-09 | Abrir caja (turno) y bloqueo de venta sin turno | HU-05 | 8 | Sosa (reasignada 28 oct) | ⬜ |
+| T-10 | Registrar pago a proveedor | HU-09 | 3 | Sosa (reasignada 28 oct) | ⬜ |
+| T-11 | Corte: totales por método, efectivo esperado, cierre con diferencia | HU-05 | | Sosa (reasignada 28 oct) | ⬜ |
 | T-12 | CRUD cajeros (crear, suspender, eliminar lógico, reset password) | HU-12 | 5 | Sosa | ✅ |
 | T-13 | Consulta de inventario con búsqueda | HU-04 | 2 | Miguel | ✅ |
 | T-14 | Alta de producto y entrada de existencias + movimientos | HU-08 | 5 | Sosa (reasignada) | ✅ |
 | D-01 | Diagrama de casos de uso + descripciones | Doc | — | Miguel | ✅ |
-| D-02 | Prototipos principales y de alertas | Doc | — | Gonzalo | ⬜ |
+| D-02 | Prototipos principales y de alertas | Doc | — | Miguel (reasignada 28 oct) | ⬜ |
 | D-03 | Diagrama de clases, burndown/burnup, documento Scrum | Doc | — | Sosa | 🟨 |
 
 **Total comprometido:** 47 pts · **Completado:** 31 pts al 28 de octubre (HU-01, HU-06, HU-12, HU-08, HU-03, HU-04).
@@ -126,15 +126,15 @@ Actores cajero, administrador y jefe, con herencia de permisos (el jefe hereda d
 
 Las nueve descripciones (objetivo, precondiciones, flujo principal, alternos, postcondiciones y trazabilidad a los criterios de aceptación) están en `docs/diagramas/casos-de-uso.md`. Las capturas de las pantallas de granel e inventario están en `docs/evidencias/miguel/`.
 
-> Pendiente: vincular los prototipos de Gonzalo (D-02) a cada caso.
+> Pendiente: vincular los prototipos (D-02, Miguel) a cada caso.
 
 ### 4.6 Prototipos principales
 
-> Pendiente: Gonzalo
+> Pendiente: Miguel (D-02, reasignada 28 oct)
 
 ### 4.7 Prototipos de alertas
 
-> Pendiente: Gonzalo
+> Pendiente: Miguel (D-02, reasignada 28 oct)
 
 ### 4.8 Sprint
 
