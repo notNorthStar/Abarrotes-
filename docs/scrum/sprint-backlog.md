@@ -10,8 +10,8 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-02 | Pantalla login, contexto de sesión, guard por rol, logout | HU-01 | | Sosa | ✅ | #1 | 26 oct |
 | T-03 | Store del carrito + input de escaneo | HU-02 | 5 | Gonzalo | ⬜ | | |
 | T-04 | Producto no encontrado + búsqueda manual | HU-02 | | Gonzalo | ⬜ | | |
-| T-05 | Captura de peso, conversión g→kg, validaciones | HU-03 | 8 | Miguel | 🟦 | | |
-| T-06 | Cálculo de precio a granel + integración al carrito + pruebas | HU-03 | | Miguel | 🟦 | | |
+| T-05 | Captura de peso, conversión g→kg, validaciones | HU-03 | 8 | Miguel | 🟦 | #8 | |
+| T-06 | Cálculo de precio a granel + integración al carrito + pruebas | HU-03 | | Miguel | 🟦 | #8 | |
 | T-07 | `POST /ventas`: recálculo, pagos mixtos, cambio, descuento de stock | HU-06 | 8 | Sosa | ✅ | #3 | 26 oct |
 | T-08 | Pantalla de cobro (pago mixto, referencia, cambio) | HU-06 | | Sosa | ✅ | #3 | 26 oct |
 | T-09 | Abrir caja (turno) y bloqueo de venta sin turno | HU-05 | 8 | Gonzalo | ⬜ | | |
