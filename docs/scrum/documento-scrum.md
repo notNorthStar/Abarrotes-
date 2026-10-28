@@ -90,23 +90,23 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-02 | Pantalla login, contexto de sesión, guard por rol, logout | HU-01 | | Sosa | ✅ |
 | T-03 | Store del carrito + input de escaneo | HU-02 | 5 | Gonzalo | ⬜ |
 | T-04 | Producto no encontrado + búsqueda manual | HU-02 | | Gonzalo | ⬜ |
-| T-05 | Captura de peso, conversión g→kg, validaciones | HU-03 | 8 | Miguel | ⬜ |
-| T-06 | Cálculo de precio a granel + integración al carrito + pruebas | HU-03 | | Miguel | ⬜ |
+| T-05 | Captura de peso, conversión g→kg, validaciones | HU-03 | 8 | Miguel | ✅ |
+| T-06 | Cálculo de precio a granel + integración al carrito + pruebas | HU-03 | | Miguel | ✅ |
 | T-07 | `POST /ventas`: recálculo, pagos mixtos, cambio, descuento de stock | HU-06 | 8 | Sosa | ✅ |
 | T-08 | Pantalla de cobro (pago mixto, referencia, cambio) | HU-06 | | Sosa | ✅ |
 | T-09 | Abrir caja (turno) y bloqueo de venta sin turno | HU-05 | 8 | Gonzalo | ⬜ |
 | T-10 | Registrar pago a proveedor | HU-09 | 3 | Gonzalo | ⬜ |
 | T-11 | Corte: totales por método, efectivo esperado, cierre con diferencia | HU-05 | | Gonzalo | ⬜ |
 | T-12 | CRUD cajeros (crear, suspender, eliminar lógico, reset password) | HU-12 | 5 | Sosa | ✅ |
-| T-13 | Consulta de inventario con búsqueda | HU-04 | 2 | Miguel | ⬜ |
+| T-13 | Consulta de inventario con búsqueda | HU-04 | 2 | Miguel | ✅ |
 | T-14 | Alta de producto y entrada de existencias + movimientos | HU-08 | 5 | Sosa (reasignada) | ✅ |
-| D-01 | Diagrama de casos de uso + descripciones | Doc | — | Miguel | ⬜ |
+| D-01 | Diagrama de casos de uso + descripciones | Doc | — | Miguel | ✅ |
 | D-02 | Prototipos principales y de alertas | Doc | — | Gonzalo | ⬜ |
 | D-03 | Diagrama de clases, burndown/burnup, documento Scrum | Doc | — | Sosa | 🟨 |
 
-**Total comprometido:** 47 pts · **Completado:** 21 pts al 26 de octubre (HU-01, HU-06, HU-12, HU-08).
+**Total comprometido:** 47 pts · **Completado:** 31 pts al 28 de octubre (HU-01, HU-06, HU-12, HU-08, HU-03, HU-04).
 
-> Nota: estados al 26 de octubre; la fuente viva es `docs/scrum/sprint-backlog.md`. Sincronizar antes de la versión final.
+> Nota: estados al 28 de octubre; la fuente viva es `docs/scrum/sprint-backlog.md`. Sincronizar antes de la versión final.
 
 ### 4.3 Diagrama de clases
 
@@ -118,11 +118,15 @@ El diagrama de clases y el diagrama entidad-relación se generan desde el modelo
 
 ### 4.4 Diagrama de casos de uso
 
-> Pendiente: Miguel
+Actores cajero, administrador y jefe, con herencia de permisos (el jefe hereda del administrador y este del cajero), y los nueve casos de uso de los Sprints 1 y 2. Fuente: `docs/diagramas/casos-de-uso.md` (Miguel Angel Marcelo Taracena).
+
+![Diagrama de casos de uso](../diagramas/img/casos-de-uso.png)
 
 ### 4.5 Descripciones de casos de uso con prototipos
 
-> Pendiente: Miguel
+Las nueve descripciones (objetivo, precondiciones, flujo principal, alternos, postcondiciones y trazabilidad a los criterios de aceptación) están en `docs/diagramas/casos-de-uso.md`. Las capturas de las pantallas de granel e inventario están en `docs/evidencias/miguel/`.
+
+> Pendiente: vincular los prototipos de Gonzalo (D-02) a cada caso.
 
 ### 4.6 Prototipos principales
 
@@ -155,7 +159,7 @@ La gráfica de burnup del producto (puntos acumulados completados contra el plan
 
 ### 4.11 Burn Down
 
-La gráfica de burndown del Sprint 2 (puntos restantes por día contra la línea ideal de 47 a 0) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas", y se actualiza diariamente. Al día 8 (26 oct) quedan 26 puntos: se integraron HU-01, HU-06, HU-12 y HU-08 (21 pts).
+La gráfica de burndown del Sprint 2 (puntos restantes por día contra la línea ideal de 47 a 0) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas", y se actualiza diariamente. Al día 10 (28 oct) quedan 16 puntos: se integraron HU-01, HU-06, HU-12, HU-08, HU-03 y HU-04 (31 pts). Lo restante es HU-02, HU-09 y HU-05 (Gonzalo).
 
 ![Burndown Sprint 2](../diagramas/img/burndown.png)
 
