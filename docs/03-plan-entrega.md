@@ -5,12 +5,13 @@ El Sprint 1 no se entregó. Para el cierre del Sprint 2 hay que entregar **las 9
 ## Reparto
 
 > **26 oct:** HU-08 se reasigna de Miguel a Sosa para tener alta de productos cuanto antes.
+> **28 oct:** Gonzalo no puede continuar este sprint. Sus tareas se reparten: HU-02 y D-02 a Miguel; HU-09 y HU-05 a Sosa.
 
 | Persona | Sprint 1 | Sprint 2 | Pts | Además (documentación) |
 |---|---|---|---|---|
-| **Sosa** | T-00 Setup, HU-01 (3), HU-06 (8) | HU-12 (5), HU-08 (5) | 21 | Documento Scrum, diagrama de clases/ER, burndown/burnup |
-| **Gonzalo** | HU-02 (5) | HU-09 (3), HU-05 (8) | 16 | Prototipos de pantallas y de alertas |
-| **Miguel** | HU-03 (8) | HU-04 (2) | 10 | Diagrama y descripciones de casos de uso |
+| **Sosa** | T-00 Setup, HU-01 (3), HU-06 (8) | HU-12 (5), HU-08 (5), HU-09 (3), HU-05 (8) | 32 | Documento Scrum, diagrama de clases/ER, burndown/burnup |
+| **Gonzalo** | — | — | 0 | Sin tareas este sprint (baja temporal el 28 oct) |
+| **Miguel** | HU-03 (8), HU-02 (5) | HU-04 (2) | 15 | Casos de uso; prototipos de pantallas y de alertas |
 
 **Dueño de cada archivo/módulo** (para evitar conflictos de merge):
 
@@ -18,9 +19,9 @@ El Sprint 1 no se entregó. Para el cierre del Sprint 2 hay que entregar **las 9
 |---|---|---|
 | `apps/api/prisma/schema.prisma`, seed, setup, auth, `usuarios` | Sosa | piden cambios al schema por PR pequeño o en el chat del equipo |
 | `apps/api/src/modules/ventas` (confirmar venta + pagos) | Sosa | — |
-| `apps/web/src/features/venta/carrito` (store del carrito, escaneo) | Gonzalo | Miguel agrega la captura de granel usando la API del store |
-| `apps/api/src/modules/caja` (turnos, pagos a proveedor, corte) | Gonzalo | Sosa usa `turnoAbierto()` al confirmar venta |
-| `apps/api/src/modules/productos` (lectura) + `apps/web/src/features/inventario/InventarioPage.tsx` | Miguel | Gonzalo usa `GET /productos/codigo/:codigo` |
+| `apps/web/src/features/venta/carrito` (store del carrito, escaneo) + `VentaPage.tsx` | Miguel | Miguel agrega la captura de granel usando la API del store |
+| `apps/api/src/modules/caja` + `apps/web/src/features/caja` (turnos, pagos a proveedor, corte) | Sosa | — |
+| `apps/api/src/modules/productos` (lectura) + `apps/web/src/features/inventario/InventarioPage.tsx` | Miguel | El escaneo (HU-02) usa `GET /productos/codigo/:codigo` |
 | Alta y entradas de productos: `crear`/`registrarEntrada` en `productos.service.ts` + `features/inventario/AgregarProductoPage.tsx` | Sosa (HU-08, hecha) | Miguel no necesita tocarlos |
 
 ## Dependencias

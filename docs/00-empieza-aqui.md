@@ -1,36 +1,46 @@
-# 00 · Empieza aquí (Gonzalo y Miguel)
+# 00 · Empieza aquí (Miguel y Gonzalo)
 
 Guía para trabajar en Abarrotes+ con tu IA (**Codex**, **Cursor** o **Antigravity**). Léela una vez; después tu IA se encarga del resto con `AGENTS.md`.
 
-## Situación (26 oct)
+## Situación (28 oct)
 
-- **El domingo 1 de noviembre entregamos Sprint 1 + Sprint 2** (9 HU, 47 pts) más el documento Scrum.
-- Ya están en `develop`: la base del proyecto (T-00), **HU-01** login, **HU-06** cobro, **HU-12** cuentas de cajero y **HU-08** alta de productos (reasignada a Sosa), más el diagrama de clases y el burndown. **Faltan las tuyas.**
+- **El domingo 1 de noviembre entregamos Sprint 1 + Sprint 2** (9 HU, 47 pts) más el documento Scrum. **Objetivo: cerrar todo hoy, 28 oct.**
+- Ya están en `develop` (31 pts): T-00, **HU-01** login, **HU-06** cobro, **HU-12** cuentas de cajero, **HU-08** alta de productos (Sosa), **HU-03** granel y **HU-04** inventario (Miguel), más casos de uso, diagrama de clases y burndown.
+- **Gonzalo no puede continuar este sprint.** Sus tareas se repartieron el 28 oct: **HU-02 y D-02 → Miguel**; **HU-09 y HU-05 → Sosa**.
 - Tu trabajo es **programar tus HU y mandar tus PRs**. **No revisas PRs**: Sosa revisa, aprueba e integra todo.
 - Cada quien commitea **desde su propia cuenta de GitHub**: eso es lo que la maestra ve como tu aporte.
 
-## Tu trabajo (re-planeado al 26 oct)
+## Tu trabajo (re-planeado al 28 oct)
 
-### Gonzalo (`gxnzHer`): carrito y caja (16 pts)
+### Miguel (`MiguelTaracena`): carrito, inventario y prototipos (15 pts)
 
-| Orden | Qué | Para |
+| Orden | Qué | Estado / para |
 |---|---|---|
-| 1 | **HU-02** Cobrar con código de barras (T-03, T-04) | Lun 27 |
-| 2 | **HU-09** Pagos a proveedores (T-10) + abrir caja (T-09) | Mar 28 |
-| 3 | **HU-05** Corte y cierre de caja (T-11). Reutiliza `turnoAbiertoDe()` de `modules/ventas/ventas.service.ts` | Jue 30 |
-| 4 | **D-02** Prototipos de pantallas y alertas | Vie 31 |
+| — | **HU-03** Producto a granel | ✅ #8 |
+| — | **HU-04** Consulta de inventario | ✅ #9 |
+| — | **D-01** Casos de uso | ✅ #10 |
+| 1 | **HU-02** Cobrar con código de barras (T-03, T-04) — *reasignada de Gonzalo* | **Hoy 28 oct** |
+| 2 | **D-02** Prototipos de pantallas y alertas — *reasignada de Gonzalo* | **Hoy 28 oct** |
 
-Eres dueño de `features/venta/carrito` y del módulo `caja`.
+Ahora eres dueño de `features/venta/carrito`, `VentaPage.tsx` (ya hiciste la tabla de la cuenta), la lectura de `productos` y `features/inventario/InventarioPage.tsx`.
 
-### Miguel (`MiguelTaracena`): granel e inventario (10 pts)
+**Pistas para HU-02:**
+- Input de escaneo con foco permanente: el lector USB escribe el código + Enter. Busca con `GET /api/productos/codigo/:codigo` y agrega con `useCarrito().agregarProducto(p)` (si ya está, **suma** cantidad: el store ya lo hace).
+- Código no encontrado (404) → aviso y **búsqueda manual** por nombre (`GET /api/productos?q=`).
+- Quitar renglón y cambiar cantidad desde la tabla de la cuenta (`quitar`, `cambiarCantidad` ya existen en el store).
+- Para probar el cobro completo necesitas **caja abierta**: llega con HU-05 (Sosa) hoy mismo.
 
-| Orden | Qué | Para |
-|---|---|---|
-| 1 | **HU-03** Producto a granel (T-05, T-06). Usa `useCarrito().agregarProducto(p, peso)` | Lun 27 |
-| 2 | **HU-04** Consulta de inventario (T-13) | Mar 28 |
-| 3 | **D-01** Diagrama de casos de uso + descripciones | Jue 30 |
+**Pistas para D-02:** pueden ser capturas de las pantallas reales (login, venta, cobro, caja, inventario, agregar productos, cajeros) y de las alertas (producto no encontrado, pago insuficiente, diferencia en el corte, usuario suspendido) en `docs/prototipos/`, con un `README.md` que las liste. Enlázalas en `docs/diagramas/casos-de-uso.md` (P-01–P-07).
 
-Eres dueño de la lectura de `productos` y de `features/inventario/InventarioPage.tsx`. **HU-08 (alta de productos) ya la hizo Sosa**: no la toques; la pantalla "Agregar productos" es suya. Para probar puedes dar de alta productos ahí.
+### Sosa: caja (11 pts nuevos)
+
+**HU-09** Pagos a proveedor (T-10) y **HU-05** Abrir caja y corte (T-09, T-11), en el módulo `caja` y `features/caja`.
+
+### Gonzalo (`gxnzHer`)
+
+Sin tareas este sprint. Si se reincorpora, se coordina con Sosa para el Sprint 3.
+
+**HU-08 (alta de productos) es de Sosa**: no la toques; la pantalla "Agregar productos" sirve para cargar datos de prueba.
 
 ## Instalación (una vez)
 
@@ -57,7 +67,7 @@ Los comandos con `/` (como `/hu`) son de Claude Code; **tú usas las frases de a
 
 | Para… | Escribe |
 |---|---|
-| Empezar (primera vez) | `Soy Gonzalo (o Miguel). Lee AGENTS.md y docs/00-empieza-aqui.md y dime qué me toca.` |
+| Empezar (primera vez) | `Soy Miguel. Lee AGENTS.md y docs/00-empieza-aqui.md y dime qué me toca.` |
 | **Trabajar una HU** | `Lee y sigue docs/prompts/implementar-hu.md para HU-02.` |
 | Seguir una HU a medias | `Sigue con HU-02 usando docs/prompts/implementar-hu.md; ya tengo la rama.` |
 | Daily | `Lee y sigue docs/prompts/daily.md.` |
