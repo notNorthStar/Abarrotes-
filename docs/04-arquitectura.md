@@ -112,7 +112,7 @@ npm run lint                  # ESLint + typecheck de api y web
 
 ## Lo que dejó T-00
 
-> **Al 26 oct ya están implementadas:** HU-01 (auth), HU-06 (`POST /ventas`), HU-12 (`/usuarios`) y HU-08 (`POST /productos`, `POST /productos/:id/entradas`). Siguen en 501 solo las rutas de `caja` (HU-05, HU-09).
+> **Al 26 oct ya están implementadas:** HU-01 (auth), HU-06 (`POST /ventas`), HU-12 (`/usuarios`) y HU-08 (`POST /productos`, `POST /productos/:id/entradas`). **28 oct:** HU-05 y HU-09 (`/caja/abrir`, `/caja/actual`, `/caja/actual/corte`, `/caja/actual/cerrar`, `/caja/actual/pagos-proveedor`, `/caja/proveedores`). Ya no queda ninguna ruta en 501.
 
 - **Funciona:** `POST /auth/login`, `GET /auth/me` (login base, sin validar estado — eso es HU-01), `GET /productos?q=`, `GET /productos/codigo/:codigo`, `requireRol`, `sucursalDe(req)`, `lib/dinero.ts`.
 - **Responden 501 `Pendiente: HU-XX`:** el resto de las rutas de la tabla. Reemplaza el `noImplementado(...)` de tu ruta por la implementación real.
