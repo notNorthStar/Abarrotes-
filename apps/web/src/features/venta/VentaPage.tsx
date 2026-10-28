@@ -3,8 +3,11 @@ import { Cobro } from './cobro/Cobro'
 import { Granel } from './granel/Granel'
 import { useEffect, useRef, useState } from 'react'
 import type { Producto } from '../../api/tipos'
+import { PaginaConPanel, Tarjeta, pesos } from '../../components/ui'
 import { Escaneo } from './carrito/Escaneo'
 import { FilaProducto } from './carrito/FilaProducto'
+
+const plural = (n: number, uno: string, varios: string) => `${n} ${n === 1 ? uno : varios}`
 
 // HU-02/HU-03 (Miguel): escaneo, carrito y granel · HU-06 (Sosa): cobro
 export function VentaPage() {
@@ -21,9 +24,12 @@ export function VentaPage() {
     cantidadAnterior.current = renglones.length
   }, [renglones.length])
 
+  // Artículos: piezas por su cantidad; cada producto a granel cuenta como uno.
+  const articulos = renglones.reduce((acc, r) => acc + (r.unidad === 'KILO' ? 1 : Number(r.cantidad)), 0)
+
   return (
-    <section className="space-y-4">
-      <h1 className="mb-4 text-2xl font-semibold">Venta</h1>
+    <PaginaConPanel etiquetaPanel="Cobro" panel={<Cobro />}>
+      <h1 className="sr-only">Venta</h1>
       <Escaneo inputRef={inputEscaneo} onGranel={setProductoGranel} />
       <Granel
         productoExterno={productoGranel}
@@ -32,19 +38,34 @@ export function VentaPage() {
           enfocar()
         }}
       />
-      <div className="rounded bg-white p-4 shadow">
-        <p>{renglones.length} productos en la cuenta</p>
-        {renglones.length > 0 && (
+      <Tarjeta className="flex flex-col overflow-hidden">
+        <div className="flex items-center justify-between gap-3 px-4 py-3.5">
+          <h2 className="text-sm font-semibold">Cuenta</h2>
+          <span className="text-[13px] text-piedra">
+            {plural(renglones.length, 'producto', 'productos')} · {plural(articulos, 'artículo', 'artículos')}
+          </span>
+        </div>
+        {renglones.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className="my-3 w-full text-left text-sm">
+            <table className="w-full min-w-[560px] border-collapse text-left text-sm">
               <caption className="sr-only">Productos de la cuenta</caption>
               <thead>
-                <tr>
-                  <th scope="col">Producto</th>
-                  <th scope="col">Cantidad</th>
-                  <th scope="col">Precio unitario</th>
-                  <th scope="col">Subtotal</th>
-                  <th scope="col">Acciones</th>
+                <tr className="text-xs text-piedra">
+                  <th scope="col" className="border-t border-[#F0EEE8] px-4 py-2 font-medium">
+                    Producto
+                  </th>
+                  <th scope="col" className="border-t border-[#F0EEE8] px-2 py-2 font-medium">
+                    Cantidad
+                  </th>
+                  <th scope="col" className="border-t border-[#F0EEE8] px-2 py-2 text-right font-medium">
+                    Precio
+                  </th>
+                  <th scope="col" className="border-t border-[#F0EEE8] px-2 py-2 text-right font-medium">
+                    Importe
+                  </th>
+                  <th scope="col" className="border-t border-[#F0EEE8] px-4 py-2">
+                    <span className="sr-only">Acciones</span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -58,10 +79,16 @@ export function VentaPage() {
               </tbody>
             </table>
           </div>
+        ) : (
+          <p className="border-t border-[#F0EEE8] px-4 py-10 text-center text-sm text-piedra">
+            La cuenta está vacía. Escanea un producto para empezar.
+          </p>
         )}
-        <p className="text-xl font-bold">Total: ${total()}</p>
-      </div>
-      <Cobro />
-    </section>
+        <div className="flex items-baseline justify-between border-t border-linea bg-hueso px-4 py-3.5">
+          <span className="text-sm text-piedra">Total</span>
+          <span className="num text-[22px] font-semibold">{pesos(total())}</span>
+        </div>
+      </Tarjeta>
+    </PaginaConPanel>
   )
 }
