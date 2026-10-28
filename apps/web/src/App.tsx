@@ -1,19 +1,13 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { useAuth } from './auth/AuthContext'
 import { RequireRol } from './auth/RequireRol'
 import { Layout } from './components/Layout'
 import { Login } from './pages/Login'
-import { rutaInicial } from './rutaInicial'
+import { InicioPage } from './features/inicio/InicioPage'
 import { VentaPage } from './features/venta/VentaPage'
 import { CajaPage } from './features/caja/CajaPage'
 import { InventarioPage } from './features/inventario/InventarioPage'
 import { AgregarProductoPage } from './features/inventario/AgregarProductoPage'
 import { UsuariosPage } from './features/usuarios/UsuariosPage'
-
-function Inicio() {
-  const { usuario } = useAuth()
-  return <Navigate to={usuario ? rutaInicial(usuario.rol) : '/login'} replace />
-}
 
 export function App() {
   return (
@@ -26,7 +20,7 @@ export function App() {
           </RequireRol>
         }
       >
-        <Route index element={<Inicio />} />
+        <Route index element={<InicioPage />} />
         <Route path="venta" element={<VentaPage />} />
         <Route path="caja" element={<CajaPage />} />
         <Route path="inventario" element={<InventarioPage />} />

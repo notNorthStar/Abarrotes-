@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Abarrotes+ · Sistema visual</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F5F1;color:#1A1916;font-family:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+.mono{font-family:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.ic{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+:focus-visible{outline:2px solid #E3A13B;outline-offset:2px}
+.sk{background:linear-gradient(90deg,#ECEAE3 0%,#F6F4EF 50%,#ECEAE3 100%);background-size:200% 100%;animation:sk 1.3s ease-in-out infinite;border-radius:6px}
+@keyframes sk{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.sk{animation:none}}
+</style>
+</helmet>
+<div style="width: 1440px; min-height: 1040px; box-sizing: border-box; padding: 56px 64px; display: flex; flex-direction: column; gap: 44px; background: #F6F5F1">
+  <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px">
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span class="mono" style="font-size: 12px; color: #6B675F; letter-spacing: 0.04em">ABARROTES+ · SISTEMA VISUAL</span>
+      <h1 style="margin: 0; font-size: 40px; font-weight: 600; letter-spacing: -0.03em">Mostrador</h1>
+      <p style="margin: 0; font-size: 15px; color: #6B675F; max-width: 620px; line-height: 1.5">Tinta y papel cálidos, un solo acento para lo que importa ahora y números siempre en monoespaciada para que las columnas de dinero cuadren a simple vista.</p>
+    </div>
+  </header>
+
+  <section aria-labelledby="h-paleta" style="display: flex; flex-direction: column; gap: 16px">
+    <h2 id="h-paleta" style="margin: 0; font-size: 15px; font-weight: 600">Paleta cerrada</h2>
+    <div style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px">
+      <sc-for list="{{colores}}" as="c" hint-placeholder-count="12">
+        <div style="display: flex; flex-direction: column; border: 1px solid #E4E1DA; border-radius: 12px; overflow: hidden; background: #FFFFFF">
+          <div style="{{c.muestra}}"></div>
+          <div style="padding: 10px 12px; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 13px; font-weight: 500">{{c.nombre}}</span>
+            <span class="mono" style="font-size: 12px; color: #6B675F">{{c.hex}}</span>
+            <span style="font-size: 12px; color: #6B675F">{{c.uso}}</span>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px">
+    <section aria-labelledby="h-tipo" style="display: flex; flex-direction: column; gap: 14px; padding: 24px; background: #FFFFFF; border: 1px solid #E4E1DA; border-radius: 14px">
+      <h2 id="h-tipo" style="margin: 0; font-size: 15px; font-weight: 600">Tipografía</h2>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #F0EEE8">
+        <span style="font-size: 26px; font-weight: 600; letter-spacing: -0.02em">Corte del turno</span>
+        <span class="mono" style="font-size: 12px; color: #6B675F">Geist 26 / 600</span>
+      </div>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #F0EEE8">
+        <span style="font-size: 15px; font-weight: 500">Pago a proveedor</span>
+        <span class="mono" style="font-size: 12px; color: #6B675F">Geist 15 / 500</span>
+      </div>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #F0EEE8">
+        <span style="font-size: 14px">Escanea un producto para empezar.</span>
+        <span class="mono" style="font-size: 12px; color: #6B675F">Geist 14 / 400</span>
+      </div>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 12px; border-bottom: 1px solid #F0EEE8">
+        <span class="mono" style="font-size: 40px; font-weight: 600; letter-spacing: -0.03em">$89.18</span>
+        <span class="mono" style="font-size: 12px; color: #6B675F">Geist Mono 40 / 600</span>
+      </div>
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px">
+        <span class="mono" style="font-size: 13px; color: #6B675F">7501000000011</span>
+        <span class="mono" style="font-size: 12px; color: #6B675F">Geist Mono 13 · códigos</span>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-comp" style="display: flex; flex-direction: column; gap: 18px; padding: 24px; background: #FFFFFF; border: 1px solid #E4E1DA; border-radius: 14px">
+      <h2 id="h-comp" style="margin: 0; font-size: 15px; font-weight: 600">Componentes</h2>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+        <button type="button" style="height: 40px; padding: 0 16px; border: 0; border-radius: 8px; background: #1A1916; color: #FFFFFF; font-size: 14px; font-weight: 500">Confirmar venta</button>
+        <button type="button" style="height: 40px; padding: 0 16px; border: 1px solid #E4E1DA; border-radius: 8px; background: #FFFFFF; font-size: 14px">Cancelar</button>
+        <button type="button" style="height: 40px; padding: 0 16px; border: 0; border-radius: 8px; background: #B9382A; color: #FFFFFF; font-size: 14px; font-weight: 500">Eliminar cajero</button>
+        <span class="mono" style="font-size: 11px; color: #6B675F; padding: 2px 6px; border: 1px solid #E4E1DA; border-radius: 5px; background: #F6F5F1">F9</span>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px">
+        <span style="display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 999px; background: #E7F1EA; color: #1F5E3A; font-size: 12px; font-weight: 500"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #2E7D4F"></span>Caja abierta</span>
+        <span style="font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #F3F1EC; color: #3A3833">Pieza</span>
+        <span style="font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #FBF0DC; color: #7A4E0E">Kilo</span>
+        <span style="font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #F9E7E4; color: #9A2E22">Faltante</span>
+        <span style="font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #EAF0F8; color: #284A73">Transferencia</span>
+      </div>
+      <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500">Código de barras
+        <span style="display: flex; align-items: center; gap: 10px; height: 48px; padding: 0 14px; border: 1.5px solid #1A1916; border-radius: 10px">
+          <svg class="ic" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M10.5 8v8M14 8v8M17 8v8"></path></svg>
+          <input class="mono" placeholder="Escanea o escribe el código" style="flex: 1; border: 0; outline: none; font-size: 16px; font-weight: 400">
+        </span>
+      </label>
+      <div style="display: flex; flex-direction: column; gap: 8px">
+        <span style="font-size: 12px; color: #6B675F">Skeleton de carga</span>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #F0EEE8; border-radius: 10px">
+          <div class="sk" style="width: 32px; height: 32px; border-radius: 8px"></div>
+          <div style="flex: 1; display: flex; flex-direction: column; gap: 6px">
+            <div class="sk" style="width: 40%; height: 12px"></div>
+            <div class="sk" style="width: 24%; height: 10px"></div>
+          </div>
+          <div class="sk" style="width: 64px; height: 14px"></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section aria-labelledby="h-iconos" style="display: flex; flex-direction: column; gap: 14px">
+    <h2 id="h-iconos" style="margin: 0; font-size: 15px; font-weight: 600">Íconos · trazo 1.75 px, esquinas redondeadas</h2>
+    <div style="display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 10px">
+      <sc-for list="{{iconos}}" as="i" hint-placeholder-count="12">
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 14px 6px; background: #FFFFFF; border: 1px solid #E4E1DA; border-radius: 10px">
+          <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="{{i.d}}"></path></svg>
+          <span style="font-size: 11px; color: #6B675F">{{i.nombre}}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1040}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const sw = (hex, borde) => 'height: 72px; background: ' + hex + (borde ? '; border-bottom: 1px solid #E4E1DA' : '');
+    return {
+      colores: [
+        { nombre: 'Tinta', hex: '#1A1916', uso: 'Texto, barra lateral, botón principal', muestra: sw('#1A1916') },
+        { nombre: 'Grafito', hex: '#3A3833', uso: 'Texto secundario fuerte', muestra: sw('#3A3833') },
+        { nombre: 'Piedra', hex: '#6B675F', uso: 'Etiquetas y notas (5.1:1)', muestra: sw('#6B675F') },
+        { nombre: 'Línea', hex: '#E4E1DA', uso: 'Bordes y divisores', muestra: sw('#E4E1DA') },
+        { nombre: 'Papel', hex: '#F6F5F1', uso: 'Fondo de la app', muestra: sw('#F6F5F1', true) },
+        { nombre: 'Superficie', hex: '#FFFFFF', uso: 'Tarjetas y paneles', muestra: sw('#FFFFFF', true) },
+        { nombre: 'Maíz', hex: '#E3A13B', uso: 'Acento único: foco, activo, marca', muestra: sw('#E3A13B') },
+        { nombre: 'Maíz claro', hex: '#FBF0DC', uso: 'Fondo de granel y avisos', muestra: sw('#FBF0DC', true) },
+        { nombre: 'Hoja', hex: '#2E7D4F', uso: 'Éxito, caja abierta, cambio', muestra: sw('#2E7D4F') },
+        { nombre: 'Hoja claro', hex: '#E7F1EA', uso: 'Fondo de éxito', muestra: sw('#E7F1EA', true) },
+        { nombre: 'Chile', hex: '#B9382A', uso: 'Error, faltante, eliminar', muestra: sw('#B9382A') },
+        { nombre: 'Chile claro', hex: '#F9E7E4', uso: 'Fondo de error', muestra: sw('#F9E7E4', true) },
+      ],
+      iconos: [
+        { nombre: 'Inicio', d: 'M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z' },
+        { nombre: 'Escanear', d: 'M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M10.5 8v8M14 8v8M17 8v8' },
+        { nombre: 'Caja', d: 'M4 6h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zM3 10h18M7 15h3' },
+        { nombre: 'Inventario', d: 'M21 8 12 3 3 8v8l9 5 9-5zM3 8l9 5 9-5M12 13v8' },
+        { nombre: 'Agregar', d: 'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM12 8v8M8 12h8' },
+        { nombre: 'Cajeros', d: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75' },
+        { nombre: 'Granel', d: 'M12 3v18M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0zM8 21h8' },
+        { nombre: 'Proveedor', d: 'M3 6h11v10H3zM14 9h4l3 3v4h-7M7.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM17.5 19a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z' },
+        { nombre: 'Venta', d: 'M5 3h14v18l-3-2-2 2-2-2-2 2-2-2-3 2zM9 8h6M9 12h6' },
+        { nombre: 'Buscar', d: 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35' },
+        { nombre: 'Cerrar caja', d: 'M7 11V7a5 5 0 0 1 10 0v4M5 11h14v10H5z' },
+        { nombre: 'Salir', d: 'M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

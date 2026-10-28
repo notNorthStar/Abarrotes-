@@ -25,6 +25,10 @@ cajaRoutes.post('/actual/cerrar', requireRol('CAJERO'), async (req, res) => {
   res.json(await caja.cerrar(req.usuario!.id, datos))
 })
 
+cajaRoutes.get('/actual/actividad', requireRol('CAJERO'), async (req, res) => {
+  res.json(await caja.actividadActual(req.usuario!.id))
+})
+
 cajaRoutes.get('/proveedores', requireRol('CAJERO'), async (_req, res) => {
   res.json(await caja.proveedores())
 })

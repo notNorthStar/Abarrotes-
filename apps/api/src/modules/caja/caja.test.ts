@@ -214,6 +214,25 @@ describe('caja · HU-05 y HU-09', () => {
     })
   })
 
+  describe('actividad del turno (Inicio)', () => {
+    it('lista ventas y pagos a proveedor del turno abierto, más recientes primero', async () => {
+      await post('hu05.abrir', '/ventas', {
+        renglones: [{ productoId: coca, cantidad: '1' }],
+        pagos: [{ metodo: 'EFECTIVO', monto: '20.00' }],
+      })
+      await post('hu05.abrir', '/caja/actual/pagos-proveedor', { proveedor: 'Bimbo', monto: '5.00', metodo: 'EFECTIVO' })
+      const res = await get('hu05.abrir', '/caja/actual/actividad')
+      expect(res.status).toBe(200)
+      expect(res.body.map((a: { tipo: string }) => a.tipo)).toEqual(['PAGO_PROVEEDOR', 'VENTA'])
+      expect(res.body[0]).toMatchObject({ titulo: 'Pago a Bimbo', monto: '5.00', metodos: ['EFECTIVO'] })
+      expect(res.body[1]).toMatchObject({ monto: '18.50', metodos: ['EFECTIVO'] })
+    })
+
+    it('sin caja abierta → 409', async () => {
+      expect((await get('hu05.sincaja', '/caja/actual/actividad')).status).toBe(409)
+    })
+  })
+
   it('sin sesión → 401', async () => {
     expect((await request(app).get('/api/caja/actual')).status).toBe(401)
   })
