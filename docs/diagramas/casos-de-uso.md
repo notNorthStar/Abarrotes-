@@ -45,17 +45,17 @@ Las asociaciones no representan el orden de ejecución. Para cobrar o pagar a un
 
 ## Pantallas y evidencia visual
 
-Los enlaces siguientes apuntan a pantallas fuente reales del repositorio y permiten relacionar cada descripción con su interfaz. **No son capturas ni prototipos visuales entregados.** Al elaborar este documento, [la carpeta de prototipos](../prototipos/README.md) solo contiene su README: Miguel incorpora los prototipos principales y las alertas de D-02 (reasignada el 28 oct). Una pantalla fuente puede estar todavía en desarrollo o mostrar un aviso de pendiente.
+La tabla vincula cada descripción con su pantalla fuente y con la evidencia visual de D-02, reasignada a Miguel el 28 de octubre. El [catálogo de prototipos](../prototipos/README.md) describe las pantallas, alertas y pasos para reproducirlas. Las once capturas enlazadas están incluidas y verificadas con datos locales el 28 de octubre de 2026.
 
-| Referencia | Ruta de la aplicación | Pantalla fuente | Evidencia que debe vincularse desde D-02 |
+| Referencia | Ruta de la aplicación | Pantalla fuente | Capturas de D-02 |
 |---|---|---|---|
-| P-01 | `/login` | [Login](../../apps/web/src/pages/Login.tsx) | Acceso y credenciales incorrectas/cuenta suspendida |
-| P-02 | `/venta` | [Venta](../../apps/web/src/features/venta/VentaPage.tsx) | Escaneo, búsqueda, carrito, captura de peso y errores de cantidad |
-| P-03 | `/venta` | [Cobro](../../apps/web/src/features/venta/cobro/Cobro.tsx) | Pago mixto, referencias, cambio y pago insuficiente |
-| P-04 | `/inventario` | [Inventario](../../apps/web/src/features/inventario/InventarioPage.tsx) | Consulta, búsqueda y resultado vacío |
-| P-05 | `/caja` | [Caja](../../apps/web/src/features/caja/CajaPage.tsx) | Apertura, pagos a proveedor, corte y diferencia |
-| P-06 | `/productos/nuevo` | [Agregar productos](../../apps/web/src/features/inventario/AgregarProductoPage.tsx) | Alta, entrada y código duplicado |
-| P-07 | `/usuarios` | [Cajeros](../../apps/web/src/features/usuarios/UsuariosPage.tsx) | Alta, suspensión, reactivación, eliminación y restablecimiento |
+| P-01 | `/login` | [Login](../../apps/web/src/pages/Login.tsx) | [Acceso](../prototipos/img/login.png) · [Cuenta suspendida](../prototipos/img/alerta-usuario-suspendido.png) |
+| P-02 | `/venta` | [Venta](../../apps/web/src/features/venta/VentaPage.tsx) | [Escaneo, búsqueda y carrito](../prototipos/img/venta.png) · [Producto no encontrado](../prototipos/img/alerta-producto-no-encontrado.png) |
+| P-03 | `/venta` | [Cobro](../../apps/web/src/features/venta/cobro/Cobro.tsx) | [Métodos, referencia y cambio](../prototipos/img/cobro.png) · [Pago insuficiente](../prototipos/img/alerta-pago-insuficiente.png) |
+| P-04 | `/inventario` | [Inventario](../../apps/web/src/features/inventario/InventarioPage.tsx) | [Consulta de inventario](../prototipos/img/inventario.png) |
+| P-05 | `/caja` | [Caja](../../apps/web/src/features/caja/CajaPage.tsx) | [Corte y operación de caja](../prototipos/img/caja.png) · [Diferencia en cierre](../prototipos/img/alerta-diferencia-corte.png) |
+| P-06 | `/productos/nuevo` | [Agregar productos](../../apps/web/src/features/inventario/AgregarProductoPage.tsx) | [Alta y entrada de existencias](../prototipos/img/productos.png) |
+| P-07 | `/usuarios` | [Cajeros](../../apps/web/src/features/usuarios/UsuariosPage.tsx) | [Gestión de cuentas de cajero](../prototipos/img/cajeros.png) |
 
 ## CU-01 · Iniciar y cerrar sesión
 

@@ -13,9 +13,9 @@ Borrador del documento: `docs/scrum/documento-scrum.md`.
 | 4.2 Pila del sprint | Tareas de S1+S2 con estado | Todos | `docs/scrum/sprint-backlog.md` | ⬜ |
 | 4.3 Diagrama de clases | Desde `schema.prisma` | Sosa | `docs/diagramas/clases.md` | 🟨 |
 | 4.4 Diagrama de casos de uso | Actores: cajero, admin, jefe | Miguel | `docs/diagramas/casos-de-uso.md` → `img/casos-de-uso.png` | ✅ |
-| 4.5 Descripciones de casos de uso con prototipos | 1 por HU de S1+S2 | Miguel | `docs/diagramas/casos-de-uso.md` | 🟨 (faltan prototipos, D-02) |
-| 4.6 Prototipos principales | Login, venta, cobro, caja, inventario, usuarios | Miguel | `docs/prototipos/` | ⬜ |
-| 4.7 Prototipos de alertas | Producto no encontrado, pago insuficiente, diferencia en corte, usuario suspendido… | Miguel | `docs/prototipos/` | ⬜ |
+| 4.5 Descripciones de casos de uso con prototipos | 1 por HU de S1+S2 | Miguel | `docs/diagramas/casos-de-uso.md` | 🟦 (capturas D-02 listas para revisión) |
+| 4.6 Prototipos principales | Login, venta, cobro, caja, inventario, usuarios | Miguel | `docs/prototipos/` | 🟦 |
+| 4.7 Prototipos de alertas | Producto no encontrado, pago insuficiente, diferencia en corte, usuario suspendido… | Miguel | `docs/prototipos/` | 🟦 |
 | 4.8 Sprint | Duración 2 semanas, fechas | Sosa | `docs/01-vision-y-equipo.md` | 🟨 |
 | 4.9 Incremento | Qué funciona al 1 nov (+ capturas) | Todos | release `v0.2.0` | ⬜ |
 | 4.10 Burn Up | Puntos completados vs. plan (80 pts) | Sosa | `docs/scrum/burndown.md` | 🟨 |

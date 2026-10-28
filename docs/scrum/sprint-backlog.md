@@ -21,7 +21,7 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-13 | Consulta de inventario con búsqueda | HU-04 | 2 | Miguel | ✅ | #9 | 28 oct |
 | T-14 | Alta de producto y entrada de existencias + movimientos | HU-08 | 5 | Sosa (reasignada) | ✅ | #7 | 26 oct |
 | D-01 | Diagrama de casos de uso + descripciones | Doc | — | Miguel | ✅ | #10 | 28 oct |
-| D-02 | Prototipos principales y de alertas | Doc | — | Miguel (reasignada 28 oct) | ⬜ | | |
+| D-02 | Prototipos principales y de alertas | Doc | — | Miguel (reasignada 28 oct) | 🟦 | | |
 | D-03 | Diagrama de clases, burndown/burnup, documento Scrum | Doc | — | Sosa | 🟨 | | |
 
 **Total comprometido:** 47 pts · **Completado:** 42 pts (HU-01, HU-06, HU-12, HU-08, HU-03, HU-04, HU-09, HU-05) · **Restante:** 5 pts (Miguel: HU-02)
