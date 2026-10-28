@@ -1,10 +1,11 @@
-// Contrato del carrito (venta en curso). Dueño: Gonzalo (HU-02).
+// Contrato del carrito (venta en curso). Dueño: Miguel (HU-02, reasignada el 28 oct).
 // Miguel (HU-03) agrega productos a granel con agregarProducto(p, peso).
 // Sosa (HU-06) lee renglones y total() para cobrar.
 // Los montos son string con Decimal; el servidor recalcula todo al confirmar la venta.
 import Decimal from 'decimal.js'
 import { create } from 'zustand'
 import type { Producto, UnidadVenta } from '../../../api/tipos'
+import { cantidadValida } from '../granel/calculosGranel'
 
 export type Renglon = {
   productoId: number
@@ -33,12 +34,15 @@ export const useCarrito = create<Carrito>((set, get) => ({
 
   agregarProducto: (p, cantidad = '1') =>
     set(({ renglones }) => {
+      const validada = cantidadValida(cantidad, p.unidad)
       const existente = renglones.find((r) => r.productoId === p.id)
       if (existente) {
-        const nueva = new Decimal(existente.cantidad).plus(cantidad).toString()
+        const nueva = new Decimal(existente.cantidad).plus(validada).toString()
         return {
           renglones: renglones.map((r) =>
-            r.productoId === p.id ? { ...r, cantidad: nueva, subtotal: calcularSubtotal(nueva, r.precio) } : r,
+            r.productoId === p.id
+              ? { ...r, cantidad: nueva, subtotal: calcularSubtotal(nueva, r.precio) }
+              : r,
           ),
         }
       }
@@ -47,20 +51,23 @@ export const useCarrito = create<Carrito>((set, get) => ({
         nombre: p.nombre,
         unidad: p.unidad,
         precio: p.precio,
-        cantidad,
-        subtotal: calcularSubtotal(cantidad, p.precio),
+        cantidad: validada,
+        subtotal: calcularSubtotal(validada, p.precio),
       }
       return { renglones: [...renglones, renglon] }
     }),
 
   cambiarCantidad: (productoId, cantidad) =>
     set(({ renglones }) => ({
-      renglones: renglones.map((r) =>
-        r.productoId === productoId ? { ...r, cantidad, subtotal: calcularSubtotal(cantidad, r.precio) } : r,
-      ),
+      renglones: renglones.map((r) => {
+        if (r.productoId !== productoId) return r
+        const validada = cantidadValida(cantidad, r.unidad)
+        return { ...r, cantidad: validada, subtotal: calcularSubtotal(validada, r.precio) }
+      }),
     })),
 
-  quitar: (productoId) => set(({ renglones }) => ({ renglones: renglones.filter((r) => r.productoId !== productoId) })),
+  quitar: (productoId) =>
+    set(({ renglones }) => ({ renglones: renglones.filter((r) => r.productoId !== productoId) })),
 
   vaciar: () => set({ renglones: [] }),
 
