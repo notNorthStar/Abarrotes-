@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { api, ApiError } from '../../api/client'
+import { avisarCambioCaja } from '../../components/Layout'
 import {
   Aviso,
   Boton,
@@ -109,6 +110,7 @@ export function CajaPage() {
             corte={corte}
             onCerrada={(c) => {
               setCerrado(c)
+              avisarCambioCaja()
               void cargar()
             }}
           />
@@ -156,6 +158,7 @@ function AbrirCaja({ onAbierta }: { onAbierta: () => void }) {
     setError('')
     try {
       await api.post('/caja/abrir', { montoInicial: monto.trim() || '0' })
+      avisarCambioCaja()
       onAbierta()
     } catch (err) {
       setError(mensaje(err))

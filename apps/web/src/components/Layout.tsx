@@ -29,9 +29,20 @@ const iniciales = (nombre: string) =>
     .map((p) => p[0]?.toUpperCase() ?? '')
     .join('')
 
+const EVENTO_CAJA = 'abarrotes:caja'
+
+/** Avisa al indicador de la barra superior que la caja se abrió o se cerró. */
+export const avisarCambioCaja = () => window.dispatchEvent(new Event(EVENTO_CAJA))
+
 /** Estado de la caja del usuario, para el indicador de la barra superior. */
 function useCajaAbierta(ruta: string) {
   const [abiertaDesde, setAbiertaDesde] = useState<string | null | undefined>(undefined)
+  const [version, setVersion] = useState(0)
+  useEffect(() => {
+    const recargar = () => setVersion((v) => v + 1)
+    window.addEventListener(EVENTO_CAJA, recargar)
+    return () => window.removeEventListener(EVENTO_CAJA, recargar)
+  }, [])
   useEffect(() => {
     let vigente = true
     api
@@ -41,7 +52,7 @@ function useCajaAbierta(ruta: string) {
     return () => {
       vigente = false
     }
-  }, [ruta])
+  }, [ruta, version])
   return abiertaDesde
 }
 
