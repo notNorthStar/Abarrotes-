@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Abarrotes+ · Venta</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F5F1;color:#1A1916;font-family:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+.mono{font-family:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.ic{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.navi:hover{background:#26251F;color:#FFFFFF}
+.ghost:hover{background:#EFEDE7}
+.ink:hover{background:#33312C}
+.rowh:hover{background:#FAF9F6}
+.step:hover{background:#EFEDE7}
+:focus-visible{outline:2px solid #E3A13B;outline-offset:2px}
+input::placeholder{color:#8C877D}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; align-items: stretch; background: #F6F5F1">
+
+  <nav aria-label="Principal" style="flex: 1 1 232px; background: #1A1916; color: #CFCAC0; display: flex; flex-direction: column; gap: 22px; padding: 16px 12px; box-sizing: border-box">
+    <div style="display: flex; flex-direction: column; gap: 14px; padding: 4px 6px 0">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <div class="mono" aria-hidden="true" style="width: 28px; height: 28px; border-radius: 7px; background: #E3A13B; color: #1A1916; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">A+</div>
+        <span style="color: #FFFFFF; font-size: 15px; font-weight: 600; letter-spacing: -0.01em">Abarrotes+</span>
+      </div>
+      <button type="button" class="navi" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; border: 1px solid #2E2D28; border-radius: 8px; background: #201F1B; color: #CFCAC0; cursor: pointer; font-size: 13px; min-height: 36px">
+        <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 1px">
+          <span style="font-size: 11px; color: #8F8A80">Sucursal</span>
+          <span style="color: #FFFFFF">Centro</span>
+        </span>
+        <svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+    </div>
+    <sc-for list="{{grupos}}" as="g" hint-placeholder-count="3">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="padding: 0 10px 6px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #8F8A80">{{g.titulo}}</span>
+        <sc-for list="{{g.items}}" as="item" hint-placeholder-count="2">
+          <a class="navi" href="{{item.href}}" aria-current="{{item.current}}" style="{{item.estilo}}">
+            <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{item.d}}"></path></svg>
+            <span style="flex: 1">{{item.label}}</span>
+            <sc-if value="{{item.tecla}}" hint-placeholder-val="{{false}}">
+              <span class="mono" style="font-size: 11px; color: #8F8A80">{{item.tecla}}</span>
+            </sc-if>
+          </a>
+        </sc-for>
+      </div>
+    </sc-for>
+    <div style="margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 10px 8px; border-top: 1px solid #2E2D28">
+      <div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #33312C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">CU</div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0">
+        <span style="color: #FFFFFF; font-size: 13px">Cajero Uno</span>
+        <span style="font-size: 12px; color: #8F8A80">Cajero</span>
+      </div>
+      <button type="button" class="navi" aria-label="Cerrar sesión" style="width: 36px; height: 36px; border: 0; border-radius: 8px; background: transparent; color: #CFCAC0; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 12px 24px; border-bottom: 1px solid #E4E1DA; min-height: 56px; box-sizing: border-box">
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #6B675F">
+        <span>Centro</span>
+        <span aria-hidden="true">/</span>
+        <span style="color: #1A1916; font-weight: 500">Venta</span>
+      </div>
+      <div style="flex: 1"></div>
+      <button type="button" class="ghost" style="display: flex; align-items: center; gap: 10px; min-width: 280px; padding: 0 10px; height: 36px; border: 1px solid #E4E1DA; border-radius: 8px; background: #FFFFFF; color: #6B675F; cursor: pointer; font-size: 13px">
+        <svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35"></path></svg>
+        <span style="flex: 1; text-align: left">Buscar producto o acción</span>
+        <span class="mono" style="font-size: 11px; padding: 2px 6px; border: 1px solid #E4E1DA; border-radius: 5px; background: #F6F5F1">Ctrl K</span>
+      </button>
+      <span style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 999px; background: #E7F1EA; color: #1F5E3A; font-size: 13px; font-weight: 500">
+        <span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #2E7D4F"></span>
+        Caja abierta · desde 09:12
+      </span>
+    </header>
+
+    <div style="flex: 1; display: flex; flex-wrap: wrap; align-items: stretch">
+      <main style="flex: 999 1 520px; min-width: 0; padding: 24px 32px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px">
+        <form style="display: flex; flex-direction: column; gap: 8px">
+          <label for="escaneo" style="font-size: 13px; font-weight: 500">Código de barras</label>
+          <div style="display: flex; flex-wrap: wrap; gap: 8px">
+            <div style="flex: 1 1 320px; display: flex; align-items: center; gap: 12px; height: 52px; padding: 0 14px; border: 1.5px solid #1A1916; border-radius: 10px; background: #FFFFFF; box-sizing: border-box">
+              <svg class="ic" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M10.5 8v8M14 8v8M17 8v8"></path></svg>
+              <input id="escaneo" class="mono" placeholder="Escanea o escribe el código" style="flex: 1; min-width: 0; border: 0; outline: none; background: transparent; font-size: 17px; height: 100%">
+              <span class="mono" style="font-size: 11px; color: #6B675F; padding: 2px 6px; border: 1px solid #E4E1DA; border-radius: 5px; background: #F6F5F1">Enter</span>
+            </div>
+            <button type="button" class="ghost" style="display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 16px; border: 1px solid #E4E1DA; border-radius: 10px; background: #FFFFFF; cursor: pointer; font-size: 14px">
+              <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35"></path></svg>
+              Buscar por nombre
+            </button>
+            <button type="button" class="ghost" onClick="{{abrirGranel}}" style="display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 16px; border: 1px solid #E4E1DA; border-radius: 10px; background: #FFFFFF; cursor: pointer; font-size: 14px">
+              <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0zM8 21h8"></path></svg>
+              Granel
+              <span class="mono" style="font-size: 11px; color: #6B675F">F8</span>
+            </button>
+          </div>
+          <p role="status" style="margin: 0; display: flex; align-items: center; gap: 6px; font-size: 13px; color: #1F5E3A">
+            <svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12l5 5L20 7"></path></svg>
+            Coca-Cola 600 ml agregada · cantidad 3
+          </p>
+        </form>
+
+        <sc-if value="{{granelAbierto}}" hint-placeholder-val="{{true}}">
+          <section aria-label="Capturar peso" style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; padding: 16px; border: 1px solid #E8D3AE; border-radius: 12px; background: #FCF6EC">
+            <div style="display: flex; flex-direction: column; gap: 4px; flex: 1 1 200px">
+              <span style="font-size: 12px; color: #6B675F">Capturar peso</span>
+              <span style="font-size: 15px; font-weight: 500">Jitomate saladet</span>
+              <span class="mono" style="font-size: 13px; color: #6B675F">$28.90 / kg · 2000000000015</span>
+            </div>
+            <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #6B675F">
+              Peso
+              <span style="display: flex; align-items: center; height: 44px; border: 1px solid #D9D4C9; border-radius: 8px; background: #FFFFFF; overflow: hidden">
+                <input class="mono" value="0.750" aria-label="Peso en kilos" style="width: 96px; border: 0; outline: none; padding: 0 12px; font-size: 16px; color: #1A1916; background: transparent">
+                <span style="display: flex; height: 100%; border-left: 1px solid #E4E1DA">
+                  <button type="button" style="border: 0; padding: 0 12px; background: #1A1916; color: #FFFFFF; cursor: pointer; font-size: 13px">kg</button>
+                  <button type="button" class="step" style="border: 0; padding: 0 12px; background: #FFFFFF; cursor: pointer; font-size: 13px">g</button>
+                </span>
+              </span>
+            </label>
+            <div style="display: flex; flex-direction: column; gap: 4px">
+              <span style="font-size: 12px; color: #6B675F">Importe</span>
+              <span class="mono" style="height: 44px; display: flex; align-items: center; font-size: 18px; font-weight: 600">$21.68</span>
+            </div>
+            <div style="display: flex; gap: 8px">
+              <button type="button" class="ink" onClick="{{agregarGranel}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 8px; background: #1A1916; color: #FFFFFF; cursor: pointer; font-size: 14px; font-weight: 500">Agregar a la cuenta</button>
+              <button type="button" class="ghost" onClick="{{cerrarGranel}}" style="height: 44px; padding: 0 14px; border: 1px solid #E4E1DA; border-radius: 8px; background: #FFFFFF; cursor: pointer; font-size: 14px">Cancelar</button>
+            </div>
+          </section>
+        </sc-if>
+
+        <section aria-labelledby="h-cuenta" style="background: #FFFFFF; border: 1px solid #E4E1DA; border-radius: 12px; display: flex; flex-direction: column; overflow: hidden">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px">
+            <h2 id="h-cuenta" style="margin: 0; font-size: 14px; font-weight: 600">Cuenta</h2>
+            <span style="font-size: 13px; color: #6B675F">{{resumenArticulos}}</span>
+          </div>
+          <div style="overflow-x: auto">
+            <table style="width: 100%; min-width: 560px; border-collapse: collapse; font-size: 14px">
+              <thead>
+                <tr style="text-align: left; color: #6B675F; font-size: 12px">
+                  <th scope="col" style="padding: 8px 16px; font-weight: 500; border-top: 1px solid #F0EEE8">Producto</th>
+                  <th scope="col" style="padding: 8px 8px; font-weight: 500; border-top: 1px solid #F0EEE8">Cantidad</th>
+                  <th scope="col" style="padding: 8px 8px; font-weight: 500; text-align: right; border-top: 1px solid #F0EEE8">Precio</th>
+                  <th scope="col" style="padding: 8px 8px; font-weight: 500; text-align: right; border-top: 1px solid #F0EEE8">Importe</th>
+                  <th scope="col" style="padding: 8px 16px; border-top: 1px solid #F0EEE8"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Acciones</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <sc-for list="{{renglones}}" as="r" hint-placeholder-count="3">
+                  <tr class="rowh">
+                    <td style="padding: 12px 16px; border-top: 1px solid #F0EEE8">
+                      <div style="display: flex; flex-direction: column; gap: 2px">
+                        <span>{{r.nombre}}</span>
+                        <span class="mono" style="font-size: 12px; color: #6B675F">{{r.codigo}}</span>
+                      </div>
+                    </td>
+                    <td style="padding: 8px; border-top: 1px solid #F0EEE8">
+                      <sc-if value="{{r.esPieza}}" hint-placeholder-val="{{true}}">
+                        <div style="display: inline-flex; align-items: center; border: 1px solid #E4E1DA; border-radius: 8px; overflow: hidden">
+                          <button type="button" class="step" onClick="{{r.menos}}" aria-label="Quitar una pieza" style="width: 36px; height: 36px; border: 0; background: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+                            <svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"></path></svg>
+                          </button>
+                          <span class="mono" style="min-width: 40px; text-align: center; font-size: 14px">{{r.cantidad}}</span>
+                          <button type="button" class="step" onClick="{{r.mas}}" aria-label="Agregar una pieza" style="width: 36px; height: 36px; border: 0; background: #FFFFFF; cursor: pointer; display: flex; align-items: center; justify-content: center">
+                            <svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+                          </button>
+                        </div>
+                      </sc-if>
+                      <sc-if value="{{r.esKilo}}" hint-placeholder-val="{{false}}">
+                        <span style="display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 12px; border: 1px dashed #D9D4C9; border-radius: 8px">
+                          <svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 7h14M5 7l-3 7a3 3 0 0 0 6 0zM19 7l-3 7a3 3 0 0 0 6 0zM8 21h8"></path></svg>
+                          <span class="mono">{{r.cantidad}} kg</span>
+                        </span>
+                      </sc-if>
+                    </td>
+                    <td class="mono" style="padding: 8px; text-align: right; color: #6B675F; border-top: 1px solid #F0EEE8">{{r.precio}}</td>
+                    <td class="mono" style="padding: 8px; text-align: right; font-weight: 500; border-top: 1px solid #F0EEE8">{{r.importe}}</td>
+                    <td style="padding: 8px 16px 8px 8px; text-align: right; border-top: 1px solid #F0EEE8">
+                      <button type="button" class="step" onClick="{{r.quitar}}" aria-label="{{r.etiquetaQuitar}}" style="width: 36px; height: 36px; border: 0; border-radius: 8px; background: transparent; color: #6B675F; cursor: pointer; display: inline-flex; align-items: center; justify-content: center">
+                        <svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"></path></svg>
+                      </button>
+                    </td>
+                  </tr>
+                </sc-for>
+              </tbody>
+            </table>
+          </div>
+          <sc-if value="{{vacia}}" hint-placeholder-val="{{false}}">
+            <div style="padding: 40px 16px; text-align: center; color: #6B675F; font-size: 14px; border-top: 1px solid #F0EEE8">La cuenta está vacía. Escanea un producto para empezar.</div>
+          </sc-if>
+          <div style="display: flex; align-items: baseline; justify-content: space-between; padding: 14px 16px; border-top: 1px solid #E4E1DA; background: #FBFAF7">
+            <span style="font-size: 14px; color: #6B675F">Total</span>
+            <span class="mono" style="font-size: 22px; font-weight: 600">{{total}}</span>
+          </div>
+        </section>
+      </main>
+
+      <aside aria-label="Cobro" style="flex: 1 1 340px; background: #FFFFFF; border-left: 1px solid #E4E1DA; padding: 24px 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <h2 style="margin: 0; font-size: 14px; font-weight: 600">Cobro</h2>
+          <span style="font-size: 13px; color: #6B675F">Total a cobrar</span>
+          <span class="mono" style="font-size: 40px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1">{{total}}</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <span style="font-size: 12px; color: #6B675F">Agregar forma de pago</span>
+          <div role="group" aria-label="Forma de pago" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px">
+            <button type="button" class="ghost" style="height: 40px; border: 1px solid #E4E1DA; border-radius: 8px; background: #FBFAF7; cursor: pointer; font-size: 13px">Efectivo</button>
+            <button type="button" class="ghost" style="height: 40px; border: 1px solid #E4E1DA; border-radius: 8px; background: #FBFAF7; cursor: pointer; font-size: 13px">Tarjeta</button>
+            <button type="button" class="ghost" style="height: 40px; border: 1px solid #E4E1DA; border-radius: 8px; background: #FBFAF7; cursor: pointer; font-size: 13px">Transferencia</button>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid #E4E1DA; border-radius: 10px">
+            <div style="display: flex; align-items: center; justify-content: space-between">
+              <span style="font-size: 13px; font-weight: 500">Efectivo</span>
+              <button type="button" class="step" aria-label="Quitar pago en efectivo" style="width: 32px; height: 32px; border: 0; border-radius: 6px; background: transparent; color: #6B675F; cursor: pointer; display: flex; align-items: center; justify-content: center">
+                <svg class="ic" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+              </button>
+            </div>
+            <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #6B675F">Recibido
+              <input class="mono" value="70.00" style="height: 40px; padding: 0 10px; border: 1px solid #D9D4C9; border-radius: 8px; font-size: 15px; text-align: right; color: #1A1916">
+            </label>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px; padding: 12px; border: 1px solid #E4E1DA; border-radius: 10px">
+            <div style="display: flex; align-items: center; justify-content: space-between">
+              <span style="font-size: 13px; font-weight: 500">Tarjeta</span>
+              <button type="button" class="step" aria-label="Quitar pago con tarjeta" style="width: 32px; height: 32px; border: 0; border-radius: 6px; background: transparent; color: #6B675F; cursor: pointer; display: flex; align-items: center; justify-content: center">
+                <svg class="ic" width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+              </button>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px">
+              <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #6B675F">Monto
+                <input class="mono" value="29.18" style="height: 40px; padding: 0 10px; border: 1px solid #D9D4C9; border-radius: 8px; font-size: 15px; text-align: right; color: #1A1916; min-width: 0">
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #6B675F">Referencia
+                <input class="mono" value="4821" style="height: 40px; padding: 0 10px; border: 1px solid #D9D4C9; border-radius: 8px; font-size: 15px; color: #1A1916; min-width: 0">
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; font-size: 14px">
+          <div style="display: flex; justify-content: space-between; padding: 6px 0"><span style="color: #6B675F">Total</span><span class="mono">{{total}}</span></div>
+          <div style="display: flex; justify-content: space-between; padding: 6px 0"><span style="color: #6B675F">Pagado</span><span class="mono">$99.18</span></div>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; padding: 10px 0 0; margin-top: 4px; border-top: 1px solid #E4E1DA">
+            <span style="{{estiloSaldoTexto}}">{{saldoEtiqueta}}</span>
+            <span class="mono" style="{{estiloSaldo}}">{{saldo}}</span>
+          </div>
+        </div>
+
+        <button type="button" class="ink" style="display: flex; align-items: center; justify-content: center; gap: 10px; height: 48px; border: 0; border-radius: 10px; background: #1A1916; color: #FFFFFF; cursor: pointer; font-size: 15px; font-weight: 500">
+          Confirmar venta
+          <span class="mono" style="font-size: 11px; padding: 2px 6px; border-radius: 5px; background: #33312C; color: #CFCAC0">F9</span>
+        </button>
+
+        <div style="margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px 14px; padding-top: 14px; border-top: 1px solid #EEEBE5; font-size: 12px; color: #6B675F">
+          <span><span class="mono" style="color: #1A1916">F2</span> nueva venta</span>
+          <span><span class="mono" style="color: #1A1916">F8</span> granel</span>
+          <span><span class="mono" style="color: #1A1916">F9</span> cobrar</span>
+          <span><span class="mono" style="color: #1A1916">Esc</span> cancelar</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      granel: true,
+      items: [
+        { id: 1, nombre: 'Coca-Cola 600 ml', codigo: '7501000000011', unidad: 'PIEZA', precio: 1850, cantidad: 3 },
+        { id: 2, nombre: 'Agua Ciel 1 L', codigo: '7501000000035', unidad: 'PIEZA', precio: 1200, cantidad: 1 },
+        { id: 3, nombre: 'Jitomate saladet', codigo: '2000000000015', unidad: 'KILO', precio: 2890, gramos: 750 },
+      ],
+    };
+  }
+  renderVals() {
+    const pesos = (c) => '$' + (Math.abs(c) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const importe = (it) => (it.unidad === 'KILO' ? Math.round((it.precio * it.gramos) / 1000) : it.precio * it.cantidad);
+    const setCant = (id, delta) => this.setState((s) => ({
+      items: s.items.map((it) => (it.id === id ? { ...it, cantidad: Math.max(1, it.cantidad + delta) } : it)),
+    }));
+    const items = (this.state && this.state.items) || [];
+    const total = items.reduce((a, it) => a + importe(it), 0);
+    const pagado = 9918;
+    const saldo = pagado - total;
+    const piezas = items.reduce((a, it) => a + (it.unidad === 'PIEZA' ? it.cantidad : 1), 0);
+    const base = 'display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; font-size: 14px; min-height: 36px; box-sizing: border-box; ';
+    const nav = (label, href, d, tecla, activo) => ({
+      label, href, d, tecla, current: activo ? 'page' : 'false',
+      estilo: base + (activo ? 'color: #FFFFFF; background: #2A2925' : 'color: #CFCAC0; background: transparent'),
+    });
+    return {
+      granelAbierto: !!(this.state && this.state.granel),
+      abrirGranel: () => this.setState({ granel: true }),
+      cerrarGranel: () => this.setState({ granel: false }),
+      agregarGranel: () => this.setState({ granel: false }),
+      vacia: items.length === 0,
+      resumenArticulos: items.length + (items.length === 1 ? ' producto · ' : ' productos · ') + piezas + ' artículos',
+      renglones: items.map((it) => ({
+        nombre: it.nombre,
+        codigo: it.codigo,
+        esPieza: it.unidad === 'PIEZA',
+        esKilo: it.unidad === 'KILO',
+        cantidad: it.unidad === 'KILO' ? (it.gramos / 1000).toFixed(3) : String(it.cantidad),
+        precio: pesos(it.precio) + (it.unidad === 'KILO' ? ' / kg' : ''),
+        importe: pesos(importe(it)),
+        menos: () => setCant(it.id, -1),
+        mas: () => setCant(it.id, 1),
+        quitar: () => this.setState((s) => ({ items: s.items.filter((x) => x.id !== it.id) })),
+        etiquetaQuitar: 'Quitar ' + it.nombre,
+      })),
+      total: pesos(total),
+      saldo: pesos(saldo),
+      saldoEtiqueta: saldo >= 0 ? 'Cambio' : 'Faltante',
+      estiloSaldoTexto: 'font-weight: 500; color: ' + (saldo >= 0 ? '#1F5E3A' : '#B9382A'),
+      estiloSaldo: 'font-size: 22px; font-weight: 600; color: ' + (saldo >= 0 ? '#1F5E3A' : '#B9382A'),
+      grupos: [
+        { titulo: 'Operación', items: [
+          nav('Inicio', 'Main.dc.html', 'M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z', '', false),
+          nav('Venta', 'Venta.dc.html', 'M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M10.5 8v8M14 8v8M17 8v8', 'F2', true),
+          nav('Caja', 'Caja.dc.html', 'M4 6h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zM3 10h18M7 15h3', '', false),
+        ] },
+        { titulo: 'Catálogo', items: [
+          nav('Inventario', 'Inventario.dc.html', 'M21 8 12 3 3 8v8l9 5 9-5zM3 8l9 5 9-5M12 13v8', '', false),
+          nav('Agregar productos', 'Inventario.dc.html', 'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM12 8v8M8 12h8', '', false),
+        ] },
+        { titulo: 'Administración', items: [
+          nav('Cajeros', 'Main.dc.html', 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75', '', false),
+        ] },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

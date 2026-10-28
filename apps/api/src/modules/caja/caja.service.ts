@@ -114,6 +114,45 @@ export async function corteActual(usuarioId: number) {
   return calcularCorte(await exigirTurnoAbierto(usuarioId))
 }
 
+/** Últimos movimientos del turno abierto (ventas y pagos a proveedor), más recientes primero. Para Inicio. */
+export async function actividadActual(usuarioId: number, limite = 8) {
+  const turno = await exigirTurnoAbierto(usuarioId)
+  const [ventas, pagos] = await Promise.all([
+    prisma.venta.findMany({
+      where: { turnoId: turno.id },
+      include: { pagos: { select: { metodo: true } } },
+      orderBy: { creadoEn: 'desc' },
+      take: limite,
+    }),
+    prisma.pagoProveedor.findMany({
+      where: { turnoId: turno.id },
+      include: { proveedor: { select: { nombre: true } } },
+      orderBy: { creadoEn: 'desc' },
+      take: limite,
+    }),
+  ])
+  return [
+    ...ventas.map((v) => ({
+      tipo: 'VENTA' as const,
+      id: v.id,
+      titulo: `Venta #${v.id}`,
+      metodos: [...new Set(v.pagos.map((p) => p.metodo))],
+      monto: round2(v.total).toFixed(2),
+      creadoEn: v.creadoEn,
+    })),
+    ...pagos.map((p) => ({
+      tipo: 'PAGO_PROVEEDOR' as const,
+      id: p.id,
+      titulo: `Pago a ${p.proveedor.nombre}`,
+      metodos: [p.metodo],
+      monto: round2(p.monto).toFixed(2),
+      creadoEn: p.creadoEn,
+    })),
+  ]
+    .sort((a, b) => b.creadoEn.getTime() - a.creadoEn.getTime())
+    .slice(0, limite)
+}
+
 /**
  * HU-05 CA4–CA5: cierra la caja con el efectivo contado y guarda la diferencia (+ sobrante, − faltante).
  * El comentario es obligatorio cuando hay diferencia (interpretación documentada en el backlog).

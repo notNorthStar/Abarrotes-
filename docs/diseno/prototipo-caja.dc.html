@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Abarrotes+ · Caja</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F5F1;color:#1A1916;font-family:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button,input,select,textarea{font:inherit;color:inherit}
+.mono{font-family:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.ic{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.navi:hover{background:#26251F;color:#FFFFFF}
+.ghost:hover{background:#EFEDE7}
+.ink:hover{background:#33312C}
+.rowh:hover{background:#FAF9F6}
+:focus-visible{outline:2px solid #E3A13B;outline-offset:2px}
+input::placeholder,textarea::placeholder{color:#8C877D}
+</style>
+</helmet>
+<div style="min-height: 100vh; display: flex; flex-wrap: wrap; align-items: stretch; background: #F6F5F1">
+
+  <nav aria-label="Principal" style="flex: 1 1 232px; background: #1A1916; color: #CFCAC0; display: flex; flex-direction: column; gap: 22px; padding: 16px 12px; box-sizing: border-box">
+    <div style="display: flex; flex-direction: column; gap: 14px; padding: 4px 6px 0">
+      <div style="display: flex; align-items: center; gap: 10px">
+        <div class="mono" aria-hidden="true" style="width: 28px; height: 28px; border-radius: 7px; background: #E3A13B; color: #1A1916; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">A+</div>
+        <span style="color: #FFFFFF; font-size: 15px; font-weight: 600; letter-spacing: -0.01em">Abarrotes+</span>
+      </div>
+      <button type="button" class="navi" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 10px; border: 1px solid #2E2D28; border-radius: 8px; background: #201F1B; color: #CFCAC0; cursor: pointer; font-size: 13px; min-height: 36px">
+        <span style="display: flex; flex-direction: column; align-items: flex-start; gap: 1px">
+          <span style="font-size: 11px; color: #8F8A80">Sucursal</span>
+          <span style="color: #FFFFFF">Centro</span>
+        </span>
+        <svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+    </div>
+    <sc-for list="{{grupos}}" as="g" hint-placeholder-count="3">
+      <div style="display: flex; flex-direction: column; gap: 2px">
+        <span style="padding: 0 10px 6px; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: #8F8A80">{{g.titulo}}</span>
+        <sc-for list="{{g.items}}" as="item" hint-placeholder-count="2">
+          <a class="navi" href="{{item.href}}" aria-current="{{item.current}}" style="{{item.estilo}}">
+            <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="{{item.d}}"></path></svg>
+            <span style="flex: 1">{{item.label}}</span>
+            <sc-if value="{{item.tecla}}" hint-placeholder-val="{{false}}">
+              <span class="mono" style="font-size: 11px; color: #8F8A80">{{item.tecla}}</span>
+            </sc-if>
+          </a>
+        </sc-for>
+      </div>
+    </sc-for>
+    <div style="margin-top: auto; display: flex; align-items: center; gap: 10px; padding: 10px 8px; border-top: 1px solid #2E2D28">
+      <div aria-hidden="true" style="width: 32px; height: 32px; border-radius: 50%; background: #33312C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600">CU</div>
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 1px; min-width: 0">
+        <span style="color: #FFFFFF; font-size: 13px">Cajero Uno</span>
+        <span style="font-size: 12px; color: #8F8A80">Cajero</span>
+      </div>
+      <button type="button" class="navi" aria-label="Cerrar sesión" style="width: 36px; height: 36px; border: 0; border-radius: 8px; background: transparent; color: #CFCAC0; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg class="ic" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path></svg>
+      </button>
+    </div>
+  </nav>
+
+  <div style="flex: 999 1 560px; min-width: 0; display: flex; flex-direction: column">
+    <header style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; padding: 12px 24px; border-bottom: 1px solid #E4E1DA; min-height: 56px; box-sizing: border-box">
+      <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #6B675F">
+        <span>Centro</span>
+        <span aria-hidden="true">/</span>
+        <span style="color: #1A1916; font-weight: 500">Caja</span>
+      </div>
+      <div style="flex: 1"></div>
+      <button type="button" class="ghost" style="display: flex; align-items: center; gap: 10px; min-width: 280px; padding: 0 10px; height: 36px; border: 1px solid #E4E1DA; border-radius: 8px; background: #FFFFFF; color: #6B675F; cursor: pointer; font-size: 13px">
+        <svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35"></path></svg>
+        <span style="flex: 1; text-align: left">Buscar producto o acción</span>
+        <span class="mono" style="font-size: 11px; padding: 2px 6px; border: 1px solid #E4E1DA; border-radius: 5px; background: #F6F5F1">Ctrl K</span>
+      </button>
+      <span style="display: flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 999px; background: #E7F1EA; color: #1F5E3A; font-size: 13px; font-weight: 500">
+        <span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: #2E7D4F"></span>
+        Caja abierta · desde 09:12
+      </span>
+    </header>
+
+    <div style="flex: 1; display: flex; flex-wrap: wrap; align-items: stretch">
+      <main style="flex: 999 1 520px; min-width: 0; padding: 28px 32px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px">
+          <div style="display: flex; flex-direction: column; gap: 4px">
+            <h1 style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: -0.02em">Corte del turno</h1>
+            <p style="margin: 0; font-size: 14px; color: #6B675F">Turno #8 · Cajero Uno · abierto a las 09:12</p>
+          </div>
+          <button type="button" class="ghost" style="display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 1px solid #E4E1DA; border-radius: 8px; background: #FFFFFF; cursor: pointer; font-size: 14px">
+            <svg class="ic" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1h-2M6 14h12v7H6z"></path></svg>
+            Imprimir corte
+          </button>
+        </div>
+
+        <section aria-label="Resumen del corte" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 12px">
+          <div style="background: #FFFFFF; border: 1px solid #E4E1DA; border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 4px">
+            <h2 style="margin: 0 0 8px; font-size: 14px; font-weight: 600">Ventas por forma de pago</h2>
+            <sc-for list="{{metodos}}" as="m" hint-placeholder-count="3">
+              <div style="display: flex; flex-direction: column; gap: 6px; padding: 8px 0">
+                <div style="display: flex; justify-content: space-between; font-size: 14px">
+                  <span style="color: #3A3833">{{m.nombre}}</span>
+                  <span class="mono">{{m.monto}}</span>
+                </div>
+                <div aria-hidden="true" style="height: 6px; border-radius: 999px; background: #F0EEE8; overflow: hidden">
+                  <div style="{{m.barra}}"></div>
+                </div>
+              </div>
+            </sc-for>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 12px; margin-top: 4px; border-top: 1px solid #E4E1DA">
+              <span style="font-weight: 500">Total vendido · 4 ventas</span>
+              <span class="mono" style="font-size: 18px; font-weight: 600">$178.36</span>
+            </div>
+          </div>
+
+          <div style="background: #FFFFFF; border: 1px solid #E4E1DA; border-radius: 12px; padding: 18px; display: flex; flex-direction: column">
+            <h2 style="margin: 0 0 8px; font-size: 14px; font-weight: 600">Efectivo en caja</h2>
+            <div style="display: flex; justify-content: space-between; padding: 9px 0; font-size: 14px"><span style="color: #3A3833">Monto inicial</span><span class="mono">$500.00</span></div>
+            <div style="display: flex; justify-content: space-between; padding: 9px 0; font-size: 14px"><span style="color: #3A3833">Ventas en efectivo, neto de cambio</span><span class="mono">+ $149.18</span></div>
+            <div style="display: flex; justify-content: space-between; padding: 9px 0; font-size: 14px"><span style="color: #3A3833">Pagos a proveedor en efectivo</span><span class="mono">− $20.00</span></div>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 12px; margin-top: auto; border-top: 1px solid #E4E1DA">
+              <span style="font-weight: 500">Efectivo esperado</span>
+              <span class="mono" style="font-size: 22px; font-weight: 600">$629.18</span>
+            </div>
+            <p style="margin: 8px 0 0; font-size: 12px; color: #6B675F">Las transferencias a proveedores ($100.00) no salen de la caja.</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="h-proveedores" style="background: #FFFFFF; border: 1px solid #E4E1DA; border-radius: 12px; overflow: hidden">
+          <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px">
+            <h2 id="h-proveedores" style="margin: 0; font-size: 14px; font-weight: 600">Pagos a proveedor</h2>
+            <span class="mono" style="font-size: 11px; color: #6B675F; padding: 2px 6px; border: 1px solid #E4E1DA; border-radius: 5px; background: #F6F5F1">F4</span>
+          </div>
+          <form style="display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; padding: 0 16px 16px">
+            <label style="flex: 2 1 200px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #6B675F">Proveedor
+              <input placeholder="Ej. Bimbo" style="height: 40px; padding: 0 10px; border: 1px solid #D9D4C9; border-radius: 8px; font-size: 14px; color: #1A1916">
+            </label>
+            <label style="flex: 1 1 120px; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: #6B675F">Monto
+              <input class="mono" placeholder="0.00" style="height: 40px; padding: 0 10px; border: 1px solid #D9D4C9; border-radius: 8px; font-size: 14px; text-align: right; color: #1A1916">
+            </label>
+            <div role="group" aria-label="Forma de pago" style="display: flex; height: 40px; border: 1px solid #D9D4C9; border-radius: 8px; overflow: hidden">
+              <button type="button" style="border: 0; padding: 0 12px; background: #1A1916; color: #FFFFFF; cursor: pointer; font-size: 13px">Efectivo</button>
+              <button type="button" class="ghost" style="border: 0; padding: 0 12px; background: #FFFFFF; cursor: pointer; font-size: 13px">Transferencia</button>
+            </div>
+            <button type="button" class="ink" style="height: 40px; padding: 0 16px; border: 0; border-radius: 8px; background: #1A1916; color: #FFFFFF; cursor: pointer; font-size: 14px; font-weight: 500">Registrar</button>
+          </form>
+          <div style="overflow-x: auto">
+            <table style="width: 100%; min-width: 520px; border-collapse: collapse; font-size: 14px">
+              <thead>
+                <tr style="text-align: left; color: #6B675F; font-size: 12px">
+                  <th scope="col" style="padding: 8px 16px; font-weight: 500; border-top: 1px solid #F0EEE8">Proveedor</th>
+                  <th scope="col" style="padding: 8px; font-weight: 500; border-top: 1px solid #F0EEE8">Forma de pago</th>
+                  <th scope="col" style="padding: 8px; font-weight: 500; border-top: 1px solid #F0EEE8">Hora</th>
+                  <th scope="col" style="padding: 8px 16px; font-weight: 500; text-align: right; border-top: 1px solid #F0EEE8">Monto</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="rowh">
+                  <td style="padding: 12px 16px; border-top: 1px solid #F0EEE8">Bimbo</td>
+                  <td style="padding: 8px; border-top: 1px solid #F0EEE8"><span style="font-size: 12px; padding: 3px 8px; border-radius: 999px; background: #F3F1EC; color: #3A3833">Efectivo</span></td>
+                  <td class="mono" style="padding: 8px; color: #6B675F; border-top: 1px solid #F0EEE8">11:40</td>
+                  <td class="mono" style="padding: 8px 16px; text-align: right; border-top: 1px solid #F0EEE8">$20.00</td>
+                </tr>
+                <tr class="rowh">
+                  <td style="padding: 12px 16px; border-top: 1px solid #F0EEE8">Coca-Cola FEMSA</td>
+                  <td style="padding: 8px; border-top: 1px solid #F0EEE8"><span style="font-size: 12px; padding: 3px 8px; border-radius: 999px; background: #EAF0F8; color: #284A73">Transferencia</span></td>
+                  <td class="mono" style="padding: 8px; color: #6B675F; border-top: 1px solid #F0EEE8">10:05</td>
+                  <td class="mono" style="padding: 8px 16px; text-align: right; border-top: 1px solid #F0EEE8">$100.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <aside aria-label="Cerrar caja" style="flex: 1 1 320px; background: #FFFFFF; border-left: 1px solid #E4E1DA; padding: 24px 20px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <h2 style="margin: 0; font-size: 14px; font-weight: 600">Cerrar caja</h2>
+          <p style="margin: 0; font-size: 13px; color: #6B675F; line-height: 1.5">Cuenta el efectivo del cajón. Si no coincide con lo esperado, explica la diferencia.</p>
+        </div>
+
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500">Efectivo contado
+          <span style="display: flex; align-items: center; gap: 6px; height: 52px; padding: 0 14px; border: 1.5px solid #1A1916; border-radius: 10px; box-sizing: border-box">
+            <span class="mono" style="color: #6B675F; font-size: 17px">$</span>
+            <input class="mono" value="{{contado}}" onChange="{{cambiarContado}}" inputMode="decimal" style="flex: 1; min-width: 0; border: 0; outline: none; font-size: 20px; text-align: right; background: transparent">
+          </span>
+        </label>
+
+        <div style="{{estiloDiferencia}}">
+          <span style="font-size: 13px; font-weight: 500">{{diferenciaEtiqueta}}</span>
+          <span class="mono" style="font-size: 22px; font-weight: 600">{{diferencia}}</span>
+        </div>
+
+        <label style="display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 500">{{comentarioEtiqueta}}
+          <textarea rows="3" placeholder="Ej. Se dio cambio de más en una venta" style="padding: 10px; border: 1px solid #D9D4C9; border-radius: 8px; font-size: 14px; resize: vertical; font-weight: 400"></textarea>
+        </label>
+
+        <button type="button" class="ink" style="height: 48px; border: 0; border-radius: 10px; background: #1A1916; color: #FFFFFF; cursor: pointer; font-size: 15px; font-weight: 500">Cerrar caja</button>
+
+        <section style="margin-top: auto; display: flex; flex-direction: column; gap: 4px; padding-top: 16px; border-top: 1px solid #EEEBE5">
+          <h3 style="margin: 0 0 6px; font-size: 13px; font-weight: 600">Turnos anteriores</h3>
+          <sc-for list="{{historial}}" as="h" hint-placeholder-count="3">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 0; font-size: 13px">
+              <span style="display: flex; flex-direction: column; gap: 1px">
+                <span>{{h.quien}}</span>
+                <span style="font-size: 12px; color: #6B675F">{{h.cuando}}</span>
+              </span>
+              <span class="mono" style="{{h.estilo}}">{{h.dif}}</span>
+            </div>
+          </sc-for>
+        </section>
+      </aside>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { contado: '627.50' };
+  }
+  renderVals() {
+    const esperado = 62918;
+    const texto = (this.state && this.state.contado) || '';
+    const valido = /^\d+(\.\d{1,2})?$/.test(texto.trim());
+    const contado = valido ? Math.round(parseFloat(texto) * 100) : null;
+    const dif = contado === null ? null : contado - esperado;
+    const pesos = (c) => '$' + (Math.abs(c) / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const caja = 'display: flex; align-items: baseline; justify-content: space-between; padding: 14px 16px; border-radius: 10px; ';
+    let estiloDiferencia = caja + 'background: #F3F1EC; color: #6B675F';
+    let diferenciaEtiqueta = 'Escribe el efectivo contado';
+    if (dif !== null && dif === 0) { estiloDiferencia = caja + 'background: #E7F1EA; color: #1F5E3A'; diferenciaEtiqueta = 'La caja cuadra'; }
+    if (dif !== null && dif > 0) { estiloDiferencia = caja + 'background: #FBF0DC; color: #7A4E0E'; diferenciaEtiqueta = 'Sobrante'; }
+    if (dif !== null && dif < 0) { estiloDiferencia = caja + 'background: #F9E7E4; color: #9A2E22'; diferenciaEtiqueta = 'Faltante'; }
+    const total = 17836;
+    const barra = (c, color) => 'height: 100%; border-radius: 999px; width: ' + Math.round((c / total) * 100) + '%; background: ' + color;
+    const base = 'display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; font-size: 14px; min-height: 36px; box-sizing: border-box; ';
+    const nav = (label, href, d, tecla, activo) => ({
+      label, href, d, tecla, current: activo ? 'page' : 'false',
+      estilo: base + (activo ? 'color: #FFFFFF; background: #2A2925' : 'color: #CFCAC0; background: transparent'),
+    });
+    return {
+      contado: texto,
+      cambiarContado: (e) => this.setState({ contado: e.target.value }),
+      diferencia: dif === null ? '—' : pesos(dif),
+      diferenciaEtiqueta,
+      estiloDiferencia,
+      comentarioEtiqueta: dif !== null && dif !== 0 ? 'Comentario (obligatorio)' : 'Comentario (opcional)',
+      metodos: [
+        { nombre: 'Efectivo', monto: '$149.18', barra: barra(14918, '#1A1916') },
+        { nombre: 'Tarjeta', monto: '$29.18', barra: barra(2918, '#E3A13B') },
+        { nombre: 'Transferencia', monto: '$0.00', barra: barra(0, '#6B675F') },
+      ],
+      historial: [
+        { quien: 'Cajero Dos', cuando: 'Ayer · 14:00 – 21:05', dif: 'Cuadró', estilo: 'font-size: 12px; color: #1F5E3A' },
+        { quien: 'Cajero Uno', cuando: 'Ayer · 08:58 – 14:02', dif: '− $1.68', estilo: 'font-size: 13px; color: #9A2E22' },
+        { quien: 'Admin Centro', cuando: 'Lun 26 · 15:10 – 21:00', dif: '+ $5.00', estilo: 'font-size: 13px; color: #7A4E0E' },
+      ],
+      grupos: [
+        { titulo: 'Operación', items: [
+          nav('Inicio', 'Main.dc.html', 'M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z', '', false),
+          nav('Venta', 'Venta.dc.html', 'M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2M7 8v8M10.5 8v8M14 8v8M17 8v8', 'F2', false),
+          nav('Caja', 'Caja.dc.html', 'M4 6h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zM3 10h18M7 15h3', '', true),
+        ] },
+        { titulo: 'Catálogo', items: [
+          nav('Inventario', 'Inventario.dc.html', 'M21 8 12 3 3 8v8l9 5 9-5zM3 8l9 5 9-5M12 13v8', '', false),
+          nav('Agregar productos', 'Inventario.dc.html', 'M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM12 8v8M8 12h8', '', false),
+        ] },
+        { titulo: 'Administración', items: [
+          nav('Cajeros', 'Main.dc.html', 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75', '', false),
+        ] },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

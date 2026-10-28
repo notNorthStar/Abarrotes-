@@ -50,6 +50,7 @@ Comandos: `docker compose up -d` · `npm run db:migrate` · `npm run db:seed` ·
 - API: módulo = `x.routes.ts` (HTTP) → `x.service.ts` (lógica) → `x.schemas.ts` (Zod) → `x.test.ts`.
 - Errores: `throw new AppError(status, "mensaje")` → responde `{ error }`.
 - Front: una carpeta por feature en `apps/web/src/features/`; componentes compartidos en `components/`; llamadas HTTP solo vía `api/client.ts`.
+- **UI:** sigue el sistema visual de `docs/diseno/README.md` (paleta cerrada de `tailwind.config.js`, componentes de `components/ui.tsx`, íconos de `components/Icono.tsx`, números con `.num`). Nada de colores de Tailwind por defecto (`slate`, `emerald`…), emojis ni degradados.
 - TypeScript estricto; sin `any` salvo justificación.
 - Sin dependencias nuevas sin mencionarlo en el PR.
 

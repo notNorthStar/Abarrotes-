@@ -1,3 +1,48 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid theme('colors.maiz.DEFAULT');
+    outline-offset: 2px;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: #8c877d;
+  }
+}
+
+@layer components {
+  /* Montos, cantidades y códigos: monoespaciada con dígitos tabulares para que las columnas cuadren. */
+  .num {
+    @apply font-mono;
+    font-variant-numeric: tabular-nums;
+  }
+  /* Bloque de carga (skeleton). */
+  .esqueleto {
+    @apply rounded-md;
+    background-image: linear-gradient(90deg, #eceae3 0%, #f6f4ef 50%, #eceae3 100%);
+    background-size: 200% 100%;
+    animation: brillo 1.3s ease-in-out infinite;
+  }
+  /* Campo de formulario estándar. */
+  .campo {
+    @apply h-10 w-full rounded-lg border border-borde bg-superficie px-3 text-sm text-tinta outline-none focus:border-tinta;
+  }
+}
+
+@keyframes brillo {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .esqueleto {
+    animation: none;
+  }
+}
