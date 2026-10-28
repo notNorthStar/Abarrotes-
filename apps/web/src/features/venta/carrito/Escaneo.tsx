@@ -2,7 +2,12 @@ import { useEffect, useRef, useState, type FormEvent, type RefObject } from 'rea
 import Decimal from 'decimal.js'
 import { api, ApiError } from '../../../api/client'
 import type { Producto } from '../../../api/tipos'
+import { Icono } from '../../../components/Icono'
+import { Aviso, Boton, Tecla } from '../../../components/ui'
 import { useCarrito } from './store'
+
+const botonSecundario =
+  'inline-flex h-[52px] items-center gap-2 rounded-[10px] border border-linea bg-superficie px-4 text-sm transition-colors hover:bg-[#EFEDE7]'
 
 type Props = {
   inputRef: RefObject<HTMLInputElement>
@@ -115,78 +120,101 @@ export function Escaneo({ inputRef, onGranel }: Props) {
   }
 
   return (
-    <section
-      className="mb-4 space-y-3 rounded bg-white p-4 shadow"
-      aria-labelledby="titulo-escaneo"
-    >
-      <h2 id="titulo-escaneo" className="text-lg font-semibold">
+    <section aria-labelledby="titulo-escaneo" className="flex flex-col gap-2">
+      <h2 id="titulo-escaneo" className="sr-only">
         Escanear productos
       </h2>
-      <form onSubmit={escanear} className="flex flex-wrap items-end gap-2">
-        <label htmlFor="codigo-venta" className="min-w-0 flex-1">
+      <form onSubmit={escanear} className="flex flex-col gap-2">
+        <label htmlFor="codigo-venta" className="text-[13px] font-medium">
           Código de barras
-          <input
-            ref={inputRef}
-            id="codigo-venta"
-            autoComplete="off"
-            value={codigo}
-            onChange={(e) => setCodigo(e.target.value)}
-            className="mt-1 block w-full rounded border p-2"
-            aria-describedby="ayuda-escaneo"
-          />
         </label>
-        <button className="rounded bg-emerald-700 px-4 py-2 text-white">Agregar por código</button>
-        <button
-          type="button"
-          onClick={() => {
-            setManual((actual) => !actual)
-            if (manual) enfocar()
-          }}
-          className="rounded border px-4 py-2"
-          aria-expanded={manual}
-        >
-          Búsqueda manual
-        </button>
+        <div className="flex flex-wrap gap-2">
+          <div className="flex h-[52px] min-w-0 flex-[1_1_320px] items-center gap-3 rounded-[10px] border-[1.5px] border-tinta bg-superficie px-3.5">
+            <Icono nombre="escanear" tamano={22} />
+            <input
+              ref={inputRef}
+              id="codigo-venta"
+              autoComplete="off"
+              value={codigo}
+              onChange={(e) => setCodigo(e.target.value)}
+              placeholder="Escanea o escribe el código"
+              className="num h-full min-w-0 flex-1 bg-transparent text-[17px] outline-none"
+              aria-describedby="ayuda-escaneo"
+            />
+            <Tecla>Enter</Tecla>
+          </div>
+          <button type="submit" className="sr-only">
+            Agregar por código
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              setManual((actual) => !actual)
+              if (manual) enfocar()
+            }}
+            className={botonSecundario}
+            aria-expanded={manual}
+            aria-controls="busqueda-nombre"
+          >
+            <Icono nombre="buscar" />
+            Buscar por nombre
+          </button>
+          <button
+            type="button"
+            onClick={() => document.getElementById('buscar-granel')?.focus()}
+            className={botonSecundario}
+            aria-controls="buscar-granel"
+          >
+            <Icono nombre="granel" />
+            Granel
+          </button>
+        </div>
       </form>
-      <p id="ayuda-escaneo" className="text-sm text-slate-600">
+      <p id="ayuda-escaneo" className="sr-only">
         Escanea con tu lector USB o escribe el código y presiona Enter.
       </p>
-      {buscando && <p role="status">Consultando código…</p>}
-      {error && (
-        <p role="alert" className="rounded border border-red-300 bg-red-50 p-3 text-red-800">
-          {error}
+      {buscando && (
+        <p role="status" className="text-[13px] text-piedra">
+          Consultando código…
         </p>
       )}
-      <p role="status" className="text-emerald-800">
-        {aviso}
+      {error && <Aviso tipo="error">{error}</Aviso>}
+      <p role="status" className="flex items-center gap-1.5 text-[13px] text-hoja-texto">
+        {aviso && (
+          <>
+            <Icono nombre="check" tamano={16} />
+            {aviso}
+          </>
+        )}
       </p>
       {manual && (
-        <div className="space-y-3 rounded border p-3">
+        <div id="busqueda-nombre" className="flex flex-col gap-3 rounded-xl border border-linea bg-superficie p-4">
           <form onSubmit={buscar} className="flex flex-wrap items-end gap-2">
-            <label htmlFor="nombre-venta" className="flex-1">
+            <label htmlFor="nombre-venta" className="flex min-w-0 flex-[1_1_240px] flex-col gap-1 text-[13px] font-medium">
               Nombre del producto
               <input
                 ref={busquedaRef}
                 id="nombre-venta"
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
-                className="mt-1 block w-full rounded border p-2"
+                className="campo font-normal"
               />
             </label>
-            <button
-              className="rounded bg-emerald-700 px-4 py-2 text-white"
-              disabled={cargandoManual}
-            >
+            <Boton type="submit" disabled={cargandoManual}>
               Buscar por nombre
-            </button>
+            </Boton>
           </form>
-          {cargandoManual && <p role="status">Buscando por nombre…</p>}
+          {cargandoManual && (
+            <p role="status" className="text-[13px] text-piedra">
+              Buscando por nombre…
+            </p>
+          )}
           {busquedaHecha && resultados.length === 0 && (
-            <p>No se encontraron productos con ese nombre.</p>
+            <p className="text-sm text-piedra">No se encontraron productos con ese nombre.</p>
           )}
           {resultados.length > 0 && (
             <>
-              <p className="text-sm text-slate-600">
+              <p className="text-xs text-piedra">
                 Hasta 50 resultados. Selecciona el producto para agregarlo.
               </p>
               <ul className="grid gap-2 sm:grid-cols-2">
@@ -194,11 +222,11 @@ export function Escaneo({ inputRef, onGranel }: Props) {
                   <li key={p.id}>
                     <button
                       type="button"
-                      className="w-full rounded border p-2 text-left hover:bg-emerald-50"
+                      className="flex min-h-[44px] w-full flex-col gap-0.5 rounded-lg border border-linea bg-hueso px-3 py-2 text-left text-sm transition-colors hover:border-borde hover:bg-superficie"
                       onClick={() => seleccionar(p)}
                     >
                       {p.nombre}
-                      <span className="block text-sm text-slate-600">
+                      <span className="num text-xs text-piedra">
                         ${new Decimal(p.precio).toFixed(2)} / {p.unidad === 'KILO' ? 'kg' : 'pieza'}{' '}
                         · {p.codigoBarras}
                       </span>
