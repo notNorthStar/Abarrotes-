@@ -4,12 +4,13 @@
 
 Las imágenes de este catálogo son capturas de las pantallas reales de Abarrotes+, usadas como prototipos iterados para el documento Scrum (§4.6–4.7). No son wireframes previos ni certifican por sí mismas que una historia esté aprobada: el estado de integración se consulta en el [sprint backlog](../scrum/sprint-backlog.md).
 
-**Capturas verificadas el 28 de octubre de 2026:** siete pantallas y cuatro alertas reales en Edge, con datos locales de ejemplo. Se comprobó el recorrido completo de escaneo a cobro y cierre de caja, sin errores de JavaScript. Se usa el teclado para reproducir el comportamiento del lector USB; no se ha probado un dispositivo físico.
+**Capturas actualizadas el 29 de octubre de 2026** al sistema visual "Mostrador" (ver `docs/diseno/README.md`): ocho pantallas y cuatro alertas reales, generadas en Edge a 1440×900 con datos locales de ejemplo. La primera versión (28 oct) la hizo Miguel. Se comprobó el recorrido completo de escaneo a cobro y cierre de caja, sin errores de JavaScript. Se usa el teclado para reproducir el comportamiento del lector USB; no se ha probado un dispositivo físico.
 
 ## Pantallas principales
 
 | Referencia | Pantalla / ruta | Historia | Imagen | Qué permite revisar |
 |---|---|---|---|---|
+| P-00 | Inicio · `/` | — | [inicio.png](img/inicio.png) | Resumen del turno, acciones rápidas, actividad y productos por reponer (con skeletons al cargar). |
 | P-01 | Acceso · `/login` | HU-01 | [login.png](img/login.png) | Usuario, contraseña y acceso a las funciones del rol. |
 | P-02 | Venta · `/venta` | HU-02, HU-03 | [venta.png](img/venta.png) | Escaneo, búsqueda manual, edición de cantidades, retiro de renglones, productos a granel y total. |
 | P-03 | Cobro · `/venta` | HU-06 | [cobro.png](img/cobro.png) | Métodos de pago, referencia, total, pagado y cambio. |
