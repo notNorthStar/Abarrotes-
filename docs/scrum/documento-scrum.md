@@ -1,6 +1,6 @@
 # Documentación del uso de Scrum — Abarrotes+
 
-> **Borrador.** Sigue la estructura de la plantilla "Formato ejemplo para documentar el uso de Scrum en un proyecto" (ver `docs/07-scrum-entregables.md`). Las secciones marcadas como *Pendiente* las completa el responsable indicado. Versión final: documento en Drive, entrega el 1 de noviembre de 2026.
+> Sigue la estructura de la plantilla "Formato ejemplo para documentar el uso de Scrum en un proyecto" (ver `docs/07-scrum-entregables.md`). Estado al cierre del Sprint 2 (29 oct 2026). Pendiente solo la retroalimentación de la demo del 1 nov y la confirmación de la retrospectiva por el equipo.
 
 | Campo | Detalle |
 |---|---|
@@ -88,25 +88,25 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-00 | Monorepo, Docker Postgres, schema, seed, layout, cliente API | — | — | Sosa | ✅ Integrado en `develop` |
 | T-01 | Login API + JWT + middleware `requireRol` | HU-01 | 3 | Sosa | ✅ |
 | T-02 | Pantalla login, contexto de sesión, guard por rol, logout | HU-01 | | Sosa | ✅ |
-| T-03 | Store del carrito + input de escaneo | HU-02 | 5 | Miguel (reasignada 28 oct) | ⬜ |
-| T-04 | Producto no encontrado + búsqueda manual | HU-02 | | Miguel (reasignada 28 oct) | ⬜ |
+| T-03 | Store del carrito + input de escaneo | HU-02 | 5 | Miguel (reasignada 28 oct) | ✅ |
+| T-04 | Producto no encontrado + búsqueda manual | HU-02 | | Miguel (reasignada 28 oct) | ✅ |
 | T-05 | Captura de peso, conversión g→kg, validaciones | HU-03 | 8 | Miguel | ✅ |
 | T-06 | Cálculo de precio a granel + integración al carrito + pruebas | HU-03 | | Miguel | ✅ |
 | T-07 | `POST /ventas`: recálculo, pagos mixtos, cambio, descuento de stock | HU-06 | 8 | Sosa | ✅ |
 | T-08 | Pantalla de cobro (pago mixto, referencia, cambio) | HU-06 | | Sosa | ✅ |
-| T-09 | Abrir caja (turno) y bloqueo de venta sin turno | HU-05 | 8 | Sosa (reasignada 28 oct) | ⬜ |
-| T-10 | Registrar pago a proveedor | HU-09 | 3 | Sosa (reasignada 28 oct) | ⬜ |
-| T-11 | Corte: totales por método, efectivo esperado, cierre con diferencia | HU-05 | | Sosa (reasignada 28 oct) | ⬜ |
+| T-09 | Abrir caja (turno) y bloqueo de venta sin turno | HU-05 | 8 | Sosa (reasignada 28 oct) | ✅ |
+| T-10 | Registrar pago a proveedor | HU-09 | 3 | Sosa (reasignada 28 oct) | ✅ |
+| T-11 | Corte: totales por método, efectivo esperado, cierre con diferencia | HU-05 | | Sosa (reasignada 28 oct) | ✅ |
 | T-12 | CRUD cajeros (crear, suspender, eliminar lógico, reset password) | HU-12 | 5 | Sosa | ✅ |
 | T-13 | Consulta de inventario con búsqueda | HU-04 | 2 | Miguel | ✅ |
 | T-14 | Alta de producto y entrada de existencias + movimientos | HU-08 | 5 | Sosa (reasignada) | ✅ |
 | D-01 | Diagrama de casos de uso + descripciones | Doc | — | Miguel | ✅ |
-| D-02 | Prototipos principales y de alertas | Doc | — | Miguel (reasignada 28 oct) | ⬜ |
-| D-03 | Diagrama de clases, burndown/burnup, documento Scrum | Doc | — | Sosa | 🟨 |
+| D-02 | Prototipos principales y de alertas | Doc | — | Miguel (reasignada 28 oct) | ✅ |
+| D-03 | Diagrama de clases, burndown/burnup, documento Scrum | Doc | — | Sosa | ✅ |
 
-**Total comprometido:** 47 pts · **Completado:** 31 pts al 28 de octubre (HU-01, HU-06, HU-12, HU-08, HU-03, HU-04).
+**Total comprometido:** 47 pts · **Completado:** 47 pts al 28 de octubre (9 de 9 HU). Sprint cerrado.
 
-> Nota: estados al 28 de octubre; la fuente viva es `docs/scrum/sprint-backlog.md`. Sincronizar antes de la versión final.
+> Nota: estados al cierre (28 oct); la fuente viva es `docs/scrum/sprint-backlog.md`. Sincronizar antes de la versión final.
 
 ### 4.3 Diagrama de clases
 
@@ -126,15 +126,37 @@ Actores cajero, administrador y jefe, con herencia de permisos (el jefe hereda d
 
 Las nueve descripciones (objetivo, precondiciones, flujo principal, alternos, postcondiciones y trazabilidad a los criterios de aceptación) están en `docs/diagramas/casos-de-uso.md`. Las capturas de las pantallas de granel e inventario están en `docs/evidencias/miguel/`.
 
-> Pendiente: vincular los prototipos (D-02, Miguel) a cada caso.
+Cada caso enlaza su pantalla (P-01–P-07) en la tabla de evidencia visual de `docs/diagramas/casos-de-uso.md`; las capturas están en la sección 4.6.
 
 ### 4.6 Prototipos principales
 
-> Pendiente: Miguel (D-02, reasignada 28 oct)
+Capturas de las pantallas reales usadas como prototipos iterados (D-02, Miguel; actualizadas al sistema visual "Mostrador" el 29 oct). Catálogo: `docs/prototipos/README.md`.
+
+![Inicio](../prototipos/img/inicio.png)
+
+![Venta](../prototipos/img/venta.png)
+
+![Cobro](../prototipos/img/cobro.png)
+
+![Caja](../prototipos/img/caja.png)
+
+![Inventario](../prototipos/img/inventario.png)
+
+![Agregar productos](../prototipos/img/productos.png)
+
+![Cuentas de cajero](../prototipos/img/cajeros.png)
+
+![Inicio de sesión](../prototipos/img/login.png)
 
 ### 4.7 Prototipos de alertas
 
-> Pendiente: Miguel (D-02, reasignada 28 oct)
+![Producto no encontrado](../prototipos/img/alerta-producto-no-encontrado.png)
+
+![Pago insuficiente](../prototipos/img/alerta-pago-insuficiente.png)
+
+![Diferencia en el corte](../prototipos/img/alerta-diferencia-corte.png)
+
+![Cuenta suspendida](../prototipos/img/alerta-usuario-suspendido.png)
 
 ### 4.8 Sprint
 
@@ -149,7 +171,7 @@ Los sprints duran **2 semanas**. El calendario del proyecto es:
 
 ### 4.9 Incremento
 
-> Pendiente: Todos (al cierre del sprint, 1 nov 2026)
+Versión `v0.2.0`. Incremento funcional y demostrable: un cajero inicia sesión, abre su caja, registra ventas por código de barras y a granel, cobra con pago mixto y cambio, registra pagos a proveedor y cierra su caja con corte y diferencia; el administrador gestiona cajeros, alta de productos e inventario. Interfaz con el sistema visual "Mostrador". 9 de 9 HU (47 pts), 130 pruebas automatizadas. Detalle en la Sprint Review (`docs/scrum/reuniones.md`).
 
 ### 4.10 Burn Up
 
@@ -159,7 +181,7 @@ La gráfica de burnup del producto (puntos acumulados completados contra el plan
 
 ### 4.11 Burn Down
 
-La gráfica de burndown del Sprint 2 (puntos restantes por día contra la línea ideal de 47 a 0) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas", y se actualiza diariamente. Al día 10 (28 oct) quedan 16 puntos: se integraron HU-01, HU-06, HU-12, HU-08, HU-03 y HU-04 (31 pts). Lo restante es HU-02, HU-09 y HU-05 (Gonzalo).
+La gráfica de burndown del Sprint 2 (puntos restantes por día contra la línea ideal de 47 a 0) se mantiene en `docs/scrum/burndown.md`, sección "Gráficas", y se actualiza diariamente. El burndown se mantuvo plano hasta el día 7 (47 pts) y bajó a 0 el día 10 (28 oct), cuatro días antes del fin del sprint: 26 pts el 26 oct (HU-01, HU-06, HU-12, HU-08) y los 21 restantes el 28 oct (HU-03, HU-04, HU-02, HU-09, HU-05).
 
 ![Burndown Sprint 2](../diagramas/img/burndown.png)
 
@@ -177,14 +199,22 @@ El **21 de octubre de 2026** se realizó la reunión de re-planeación e inicio 
 
 ### 4.13 Reunión técnica diaria
 
-> Pendiente: Todos (dailies en `docs/scrum/dailies/` y Drive)
+Formato de daily asíncrono en `docs/scrum/dailies/_plantilla.md` (prompt `docs/prompts/daily.md`). Registrados en el repositorio: 21 oct 2026; en Drive: 12 y 20 oct. El seguimiento diario se apoyó además en la actividad de GitHub (ramas, PRs y revisiones). Se reconoce como área de mejora en la retrospectiva.
 
 ### 4.14 Cierre de sprint
 
-> Pendiente: Todos (Sprint Review y Retrospectiva del 1 nov 2026 en `docs/scrum/reuniones.md`)
+- **Sprint Review:** 9 de 9 HU entregadas (47 pts), cada una con PR revisado e integrado; demo formal el 1 nov.
+- **Retrospectiva:** bien — recuperación total del Sprint 1, trabajo por dominio sin conflictos, harness de IA y revisión centralizada; mejorar — detección tardía de la salida de integrantes, dailies irregulares y concentración de carga; acciones para el Sprint 3.
+- Minuta completa: `docs/scrum/reuniones.md`.
 
 ---
 
 ## 5. Conclusiones
 
-> Pendiente: Todos
+El equipo entregó en el Sprint 2 la totalidad del compromiso de los Sprints 1 y 2 (9 historias, 47 puntos) pese a iniciar con el Sprint 1 sin entregar y perder a dos integrantes. Scrum permitió hacer visibles los problemas (burndown plano hasta el día 7) y responder con re-planeaciones concretas: reparto por dominio, revisión centralizada y reasignación de historias según la disponibilidad real.
+
+El uso de inteligencia artificial con reglas compartidas (`AGENTS.md`) aceleró el desarrollo sin perder control: cada cambio pasó por criterios de aceptación, pruebas automatizadas y revisión antes de integrarse.
+
+Para el Sprint 3 el equipo se compromete a sostener el daily, confirmar al Product Owner y planear con base en la velocidad real observada.
+
+> Pendiente de confirmar por el equipo antes de la entrega.

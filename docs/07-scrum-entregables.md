@@ -6,24 +6,24 @@ Borrador del documento: `docs/scrum/documento-scrum.md`.
 
 | Sección de la plantilla | Contenido | Responsable | Fuente en el repo | Estado |
 |---|---|---|---|---|
-| 1. Introducción (propósito, alcance) | Sistema Abarrotes+ | Sosa | `docs/01-vision-y-equipo.md` | 🟨 |
-| 2. Fundamentación y valores | Por qué Scrum | Sosa | — | 🟨 |
-| 3. Personas y roles | Tabla del equipo (solo 3 integrantes) | Sosa | `docs/01-vision-y-equipo.md` | 🟨 |
+| 1. Introducción (propósito, alcance) | Sistema Abarrotes+ | Sosa | `docs/01-vision-y-equipo.md` | ✅ |
+| 2. Fundamentación y valores | Por qué Scrum | Sosa | — | ✅ |
+| 3. Personas y roles | Tabla del equipo (solo 3 integrantes) | Sosa | `docs/01-vision-y-equipo.md` | ✅ |
 | 4.1 Pila de producto | Backlog priorizado | Sosa | `docs/02-backlog.md` | ✅ |
-| 4.2 Pila del sprint | Tareas de S1+S2 con estado | Todos | `docs/scrum/sprint-backlog.md` | ⬜ |
-| 4.3 Diagrama de clases | Desde `schema.prisma` | Sosa | `docs/diagramas/clases.md` | 🟨 |
+| 4.2 Pila del sprint | Tareas de S1+S2 con estado | Todos | `docs/scrum/sprint-backlog.md` | ✅ |
+| 4.3 Diagrama de clases | Desde `schema.prisma` | Sosa | `docs/diagramas/clases.md` | ✅ |
 | 4.4 Diagrama de casos de uso | Actores: cajero, admin, jefe | Miguel | `docs/diagramas/casos-de-uso.md` → `img/casos-de-uso.png` | ✅ |
-| 4.5 Descripciones de casos de uso con prototipos | 1 por HU de S1+S2 | Miguel | `docs/diagramas/casos-de-uso.md` | 🟦 (capturas D-02 listas para revisión) |
-| 4.6 Prototipos principales | Login, venta, cobro, caja, inventario, usuarios | Miguel | `docs/prototipos/` | 🟦 |
-| 4.7 Prototipos de alertas | Producto no encontrado, pago insuficiente, diferencia en corte, usuario suspendido… | Miguel | `docs/prototipos/` | 🟦 |
-| 4.8 Sprint | Duración 2 semanas, fechas | Sosa | `docs/01-vision-y-equipo.md` | 🟨 |
-| 4.9 Incremento | Qué funciona al 1 nov (+ capturas) | Todos | release `v0.2.0` | ⬜ |
-| 4.10 Burn Up | Puntos completados vs. plan (80 pts) | Sosa | `docs/scrum/burndown.md` | 🟨 |
-| 4.11 Burn Down | Puntos restantes por día del sprint | Sosa | `docs/scrum/burndown.md` | 🟨 |
-| 4.12 Reunión de inicio de sprint | Minuta de planeación (re-planeación S1+S2) | Sosa | `docs/scrum/reuniones.md` | 🟨 |
-| 4.13 Reunión técnica diaria | Dailies | Todos | `docs/scrum/dailies/` + Drive | ⬜ |
-| 4.14 Cierre de sprint | Review + retrospectiva | Todos | `docs/scrum/reuniones.md` | ⬜ |
-| 5. Conclusiones | | Todos | — | ⬜ |
+| 4.5 Descripciones de casos de uso con prototipos | 1 por HU de S1+S2 | Miguel | `docs/diagramas/casos-de-uso.md` | ✅ |
+| 4.6 Prototipos principales | Login, venta, cobro, caja, inventario, usuarios | Miguel | `docs/prototipos/` | ✅ |
+| 4.7 Prototipos de alertas | Producto no encontrado, pago insuficiente, diferencia en corte, usuario suspendido… | Miguel | `docs/prototipos/` | ✅ |
+| 4.8 Sprint | Duración 2 semanas, fechas | Sosa | `docs/01-vision-y-equipo.md` | ✅ |
+| 4.9 Incremento | Qué funciona al 1 nov (+ capturas) | Todos | release `v0.2.0` | ✅ |
+| 4.10 Burn Up | Puntos completados vs. plan (80 pts) | Sosa | `docs/scrum/burndown.md` | ✅ |
+| 4.11 Burn Down | Puntos restantes por día del sprint | Sosa | `docs/scrum/burndown.md` | ✅ |
+| 4.12 Reunión de inicio de sprint | Minuta de planeación (re-planeación S1+S2) | Sosa | `docs/scrum/reuniones.md` | ✅ |
+| 4.13 Reunión técnica diaria | Dailies | Todos | `docs/scrum/dailies/` + Drive | ✅ |
+| 4.14 Cierre de sprint | Review + retrospectiva | Todos | `docs/scrum/reuniones.md` | ✅ (retro por confirmar) |
+| 5. Conclusiones | Borrador | Todos | `docs/scrum/documento-scrum.md` | 🟨 confirmar con el equipo |
 
 ## Notas
 
