@@ -6,13 +6,13 @@
 |---|---|---|---|---|---|---|
 | 1 | HU-01 | Inicio de sesión | Alto | 3 | 1 | Sosa |
 | 2 | HU-06 | Cobros con tarjeta, efectivo y transferencia | Alto | 8 | 1 | Sosa |
-| 3 | HU-02 | Cobrar productos con código de barras | Alto | 5 | 1 | Gonzalo |
+| 3 | HU-02 | Cobrar productos con código de barras | Alto | 5 | 1 | Miguel (reasignada 28 oct) |
 | 4 | HU-03 | Producto a granel (peso/cantidad) | Alto | 8 | 1 | Miguel |
-| 5 | HU-09 | Registrar pagos a proveedores | Alto | 3 | 2 | Gonzalo |
-| 6 | HU-05 | Corte y cierre de caja | Alto | 8 | 2 | Gonzalo |
+| 5 | HU-09 | Registrar pagos a proveedores | Alto | 3 | 2 | Sosa (reasignada 28 oct) |
+| 6 | HU-05 | Corte y cierre de caja | Alto | 8 | 2 | Sosa (reasignada 28 oct) |
 | 7 | HU-12 | Gestión de cuentas de cajero | Medio | 5 | 2 | Sosa |
 | 8 | HU-04 | Revisar el inventario | Medio | 2 | 2 | Miguel |
-| 9 | HU-08 | Agregar productos | Medio | 5 | 2 | Miguel |
+| 9 | HU-08 | Agregar productos | Medio | 5 | 2 | Sosa (reasignada 26 oct) |
 | 10 | HU-10 | Registro de producto caducado/dañado | Medio | 3 | 3 | — |
 | 11 | HU-11 | Operaciones de cajero (admin) | Medio | 2 | 3 | — |
 | 12 | HU-15 | Gestión de cuentas de administrador | Medio | 3 | 3 | — |
@@ -46,7 +46,7 @@
 - CA5: No se puede confirmar la venta si la suma de pagos < total. Tarjeta/transferencia no pueden exceder el saldo (solo el efectivo genera cambio).
 - CA6: Al confirmar: se guarda la venta con su detalle y pagos, y **se descuenta la existencia** de cada producto (en una transacción).
 
-### HU-02 · Cobrar productos con código de barras (5 pts) — Gonzalo
+### HU-02 · Cobrar productos con código de barras (5 pts) — Miguel (reasignada de Gonzalo el 28 oct)
 > Como cajero quiero escanear el código de barras de un producto para agregarlo a la cuenta del cliente.
 
 - CA1: Lector **USB tipo teclado** (escribe el código + Enter en un input con foco). Sin integración especial.
@@ -68,7 +68,7 @@
 
 ## Sprint 2 — "Que un cajero opere un turno completo con su caja cuadrada y el admin gestione cajeros y productos" (23 pts)
 
-### HU-09 · Registrar pagos a proveedores (3 pts) — Gonzalo
+### HU-09 · Registrar pagos a proveedores (3 pts) — Sosa (reasignada de Gonzalo el 28 oct)
 > Como cajero quiero registrar los pagos que haga a proveedores para que el dinero coincida con el corte de caja.
 
 - CA1: Campos: **monto, proveedor, forma de pago, comentario**.
@@ -76,7 +76,7 @@
 - CA3: Pago por **transferencia** solo se registra; **no afecta** el efectivo esperado.
 - CA4: Requiere caja (turno) abierta; queda ligado al turno y al usuario.
 
-### HU-05 · Corte y cierre de caja (8 pts) — Gonzalo
+### HU-05 · Corte y cierre de caja (8 pts) — Sosa (reasignada de Gonzalo el 28 oct)
 > Como cajero quiero saber el dinero disponible al abrir y cerrar mi caja para ver que coincida con las ventas.
 
 - CA1: **Abrir caja** con monto inicial. Una caja (turno) por cajero en turno. Sin caja abierta no se puede vender ni registrar pagos.
@@ -103,7 +103,7 @@
 - CA2: **Búsqueda por nombre o código**.
 - CA3: Solo productos de la sucursal del usuario.
 
-### HU-08 · Agregar productos (5 pts) — Miguel
+### HU-08 · Agregar productos (5 pts) — Sosa (reasignada de Miguel el 26 oct)
 > Como cajero quiero agregar productos al inventario para no depender del administrador en días de visita de proveedores.
 
 - CA1: **Alta de producto nuevo**: código de barras, nombre, precio, unidad (pieza/kilo), cantidad.
@@ -111,6 +111,7 @@
 - CA3: Código de barras **único por sucursal**.
 - CA4: **Sin aprobación del admin** en esta versión.
 - CA5: Se registra **quién y cuándo** agregó (para HU-13): tabla de movimientos de inventario.
+- Nota: por la jerarquía de roles, **admin y jefe también pueden** dar de alta productos y registrar entradas (pantalla "Agregar productos").
 
 ---
 

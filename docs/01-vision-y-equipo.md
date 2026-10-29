@@ -10,9 +10,9 @@ Proyecto académico trabajado con **Scrum simulado**: sprints de 2 semanas, prod
 
 | Persona | GitHub | Rol Scrum | Dominio técnico principal |
 |---|---|---|---|
-| Luis David Sosa Fernández | `notNorthStar` | Scrum Master + Dev | Autenticación, cuentas, cobro/pagos, setup del proyecto |
-| Gonzalo Mendoza Herrera | _(agregar)_ | Dev | Carrito por código de barras, caja (pagos a proveedor, corte) |
-| Miguel Angel Marcelo Taracena | _(agregar)_ | Dev | Productos: granel, inventario, alta de productos |
+| Luis David Sosa Fernández | `notNorthStar` | Scrum Master + Dev | Autenticación, cuentas, cobro/pagos, alta de productos, caja (pagos a proveedor, corte), setup del proyecto |
+| Gonzalo Mendoza Herrera | `gxnzHer` | Dev | Sin tareas en el Sprint 2 (baja temporal desde el 28 oct) |
+| Miguel Angel Marcelo Taracena | `MiguelTaracena` | Dev | Carrito: escaneo por código y granel; consulta de inventario; prototipos |
 
 - **Product Owner:** _[confirmar con la maestra / el equipo]_. Mientras tanto las dudas de alcance se resuelven con lo acordado en el Planning Poker (ver `02-backlog.md`).
 - Carlos Vicente López Rosales y otro integrante **abandonaron el proyecto**; aparecen en documentos antiguos del Drive (dailies, `Prioridad_HU.docx`). No se les asigna trabajo.

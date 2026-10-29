@@ -10,6 +10,7 @@ POS web multisucursal para una tienda de abarrotes. Proyecto escolar en **Scrum 
 
 | Necesitas… | Archivo |
 |---|---|
+| Qué le toca a cada integrante y cómo trabajar cada día | `docs/00-empieza-aqui.md` |
 | Contexto, equipo, roles de usuario, fechas | `docs/01-vision-y-equipo.md` |
 | Historias de usuario y **criterios de aceptación** | `docs/02-backlog.md` |
 | Quién hace qué, dueños de módulo, calendario, DoD | `docs/03-plan-entrega.md` |
@@ -39,7 +40,7 @@ Comandos: `docker compose up -d` · `npm run db:migrate` · `npm run db:seed` ·
 8. **Transacciones** (`prisma.$transaction`) para cualquier operación que mueva dinero o inventario.
 9. **Pruebas**: cada CA con lógica (cálculos, permisos, validaciones) lleva prueba en `*.test.ts` junto al service. Corre `npm test` y `npm run lint` antes de dar algo por terminado y reporta el resultado real.
 10. **Schema**: no modifiques `schema.prisma` sin que el usuario confirme que le toca (por defecto es de Sosa). Si hace falta un campo, propón el cambio.
-11. **Git**: rama `hu-XX-descripcion`, commits `tipo(modulo): descripción [HU-XX]` en español, PR con la plantilla. **Nunca** hagas push a `main`, force-push ni merge sin que el usuario lo pida.
+11. **Git** (detalle en `docs/06-flujo-trabajo.md`): ramas `hu-XX-descripcion` creadas **desde `develop`**, rebase diario sobre `origin/develop`, commits `tipo(modulo): descripción [HU-XX]` en español, PR **con base `develop`** usando la plantilla. `main` solo recibe `develop` al cierre de sprint. **Reviewer siempre `notNorthStar` (Sosa)**: él es el único que revisa, aprueba e integra; Gonzalo y Miguel no revisan PRs ni hacen merge. **Nunca** hagas push a `develop` ni a `main`, ni merge, sin que el usuario lo pida; el único force-push permitido es `--force-with-lease` sobre la rama propia del usuario después de un rebase, y con su OK.
 12. **Actualiza `docs/scrum/sprint-backlog.md`** (solo los renglones del usuario) al empezar y al terminar una tarea.
 13. **Explica lo que hiciste**: el integrante debe poder defender su código en la demo. Al terminar, da un resumen breve de qué hace cada archivo nuevo.
 
@@ -49,6 +50,7 @@ Comandos: `docker compose up -d` · `npm run db:migrate` · `npm run db:seed` ·
 - API: módulo = `x.routes.ts` (HTTP) → `x.service.ts` (lógica) → `x.schemas.ts` (Zod) → `x.test.ts`.
 - Errores: `throw new AppError(status, "mensaje")` → responde `{ error }`.
 - Front: una carpeta por feature en `apps/web/src/features/`; componentes compartidos en `components/`; llamadas HTTP solo vía `api/client.ts`.
+- **UI:** sigue el sistema visual de `docs/diseno/README.md` (paleta cerrada de `tailwind.config.js`, componentes de `components/ui.tsx`, íconos de `components/Icono.tsx`, números con `.num`). Nada de colores de Tailwind por defecto (`slate`, `emerald`…), emojis ni degradados.
 - TypeScript estricto; sin `any` salvo justificación.
 - Sin dependencias nuevas sin mencionarlo en el PR.
 
