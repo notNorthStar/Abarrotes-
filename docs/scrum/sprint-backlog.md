@@ -3,7 +3,7 @@
 **Meta del sprint:** que el administrador controle mermas, cubra la caja y vea el reporte semanal.
 
 Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · ✅ Hecho (mergeado)
-**Cada quien edita solo sus renglones.** Actualizar al empezar y al terminar cada tarea (sirve para el burndown). El Sprint 1 + 2 está en `sprint-2-backlog.md`.
+**El estado en vivo está en el [tablero](https://github.com/users/notNorthStar/projects/1/views/2).** Este archivo guarda el PR y la fecha de cada tarea para el burndown; lo actualiza Sosa al integrar. El Sprint 1 + 2 está en `sprint-2-backlog.md`.
 
 | ID | Tarea | HU | Pts | Responsable | Estado | PR | Terminado |
 |---|---|---|---|---|---|---|---|

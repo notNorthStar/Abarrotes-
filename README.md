@@ -2,7 +2,7 @@
 
 Sistema de punto de venta multisucursal para tiendas de abarrotes. Proyecto en Scrum de **Luis David Sosa Fernández, Gonzalo Mendoza Herrera y Miguel Angel Marcelo Taracena**.
 
-> 🚧 **Sprint 3 en curso** (2 al 15 nov): 5 HU, 23 pts. Ver [plan](docs/03-plan-entrega.md) y [tablero](docs/scrum/sprint-backlog.md). Sprint 1 + 2 entregados en `v0.2.0`.
+> 🚧 **Sprint 3 en curso** (2 al 15 nov): 5 HU, 23 pts. Ver [plan](docs/03-plan-entrega.md) y [tablero](https://github.com/users/notNorthStar/projects/1/views/2). Sprint 1 + 2 entregados en `v0.2.0`.
 
 ## Para el equipo: cómo empezar (5 min)
 
@@ -36,4 +36,5 @@ Sistema de punto de venta multisucursal para tiendas de abarrotes. Proyecto en S
 | [05 Modelo de datos](docs/05-modelo-datos.md) | Schema Prisma y fórmulas |
 | [06 Flujo de trabajo](docs/06-flujo-trabajo.md) | Git, PRs, trabajo con IA |
 | [07 Entregables Scrum](docs/07-scrum-entregables.md) | Checklist del documento para la maestra |
-| [Sprint backlog](docs/scrum/sprint-backlog.md) | Tablero de tareas |
+| [Tablero](https://github.com/users/notNorthStar/projects/1/views/2) | Estado de las tareas en GitHub Projects |
+| [Sprint backlog](docs/scrum/sprint-backlog.md) | Registro de PR y fechas para el burndown (lo mantiene Sosa) |

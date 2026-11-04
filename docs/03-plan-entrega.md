@@ -111,7 +111,7 @@ Una HU está hecha cuando:
 2. Tiene pruebas de API (Vitest + supertest) para los CA con lógica (cálculos, permisos, validaciones).
 3. `npm run lint` y `npm test` pasan.
 4. Se mergeó a `develop` por **PR aprobado e integrado por Sosa** (los PRs de Sosa se integran directo).
-5. Se marcó en `docs/scrum/sprint-backlog.md` y se puede demostrar con datos del seed.
+5. Su tarjeta está en *Hecho* en el tablero, con el issue cerrado, y se puede demostrar con datos del seed.
 
 ### Plan de contingencia
 

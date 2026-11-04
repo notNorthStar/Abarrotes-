@@ -45,6 +45,21 @@ git push -u origin hu-02-escaneo-codigo   # (si ya hiciste push antes de un reba
 # → abrir PR en GitHub con base: develop
 ```
 
+## Tablero
+
+El estado de las tareas se lleva en el **[tablero de GitHub Projects](https://github.com/users/notNorthStar/projects/1/views/2)**. Cada historia y tarea es un issue; las tareas son sub-issues de su historia.
+
+| Columna | Significa | Quién mueve la tarjeta |
+|---|---|---|
+| Por hacer | Aún no empieza | — |
+| En progreso | Alguien la está trabajando | Su responsable, al empezar |
+| En revisión | PR abierto | Su responsable, al abrir el PR |
+| Hecho | Integrado en `develop` | Sosa, al integrar; también cierra el issue |
+
+En el PR se escribe `Refs #N`. **No uses `Closes #N`:** GitHub solo cierra issues al integrar a la rama por defecto (`main`), así que no haría nada al integrar a `develop` y el issue se cerraría hasta la entrega.
+
+`docs/scrum/sprint-backlog.md` guarda el PR y la fecha de cada tarea para el burndown; lo mantiene Sosa al integrar.
+
 ## Commits
 
 Conventional Commits en español, con la HU al final:
@@ -65,7 +80,7 @@ Si la IA generó el código, se permite el trailer `Co-Authored-By:` de la herra
 3. **Reviewer: siempre Sosa (`notNorthStar`)**. `.github/CODEOWNERS` lo asigna automáticamente.
 4. Sosa revisa con su IA (`/revisar-pr <n>`), prueba localmente y deja **aprobación o cambios solicitados en GitHub**, el mismo día.
 5. Si pide cambios: el autor corrige en la misma rama y hace push; el PR se actualiza solo.
-6. Sosa integra con **squash** y borra la rama. Avisa en el grupo: "entró HU-XX a develop".
+6. Sosa integra con **squash** y borra la rama, mueve la tarjeta a *Hecho* y cierra el issue. Avisa en el grupo: "entró HU-XX a develop".
 7. **PRs de Sosa:** se abren igual (dejan registro) y Sosa los integra directo con `gh pr merge <n> --squash --delete-branch --admin` (o en GitHub marcando "Merge without waiting for requirements to be met").
 
 ## Cierre de sprint
@@ -90,5 +105,5 @@ Si la IA generó el código, se permite el trailer `Co-Authored-By:` de la herra
 
 - Respetar la tabla de **dueños de módulo** de `03-plan-entrega.md`. Si necesitas tocar el módulo de otro, avísale y hazlo en un PR pequeño aparte.
 - `schema.prisma` lo cambia **solo una persona a la vez** (por defecto Sosa). Migraciones con nombre descriptivo: `npx prisma migrate dev --name pago_proveedor`. Después de traer una migración nueva: `npm run db:migrate`.
-- `docs/scrum/sprint-backlog.md`: cada quien edita **solo sus renglones**.
+- Tablero: cada quien mueve **solo sus tarjetas**. `docs/scrum/sprint-backlog.md` lo edita solo Sosa.
 - Nada de secretos en el repo: `.env` está en `.gitignore`; se versiona `.env.example`.
