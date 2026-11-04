@@ -79,7 +79,7 @@ Mientras no se confirme el Product Owner, las dudas de alcance se resuelven con 
 
 ### 4.2 Pila del sprint (Sprint Backlog)
 
-Sprint 2 re-planeado (incluye el Sprint 1). Estado al 21 de octubre de 2026. Fuente viva: `docs/scrum/sprint-backlog.md`.
+Sprint 2 re-planeado (incluye el Sprint 1). Estado al 21 de octubre de 2026. Fuente viva: `docs/scrum/sprint-2-backlog.md`.
 
 Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · ✅ Hecho (mergeado)
 
@@ -106,7 +106,7 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 
 **Total comprometido:** 47 pts · **Completado:** 47 pts al 28 de octubre (9 de 9 HU). Sprint cerrado.
 
-> Nota: estados al cierre (28 oct); la fuente viva es `docs/scrum/sprint-backlog.md`. Sincronizar antes de la versión final.
+> Nota: estados al cierre (28 oct); la fuente viva es `docs/scrum/sprint-2-backlog.md`. Sincronizar antes de la versión final.
 
 ### 4.3 Diagrama de clases
 
