@@ -175,3 +175,39 @@ Recorrido completo en la app (capturas en `docs/prototipos/img/`):
 | Confirmar el Product Owner con la maestra | Scrum Master | Inicio del Sprint 3 |
 | Re-planear el Sprint 3 según la disponibilidad real del equipo (incluida la posible reincorporación de Gonzalo) | Todos | Planeación del Sprint 3 |
 | Mantener el burndown actualizado diariamente | Scrum Master | Sprint 3 |
+
+---
+
+## Planeación del Sprint 3 — 4 nov 2026
+
+> Reparto propuesto por el Scrum Master; **falta que Miguel y Gonzalo lo confirmen.**
+
+**Meta:** que el administrador controle mermas, cubra la caja y vea el reporte semanal.
+
+**Compromiso:** 5 HU, 23 pts, igual al plan del Product Backlog.
+
+| HU | Nombre | Pts | Responsable |
+|---|---|---|---|
+| HU-10 | Registro de producto caducado/dañado | 3 | Miguel |
+| HU-11 | Operaciones de cajero para el administrador | 2 | Sosa |
+| HU-15 | Gestión de cuentas de administrador | 3 | Sosa |
+| HU-07 | Saber visitas de proveedores | 2 | Gonzalo |
+| HU-13 | Reporte semanal por sucursal | 13 | Miguel |
+
+### Acuerdos
+
+- Gonzalo tiene una sola historia porque estará ausente la mayor parte del sprint. Si no hay PR de HU-07 el 10 de noviembre, pasa a Sosa.
+- Si la API de HU-13 no está lista el 11 de noviembre, Sosa toma la exportación a PDF.
+- Sosa revisa e integra todos los PRs. Cierre el 15 de noviembre con el tag `v0.3.0`.
+
+### Riesgos
+
+- HU-13 concentra más de la mitad de los puntos y depende de HU-10.
+- Disponibilidad limitada de Gonzalo.
+- En el Sprint 2 el avance se detectó tarde; este sprint se retoma el daily.
+
+### Pendientes
+
+- [ ] Confirmar el reparto con Miguel y Gonzalo.
+- [ ] Confirmar al Product Owner.
+- [ ] Decidir con el PO: merma mayor que la existencia (HU-10) y semana de lunes a domingo (HU-13).

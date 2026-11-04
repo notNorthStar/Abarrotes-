@@ -2,7 +2,7 @@
 
 Sistema de punto de venta multisucursal para tiendas de abarrotes. Proyecto en Scrum de **Luis David Sosa Fernández, Gonzalo Mendoza Herrera y Miguel Angel Marcelo Taracena**.
 
-> ✅ **Sprint 2 cerrado** (v0.2.0): Sprint 1 + 2 completos, 9 HU / 47 pts. Demo y entrega: domingo 1 de noviembre de 2026. Ver [Sprint Review](docs/scrum/reuniones.md).
+> 🚧 **Sprint 3 en curso** (2 al 15 nov): 5 HU, 23 pts. Ver [plan](docs/03-plan-entrega.md) y [tablero](docs/scrum/sprint-backlog.md). Sprint 1 + 2 entregados en `v0.2.0`.
 
 ## Para el equipo: cómo empezar (5 min)
 

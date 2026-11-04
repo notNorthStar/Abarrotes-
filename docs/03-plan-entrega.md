@@ -1,8 +1,54 @@
-# 03 · Plan de entrega: Sprint 1 + Sprint 2 → domingo 1 de noviembre
+# 03 · Plan de entrega
+
+## Sprint 3 (vigente): 2 al 15 de noviembre
+
+**Meta:** que el administrador controle mermas, cubra la caja y vea el reporte semanal. **Compromiso:** 5 HU, 23 pts.
+
+| Persona | Historias | Pts | Además |
+|---|---|---|---|
+| **Miguel** | HU-10 (3), HU-13 (13) | 16 | — |
+| **Sosa** | HU-11 (2), HU-15 (3) | 5 | Scrum Master, revisión e integración de PRs, D-04 y D-05 |
+| **Gonzalo** | HU-07 (2) | 2 | Disponibilidad limitada: solo esta historia |
+
+### Por qué este reparto
+
+- **Gonzalo** tiene una historia chica y sin dependencias, porque estará ausente la mayor parte del sprint.
+- **Miguel** toma HU-10 y HU-13 juntas: el reporte incluye las mermas y así no depende de nadie.
+- **Sosa** toma las dos que reutilizan lo que ya construyó (roles y cuentas) y conserva la coordinación, la revisión y la documentación.
+
+### Dueños de módulo (Sprint 3)
+
+| Módulo | Dueño |
+|---|---|
+| Merma en `modules/productos` + su pantalla en `features/inventario` | Miguel |
+| `modules/reportes` + `features/reportes` (nuevos) | Miguel |
+| `modules/proveedores` + `features/proveedores` (nuevos) | Gonzalo |
+| `modules/usuarios` + `features/usuarios` | Sosa |
+
+`Layout.tsx` y `App.tsx` son compartidos: cada quien agrega solo su renglón de menú y su ruta. **No se espera cambiar `schema.prisma`**; si hace falta, se pide a Sosa.
+
+### Calendario
+
+| Fecha | Sosa | Miguel | Gonzalo |
+|---|---|---|---|
+| **Mié 4 – Jue 5 nov** | HU-11 | HU-10 | HU-07, cuando pueda |
+| **Vie 6 – Dom 8** | HU-15 | HU-10 en PR; empieza API de HU-13 | HU-07 |
+| **Lun 9 – Mar 10** | Casos de uso y capturas (D-04) | API de HU-13 y tabla | **Fecha límite del PR: mar 10** |
+| **Mié 11 – Jue 12** | Revisión | PDF de HU-13; PR | — |
+| **Vie 13 – Sáb 14** | Integración y prueba completa | Correcciones de revisión | — |
+| **Dom 15** | **Cierre:** review, retro, `develop → main`, tag `v0.3.0` | Revisar la demo | — |
+
+### Puntos de control
+
+- **Mar 10:** si no hay PR de HU-07, pasa a Sosa, para que no bloquee el cierre.
+- **Mié 11:** si la API de HU-13 no está lista, Sosa toma el PDF (T-25).
+- **Prioridad si falta tiempo:** primero HU-11, HU-15 y HU-10, que son las más chicas; HU-13 no se recorta, porque es lo que pide la meta del sprint.
+
+## Sprint 1 + Sprint 2 (cerrado el 28 oct)
 
 El Sprint 1 no se entregó. Para el cierre del Sprint 2 hay que entregar **las 9 HU de ambos sprints (47 pts)** más los **artefactos Scrum** que pide la maestra (ver `07-scrum-entregables.md`). Trabajando con IA es alcanzable si **nadie se bloquea con nadie**: por eso el reparto es por dominio y el modelo de datos se fija el primer día.
 
-## Reparto
+### Reparto
 
 > **26 oct:** HU-08 se reasigna de Miguel a Sosa para tener alta de productos cuanto antes.
 > **28 oct:** Gonzalo no puede continuar este sprint. Sus tareas se reparten: HU-02 y D-02 a Miguel; HU-09 y HU-05 a Sosa.
@@ -24,7 +70,7 @@ El Sprint 1 no se entregó. Para el cierre del Sprint 2 hay que entregar **las 9
 | `apps/api/src/modules/productos` (lectura) + `apps/web/src/features/inventario/InventarioPage.tsx` | Miguel | El escaneo (HU-02) usa `GET /productos/codigo/:codigo` |
 | Alta y entradas de productos: `crear`/`registrarEntrada` en `productos.service.ts` + `features/inventario/AgregarProductoPage.tsx` | Sosa (HU-08, hecha) | Miguel no necesita tocarlos |
 
-## Dependencias
+### Dependencias
 
 ```mermaid
 graph LR
@@ -42,7 +88,7 @@ graph LR
 
 Para no esperar: T-00 deja **contratos** (rutas, tipos y store del carrito con funciones vacías) para que todos arranquen en paralelo con datos del seed.
 
-## Calendario
+### Calendario
 
 > **Re-planeado el 26 oct:** Sosa terminó sus HU; las fechas vigentes de Gonzalo y Miguel están en `docs/00-empieza-aqui.md`. La tabla de abajo es el plan original.
 
@@ -58,7 +104,7 @@ Para no esperar: T-00 deja **contratos** (rutas, tipos y store del carrito con f
 
 Daily scrum **todos los días** (asíncrono vale: cada quien corre `/daily` y sube su parte) → `docs/scrum/dailies/`.
 
-## Definición de "Hecho" (DoD)
+### Definición de "Hecho" (DoD)
 
 Una HU está hecha cuando:
 1. Cumple **todos** sus criterios de aceptación (`02-backlog.md`).
@@ -67,6 +113,6 @@ Una HU está hecha cuando:
 4. Se mergeó a `develop` por **PR aprobado e integrado por Sosa** (los PRs de Sosa se integran directo).
 5. Se marcó en `docs/scrum/sprint-backlog.md` y se puede demostrar con datos del seed.
 
-## Plan de contingencia
+### Plan de contingencia
 
 Si el jueves 29 algo no está, se recorta en este orden (de lo menos a lo más importante): HU-08 sumar existencias → HU-12 restablecer contraseña → búsqueda manual de HU-02. **Nunca** se recorta el flujo login → venta → cobro → corte: es la demo.

@@ -13,11 +13,11 @@
 | 7 | HU-12 | Gestión de cuentas de cajero | Medio | 5 | 2 | Sosa |
 | 8 | HU-04 | Revisar el inventario | Medio | 2 | 2 | Miguel |
 | 9 | HU-08 | Agregar productos | Medio | 5 | 2 | Sosa (reasignada 26 oct) |
-| 10 | HU-10 | Registro de producto caducado/dañado | Medio | 3 | 3 | — |
-| 11 | HU-11 | Operaciones de cajero (admin) | Medio | 2 | 3 | — |
-| 12 | HU-15 | Gestión de cuentas de administrador | Medio | 3 | 3 | — |
-| 13 | HU-07 | Saber visitas de proveedores | Bajo | 2 | 3 | — |
-| 14 | HU-13 | Reporte semanal por sucursal | Medio | 13 | 3 | — |
+| 10 | HU-10 | Registro de producto caducado/dañado | Medio | 3 | 3 | Miguel |
+| 11 | HU-11 | Operaciones de cajero (admin) | Medio | 2 | 3 | Sosa |
+| 12 | HU-15 | Gestión de cuentas de administrador | Medio | 3 | 3 | Sosa |
+| 13 | HU-07 | Saber visitas de proveedores | Bajo | 2 | 3 | Gonzalo |
+| 14 | HU-13 | Reporte semanal por sucursal | Medio | 13 | 3 | Miguel |
 | 15 | HU-14 | Operaciones de administrador (jefe) | Bajo | 2 | 4 | — |
 | 16 | HU-16 | Gestión de sucursales | Bajo | 8 | 4 | — |
 
@@ -115,12 +115,55 @@
 
 ---
 
-## Sprint 3 y 4 (referencia, no se entregan el 1 de nov)
+## Sprint 3 — "Que el administrador controle mermas, cubra la caja y vea el reporte semanal" (23 pts)
 
-- **HU-10** Merma caducado/dañado (3): sin autorización; motivo obligatorio; descuenta inventario; aparece en reporte semanal.
-- **HU-11** Operaciones de cajero para admin (2): permisos de cajero al admin; el admin abre su propia caja.
-- **HU-15** Cuentas de administrador (3): igual que HU-12 pero el jefe gestiona admins; eliminación lógica.
-- **HU-07** Visitas de proveedores (2): el admin las registra; vista de lista por fecha y proveedor.
-- **HU-13** Reporte semanal por sucursal (13): ingresos, pagos, productos agregados, quién hizo cada operación; tabla + **exportar PDF**; sin gráficas.
+### HU-10 · Registro de producto caducado/dañado (3 pts) — Miguel
+> Como cajero quiero registrar los productos que ya no se puedan vender para que no me afecte en mi cierre de caja.
+
+- CA1: **Motivo obligatorio:** caducado o dañado.
+- CA2: **Sin autorización** del administrador.
+- CA3: **Descuenta la existencia** y registra un movimiento `MERMA` con usuario y fecha (el schema ya lo soporta).
+- CA4: **No cambia el efectivo** esperado del corte de caja.
+- CA5: Por pieza solo cantidades enteras; por kilo, hasta 3 decimales.
+- CA6: La merma aparece en el reporte semanal (HU-13).
+- Duda para el PO: qué hacer si la cantidad es mayor que la existencia. Hasta que se decida, se anota en el PR.
+
+### HU-11 · Operaciones de cajero para el administrador (2 pts) — Sosa
+> Como administrador quiero hacer todas las operaciones que hace el cajero, para poder atender en días que no haya cajero.
+
+- CA1: El administrador puede vender, cobrar, registrar pagos a proveedor, consultar inventario y agregar productos.
+- CA2: **Abre su propia caja**, igual que un cajero.
+- CA3: **El corte queda por persona:** no se mezcla con el de los cajeros.
+- Nota: la jerarquía de roles ya da buena parte de esto; la historia es sobre todo verificar, ajustar y probar.
+
+### HU-15 · Gestión de cuentas de administrador (3 pts) — Sosa
+> Como jefe quiero crear, suspender y eliminar cuentas de administrador para llevar una mejor administración de los trabajadores.
+
+- CA1: Solo el jefe gestiona administradores; cada administrador queda ligado a una sucursal.
+- CA2: Suspender bloquea el inicio de sesión; se puede reactivar.
+- CA3: **Eliminar es lógico:** se conserva quién hizo cada operación.
+- CA4: Reutiliza la gestión de cuentas de HU-12 (`usuarios.service.ts` ya recibe el rol).
+
+### HU-07 · Saber visitas de proveedores (2 pts) — Gonzalo
+> Como cajero quiero consultar los días de visitas de proveedores para revisar el inventario con anticipación y saber qué productos pedir.
+
+- CA1: **El administrador registra** las visitas: proveedor, fecha y nota opcional.
+- CA2: El cajero las consulta en una **lista por fecha y proveedor**; sin calendario visual.
+- CA3: Cada usuario ve solo las visitas de su sucursal.
+- Nota: el modelo `VisitaProveedor` ya existe; no hace falta cambiar el schema.
+
+### HU-13 · Reporte semanal por sucursal (13 pts) — Miguel
+> Como administrador quiero un reporte semanal por cada tienda para saber los ingresos, los pagos, el producto agregado y quién hizo esas operaciones.
+
+- CA1: Muestra por sucursal y semana: **ingresos por forma de pago, pagos a proveedor, producto agregado y mermas**.
+- CA2: Indica **quién hizo cada operación**.
+- CA3: Se ve en una **tabla** y se **exporta a PDF**.
+- CA4: **Sin gráficas** en esta versión.
+- CA5: El administrador solo ve su sucursal.
+- Duda para el PO: la semana se toma de lunes a domingo mientras no se indique otra cosa.
+- Nota: cualquier dependencia nueva para el PDF se menciona en el PR.
+
+## Sprint 4 (referencia)
+
 - **HU-14** Operaciones de admin para jefe (2): permisos de admin al jefe + **selector de sucursal**.
 - **HU-16** Gestión de sucursales (8): crear/suspender/eliminar; sucursal suspendida → bloquea acceso de sus usuarios, el inventario se conserva.

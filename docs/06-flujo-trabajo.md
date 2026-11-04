@@ -7,7 +7,7 @@ La maestra evalúa que el trabajo sea **colaborativo**. GitHub es la evidencia: 
 ## Ramas
 
 ```
-main         ← entregas. Solo recibe develop al cierre de cada sprint (tag v0.2.0 el 1 nov)
+main         ← entregas. Solo recibe develop al cierre de cada sprint (v0.2.0 entregada; siguiente: v0.3.0 el 15 nov)
   └─ develop      ← pre-producción. Aquí se integra todo; siempre debe correr
        ├─ hu-02-escaneo-codigo    (Gonzalo)
        ├─ hu-03-granel            (Miguel)
@@ -72,7 +72,7 @@ Si la IA generó el código, se permite el trailer `Co-Authored-By:` de la herra
 
 1. Sosa abre PR `develop → main` con el resumen de HU entregadas.
 2. Se prueba `develop` con el seed (flujo de la demo).
-3. Merge (sin squash, para conservar historial) y tag: `git tag v0.2.0 && git push origin v0.2.0`.
+3. Merge (sin squash, para conservar historial) y tag: `git tag v0.3.0 && git push origin v0.3.0`.
 
 ## Protección de ramas (GitHub → Settings → Branches)
 
