@@ -8,4 +8,4 @@
 4. Haz checkout local (`gh pr checkout <n>`), corre `npm test` y `npm run lint` y, si puedes, prueba el flujo con el seed.
 5. Redacta la revisión en español, concreta y amable: bloqueantes primero, sugerencias después, con archivo:línea.
 6. Muéstramela. **Solo con mi OK** publícala: `gh pr review <n> --comment|--approve|--request-changes -b "..."`. La revisión debe quedar en GitHub con mi cuenta (es evidencia de colaboración).
-7. Si la apruebo, pregúntame si integro: `gh pr merge <n> --squash --delete-branch`. Después actualiza `develop` local (`git checkout develop && git pull`) y marca las tareas del autor como ✅ en `docs/scrum/sprint-backlog.md` y el burndown (en una rama `doc-*` propia).
+7. Si la apruebo, pregúntame si integro: `gh pr merge <n> --squash --delete-branch`. Después actualiza `develop` local (`git checkout develop && git pull`) y cierra el issue de la historia y de sus tareas (`gh issue close <n>`) y mueve sus tarjetas a *Hecho* en el tablero. Marca las tareas como ✅ en `docs/scrum/sprint-backlog.md` y el burndown (en una rama `doc-*` propia).

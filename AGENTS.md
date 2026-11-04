@@ -4,7 +4,7 @@ Instrucciones para cualquier agente de IA (Claude Code, Cursor, Copilot, Codex, 
 
 ## Proyecto
 
-POS web multisucursal para una tienda de abarrotes. Proyecto escolar en **Scrum simulado** con 3 integrantes: **Luis David Sosa Fernández** (Scrum Master + dev), **Gonzalo Mendoza Herrera** y **Miguel Angel Marcelo Taracena**. Estamos en el Sprint 2 y debemos entregar **Sprint 1 + Sprint 2 el domingo 1 de noviembre de 2026**. El trabajo debe ser **colaborativo y verificable en GitHub**.
+POS web multisucursal para una tienda de abarrotes. Proyecto escolar en **Scrum simulado** con 3 integrantes: **Luis David Sosa Fernández** (Scrum Master + dev), **Gonzalo Mendoza Herrera** y **Miguel Angel Marcelo Taracena**. Estamos en el **Sprint 3 (2 al 15 de noviembre de 2026)**; la siguiente entrega es `v0.3.0` el 15 de noviembre. El trabajo debe ser **colaborativo y verificable en GitHub**.
 
 ## Antes de trabajar, lee
 
@@ -18,7 +18,7 @@ POS web multisucursal para una tienda de abarrotes. Proyecto escolar en **Scrum 
 | Schema Prisma y fórmulas (venta, cambio, corte) | `docs/05-modelo-datos.md` |
 | Git, PRs, reglas de colaboración | `docs/06-flujo-trabajo.md` |
 | Documento Scrum que pide la maestra | `docs/07-scrum-entregables.md` |
-| Estado de tareas | `docs/scrum/sprint-backlog.md` |
+| Estado de tareas | [Tablero de GitHub Projects](https://github.com/users/notNorthStar/projects/1/views/2) |
 
 Prompts reutilizables (para cualquier herramienta): `docs/prompts/`.
 
@@ -41,7 +41,7 @@ Comandos: `docker compose up -d` · `npm run db:migrate` · `npm run db:seed` ·
 9. **Pruebas**: cada CA con lógica (cálculos, permisos, validaciones) lleva prueba en `*.test.ts` junto al service. Corre `npm test` y `npm run lint` antes de dar algo por terminado y reporta el resultado real.
 10. **Schema**: no modifiques `schema.prisma` sin que el usuario confirme que le toca (por defecto es de Sosa). Si hace falta un campo, propón el cambio.
 11. **Git** (detalle en `docs/06-flujo-trabajo.md`): ramas `hu-XX-descripcion` creadas **desde `develop`**, rebase diario sobre `origin/develop`, commits `tipo(modulo): descripción [HU-XX]` en español, PR **con base `develop`** usando la plantilla. `main` solo recibe `develop` al cierre de sprint. **Reviewer siempre `notNorthStar` (Sosa)**: él es el único que revisa, aprueba e integra; Gonzalo y Miguel no revisan PRs ni hacen merge. **Nunca** hagas push a `develop` ni a `main`, ni merge, sin que el usuario lo pida; el único force-push permitido es `--force-with-lease` sobre la rama propia del usuario después de un rebase, y con su OK.
-12. **Actualiza `docs/scrum/sprint-backlog.md`** (solo los renglones del usuario) al empezar y al terminar una tarea.
+12. **Tablero:** recuérdale al usuario mover su tarjeta a *En progreso* al empezar y a *En revisión* al abrir el PR (detalle en `docs/06-flujo-trabajo.md`). Enlaza el issue en el PR con `Refs #N`, nunca con `Closes`. *Hecho*, el cierre del issue y `docs/scrum/sprint-backlog.md` le tocan a Sosa al integrar.
 13. **Explica lo que hiciste**: el integrante debe poder defender su código en la demo. Al terminar, da un resumen breve de qué hace cada archivo nuevo.
 
 ## Convenciones de código

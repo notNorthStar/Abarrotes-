@@ -12,12 +12,14 @@ Guía para trabajar en Abarrotes+ con tu IA (**Codex**, **Cursor** o **Antigravi
 
 ## Tu trabajo
 
+El estado de todo está en el **[tablero del Sprint 3](https://github.com/users/notNorthStar/projects/1/views/2)**. Cada historia y cada tarea es un issue asignado a su responsable.
+
 ### Miguel (`MiguelTaracena`): 16 pts
 
 | Orden | Qué | PR para |
 |---|---|---|
-| 1 | **HU-10** Producto caducado o dañado (T-19, T-20) | Dom 8 nov |
-| 2 | **HU-13** Reporte semanal por sucursal (T-23, T-24, T-25) | Jue 12 nov |
+| 1 | **HU-10** Producto caducado o dañado (#32; T-19 #33, T-20 #34) | Dom 8 nov |
+| 2 | **HU-13** Reporte semanal por sucursal (#41; T-23 #42, T-24 #43, T-25 #44) | Jue 12 nov |
 
 Haz HU-10 primero, porque el reporte incluye las mermas. Si el miércoles 11 la API del reporte no está lista, avisa: Sosa toma el PDF.
 
@@ -25,7 +27,7 @@ Haz HU-10 primero, porque el reporte incluye las mermas. Si el miércoles 11 la 
 
 | Qué | PR para |
 |---|---|
-| **HU-07** Saber visitas de proveedores (T-21, T-22) | Mar 10 nov |
+| **HU-07** Saber visitas de proveedores (#38; T-21 #39, T-22 #40) | Mar 10 nov |
 
 Es tu única historia, porque estarás ausente la mayor parte del sprint, y no depende de nadie. El modelo `VisitaProveedor` ya existe. **Si sabes que no llegas al martes 10, avísale a Sosa antes**, para reasignarla sin retrasar el cierre.
 
@@ -71,9 +73,20 @@ Con `implementar-hu.md` la IA:
 3. Programa, corre `npm test` y `npm run lint`.
 4. Hace commits, sube la rama y abre el PR **contra `develop` con Sosa (`notNorthStar`) como reviewer**. Si tu IA no puede abrir el PR, abre el link que te da GitHub al hacer push.
 
+## Mueve tus tarjetas
+
+En el [tablero](https://github.com/users/notNorthStar/projects/1/views/2) arrastra **tus** tarjetas (la historia y sus tareas):
+
+| Cuándo | A qué columna |
+|---|---|
+| Empiezas a trabajar | **En progreso** |
+| Abres el PR | **En revisión** |
+
+Tu IA te lo recuerda, pero lo haces tú: puede no tener permiso sobre el tablero. **Hecho** lo marca Sosa cuando integra tu PR. En el PR escribe `Refs #N` con el número de la historia.
+
 ## Después de abrir tu PR
 
-- **Sosa lo revisa.** Si pide cambios, verás sus comentarios en el PR. Dile a tu IA: `Atiende los comentarios del PR #N` (o pégale los comentarios). Corrige **en la misma rama** y haz push: el PR se actualiza solo.
+- **Sosa lo revisa.** Si pide cambios, tu tarjeta sigue en *En revisión* y verás sus comentarios en el PR. Dile a tu IA: `Atiende los comentarios del PR #N` (o pégale los comentarios). Corrige **en la misma rama** y haz push: el PR se actualiza solo.
 - Cuando Sosa lo integra, la rama se borra. Para la siguiente HU, tu IA vuelve a partir de `develop` actualizado.
 - **No esperes a que se apruebe un PR para empezar la siguiente HU**: empieza la siguiente desde `develop`.
 
@@ -94,4 +107,5 @@ Con `implementar-hu.md` la IA:
 | `docs/03-plan-entrega.md` | Dueños de módulo, definición de hecho |
 | `docs/04-arquitectura.md` | Estructura del código y API |
 | `docs/05-modelo-datos.md` | Base de datos y fórmulas de dinero |
-| `docs/06-flujo-trabajo.md` | Ramas, commits, PRs |
+| `docs/06-flujo-trabajo.md` | Ramas, commits, PRs, tablero |
+| [Tablero](https://github.com/users/notNorthStar/projects/1/views/2) | Quién hace qué y en qué va cada tarea |
