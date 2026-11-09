@@ -12,13 +12,13 @@ import { Tecla } from './ui'
 type Destino = { to: string; texto: string; icono: NombreIcono; minimo: Rol; tecla?: string; grupo: string }
 
 const DESTINOS: Destino[] = [
-  { to: '/', texto: 'Inicio', icono: 'inicio', minimo: 'CAJERO', grupo: 'OperaciÃ³n' },
-  { to: '/venta', texto: 'Venta', icono: 'escanear', minimo: 'CAJERO', tecla: 'F2', grupo: 'OperaciÃ³n' },
-  { to: '/caja', texto: 'Caja', icono: 'caja', minimo: 'CAJERO', grupo: 'OperaciÃ³n' },
-  { to: '/inventario', texto: 'Inventario', icono: 'inventario', minimo: 'CAJERO', grupo: 'CatÃ¡logo' },
-  { to: '/productos/nuevo', texto: 'Agregar productos', icono: 'agregar', minimo: 'CAJERO', grupo: 'CatÃ¡logo' },
-  { to: '/usuarios', texto: 'Cajeros', icono: 'cajeros', minimo: 'ADMIN', grupo: 'AdministraciÃ³n' },
-  { to: '/reportes', texto: 'Reporte semanal', icono: 'recibo', minimo: 'ADMIN', grupo: 'AdministraciÃ³n' },
+  { to: '/', texto: 'Inicio', icono: 'inicio', minimo: 'CAJERO', grupo: 'Operación' },
+  { to: '/venta', texto: 'Venta', icono: 'escanear', minimo: 'CAJERO', tecla: 'F2', grupo: 'Operación' },
+  { to: '/caja', texto: 'Caja', icono: 'caja', minimo: 'CAJERO', grupo: 'Operación' },
+  { to: '/inventario', texto: 'Inventario', icono: 'inventario', minimo: 'CAJERO', grupo: 'Catálogo' },
+  { to: '/productos/nuevo', texto: 'Agregar productos', icono: 'agregar', minimo: 'CAJERO', grupo: 'Catálogo' },
+  { to: '/usuarios', texto: 'Cajeros', icono: 'cajeros', minimo: 'ADMIN', grupo: 'Administración' },
+  { to: '/reportes', texto: 'Reporte semanal', icono: 'recibo', minimo: 'ADMIN', grupo: 'Administración' },
 ]
 
 const NOMBRE_ROL: Record<Rol, string> = { CAJERO: 'Cajero', ADMIN: 'Administrador', JEFE: 'Jefe' }
@@ -32,7 +32,7 @@ const iniciales = (nombre: string) =>
 
 const EVENTO_CAJA = 'abarrotes:caja'
 
-/** Avisa al indicador de la barra superior que la caja se abriÃ³ o se cerrÃ³. */
+/** Avisa al indicador de la barra superior que la caja se abrió o se cerró. */
 export const avisarCambioCaja = () => window.dispatchEvent(new Event(EVENTO_CAJA))
 
 /** Estado de la caja del usuario, para el indicador de la barra superior. */
@@ -101,7 +101,7 @@ export function Layout() {
       {menuMovil && (
         <button
           type="button"
-          aria-label="Cerrar menÃº"
+          aria-label="Cerrar menú"
           className="fixed inset-0 z-30 bg-tinta/40 lg:hidden"
           onClick={() => setMenuMovil(false)}
         />
@@ -111,7 +111,7 @@ export function Layout() {
         <header className="flex min-h-14 flex-wrap items-center gap-x-4 gap-y-2 border-b border-linea px-4 py-2.5 lg:px-6">
           <button
             type="button"
-            aria-label="Abrir menÃº"
+            aria-label="Abrir menú"
             onClick={() => setMenuMovil(true)}
             className="flex h-9 w-9 items-center justify-center rounded-lg hover:bg-[#EFEDE7] lg:hidden"
           >
@@ -131,7 +131,7 @@ export function Layout() {
             className="flex h-9 min-w-0 items-center gap-2.5 rounded-lg border border-linea bg-superficie px-2.5 text-[13px] text-piedra hover:bg-[#EFEDE7] sm:min-w-[280px]"
           >
             <Icono nombre="buscar" tamano={16} />
-            <span className="flex-1 text-left">Ir aâ€¦</span>
+            <span className="flex-1 text-left">Ir a…</span>
             <Tecla>Ctrl K</Tecla>
           </button>
           <EstadoCaja abiertaDesde={abiertaDesde} />
@@ -176,7 +176,7 @@ function EstadoCaja({ abiertaDesde }: { abiertaDesde: string | null | undefined 
       className="flex h-8 items-center gap-2 rounded-full bg-hoja-claro px-3 text-[13px] font-medium text-hoja-texto"
     >
       <span aria-hidden="true" className="h-[7px] w-[7px] rounded-full bg-hoja" />
-      Caja abierta Â· desde {hora}
+      Caja abierta · desde {hora}
     </NavLink>
   )
 }
@@ -247,7 +247,7 @@ function Barra({
         </span>
         <button
           type="button"
-          aria-label="Cerrar sesiÃ³n"
+          aria-label="Cerrar sesión"
           onClick={onSalir}
           className="flex h-9 w-9 items-center justify-center rounded-lg text-riel-texto hover:bg-riel-hover hover:text-white"
         >
@@ -291,19 +291,19 @@ function PaletaComandos({
       <div
         role="dialog"
         aria-modal="true"
-        aria-label="Ir a una secciÃ³n"
+        aria-label="Ir a una sección"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={teclas}
         className="w-full max-w-lg overflow-hidden rounded-xl border border-linea bg-superficie shadow-[0_24px_48px_-12px_rgba(26,25,22,0.35)]"
       >
         <label className="flex items-center gap-3 border-b border-linea px-4">
           <Icono nombre="buscar" className="text-piedra" />
-          <span className="sr-only">Buscar secciÃ³n</span>
+          <span className="sr-only">Buscar sección</span>
           <input
             ref={entrada}
             value={texto}
             onChange={(e) => setTexto(e.target.value)}
-            placeholder="Ir a venta, caja, inventarioâ€¦"
+            placeholder="Ir a venta, caja, inventario…"
             className="h-12 flex-1 bg-transparent text-[15px] outline-none"
           />
           <Tecla>Esc</Tecla>
