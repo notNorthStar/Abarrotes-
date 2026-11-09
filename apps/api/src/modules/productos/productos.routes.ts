@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { requireRol, sucursalDe } from '../../middleware/auth'
-import { crearProductoSchema, entradaSchema, idSchema } from './productos.schemas'
+import { crearProductoSchema, entradaSchema, idSchema, mermaSchema } from './productos.schemas'
 import * as productos from './productos.service'
 
 // Rol mínimo CAJERO: por la jerarquía de roles, ADMIN y JEFE también pueden (JEFE indica ?sucursalId=).
@@ -26,4 +26,10 @@ productosRoutes.post('/:id/entradas', requireRol('CAJERO'), async (req, res) => 
   const id = idSchema.parse(req.params.id)
   const datos = entradaSchema.parse(req.body)
   res.json(await productos.registrarEntrada(sucursalDe(req), req.usuario!.id, id, datos))
+})
+
+productosRoutes.post('/:id/mermas', requireRol('CAJERO'), async (req, res) => {
+  const id = idSchema.parse(req.params.id)
+  const datos = mermaSchema.parse(req.body)
+  res.status(201).json(await productos.registrarMerma(sucursalDe(req), req.usuario!.id, id, datos))
 })

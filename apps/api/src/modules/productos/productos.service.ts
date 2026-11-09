@@ -2,7 +2,7 @@ import { Prisma, type UnidadVenta } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { AppError } from '../../lib/AppError'
 import { D } from '../../lib/dinero'
-import type { CrearProducto, Entrada } from './productos.schemas'
+import type { CrearProducto, Entrada, Merma } from './productos.schemas'
 
 // Lectura (T-00, HU-03/HU-04: Miguel) y alta/entradas (HU-08: Sosa).
 
@@ -77,5 +77,33 @@ export async function registrarEntrada(sucursalId: number, usuarioId: number, pr
       where: { id: productoId },
       data: { existencia: { increment: datos.cantidad } },
     })
+  })
+}
+
+/** HU-10: registra la salida de inventario sin modificar el turno ni su efectivo. */
+export async function registrarMerma(sucursalId: number, usuarioId: number, productoId: number, datos: Merma) {
+  return prisma.$transaction(async (tx) => {
+    const producto = await tx.producto.findFirst({ where: { id: productoId, sucursalId, estado: 'ACTIVO' } })
+    if (!producto) throw new AppError(404, 'Producto no encontrado')
+    validarCantidad(producto.unidad, datos.cantidad)
+
+    // El descuento condicional es atómico: dos solicitudes no consumen la misma existencia.
+    const descuento = await tx.producto.updateMany({
+      where: { id: productoId, sucursalId, estado: 'ACTIVO', existencia: { gte: datos.cantidad } },
+      data: { existencia: { decrement: datos.cantidad } },
+    })
+    if (descuento.count !== 1) throw new AppError(409, 'La cantidad supera la existencia disponible')
+
+    await tx.movimientoInventario.create({
+      data: {
+        tipo: 'MERMA',
+        cantidad: D(datos.cantidad).negated(),
+        motivo: datos.motivo,
+        comentario: datos.comentario,
+        productoId,
+        usuarioId,
+      },
+    })
+    return tx.producto.findUniqueOrThrow({ where: { id: productoId } })
   })
 }
