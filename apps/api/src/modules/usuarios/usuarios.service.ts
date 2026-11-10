@@ -4,8 +4,7 @@ import { prisma } from '../../lib/prisma'
 import { AppError } from '../../lib/AppError'
 import type { CrearUsuario, EditarUsuario } from './usuarios.schemas'
 
-// HU-12 (Sosa): gestión de cuentas de cajero.
-// Reutilizable: cada función recibe el rol objetivo, así HU-15 (jefe gestiona admins) usa 'ADMIN'.
+// HU-12 (Sosa): gestión de cuentas de cajero. HU-15 reutiliza las mismas funciones con el rol 'ADMIN'.
 
 const COSTO_BCRYPT = 10
 
@@ -40,8 +39,20 @@ export async function crear(sucursalId: number, rol: Rol, datos: CrearUsuario) {
     if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
       throw new AppError(409, 'Ese nombre de usuario ya existe')
     }
+    if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2003') {
+      throw new AppError(404, 'Sucursal no encontrada')
+    }
     throw e
   }
+}
+
+/** HU-15: sucursales a las que el jefe puede asignar administradores. */
+export function sucursalesActivas() {
+  return prisma.sucursal.findMany({
+    where: { estado: 'ACTIVO' },
+    select: { id: true, nombre: true },
+    orderBy: { nombre: 'asc' },
+  })
 }
 
 export async function editar(sucursalId: number, rol: Rol, id: number, cambios: EditarUsuario) {

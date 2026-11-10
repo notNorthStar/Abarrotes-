@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type FormEvent } from 'react'
+import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { api, ApiError } from '../../api/client'
 import type { CuentaUsuario, EstadoCuenta } from '../../api/tipos'
 import { useAuth } from '../../auth/AuthContext'
@@ -6,6 +6,7 @@ import { Icono } from '../../components/Icono'
 import { Aviso, Boton, Chip, EncabezadoPagina, Esqueleto, Pagina, Tarjeta } from '../../components/ui'
 
 // HU-12 (Sosa): el admin crea, suspende/reactiva, restablece contraseña y elimina cajeros de su sucursal.
+// HU-15 reutiliza GestionCuentas para que el jefe gestione administradores (AdministradoresPage).
 
 const mensaje = (err: unknown) => (err instanceof ApiError ? err.message : 'Error de conexión')
 
@@ -45,10 +46,22 @@ export function UsuariosPage() {
       </Pagina>
     )
   }
-  return <GestionCajeros />
+  return <GestionCuentas ruta="/usuarios" singular="cajero" plural="cajeros" ambito="tu sucursal" />
 }
 
-function GestionCajeros() {
+type GestionProps = {
+  /** Recurso de la API: '/usuarios' (cajeros) o '/administradores'. */
+  ruta: string
+  /** Query que se agrega a cada petición, p. ej. '?sucursalId=3' para el jefe. */
+  consulta?: string
+  singular: string
+  plural: string
+  /** Dónde viven las cuentas, para los textos: "tu sucursal", "Norte". */
+  ambito: string
+  acciones?: ReactNode
+}
+
+export function GestionCuentas({ ruta, consulta = '', singular, plural, ambito, acciones }: GestionProps) {
   const [cajeros, setCajeros] = useState<CuentaUsuario[]>([])
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
@@ -58,18 +71,25 @@ function GestionCajeros() {
   const [guardando, setGuardando] = useState(false)
   const [resetId, setResetId] = useState<number | null>(null)
 
+  const url = (id?: number) => `${ruta}${id === undefined ? '' : `/${id}`}${consulta}`
+  const mayuscula = (texto: string) => texto[0].toUpperCase() + texto.slice(1)
+  const Singular = mayuscula(singular)
+
   const cargar = useCallback(async () => {
     try {
-      setCajeros(await api.get<CuentaUsuario[]>('/usuarios'))
+      setCajeros(await api.get<CuentaUsuario[]>(`${ruta}${consulta}`))
       setError('')
     } catch (err) {
       setError(mensaje(err))
     } finally {
       setCargando(false)
     }
-  }, [])
+  }, [ruta, consulta])
 
   useEffect(() => {
+    setCargando(true)
+    setAviso('')
+    setResetId(null)
     void cargar()
   }, [cargar])
 
@@ -79,9 +99,9 @@ function GestionCajeros() {
     setAviso('')
     setGuardando(true)
     try {
-      const nuevo = await api.post<CuentaUsuario>('/usuarios', form)
+      const nuevo = await api.post<CuentaUsuario>(url(), form)
       setForm(FORM_VACIO)
-      setAviso(`Cajero "${nuevo.usuario}" creado.`)
+      setAviso(`${Singular} "${nuevo.usuario}" creado.`)
       await cargar()
     } catch (err) {
       setErrorForm(mensaje(err))
@@ -105,7 +125,7 @@ function GestionCajeros() {
   function cambiarEstado(c: CuentaUsuario) {
     const estado = c.estado === 'ACTIVO' ? 'SUSPENDIDO' : 'ACTIVO'
     void accion(
-      () => api.patch(`/usuarios/${c.id}`, { estado }),
+      () => api.patch(url(c.id), { estado }),
       estado === 'SUSPENDIDO' ? `${c.nombre} quedó suspendido.` : `${c.nombre} fue reactivado.`,
     )
   }
@@ -117,22 +137,22 @@ function GestionCajeros() {
       )
     )
       return
-    void accion(() => api.delete(`/usuarios/${c.id}`), `${c.nombre} fue eliminado.`)
+    void accion(() => api.delete(url(c.id)), `${c.nombre} fue eliminado.`)
   }
 
   const activos = cajeros.filter((c) => c.estado === 'ACTIVO').length
   const subtitulo = cargando
-    ? 'Cajeros de tu sucursal'
-    : `${cajeros.length} ${cajeros.length === 1 ? 'cajero' : 'cajeros'} · ${activos} ${activos === 1 ? 'activo' : 'activos'}`
+    ? `${mayuscula(plural)} de ${ambito}`
+    : `${cajeros.length} ${cajeros.length === 1 ? singular : plural} · ${activos} ${activos === 1 ? 'activo' : 'activos'}`
 
   return (
     <Pagina>
-      <EncabezadoPagina titulo="Cuentas de cajero" subtitulo={subtitulo} />
+      <EncabezadoPagina titulo={`Cuentas de ${singular}`} subtitulo={subtitulo} acciones={acciones} />
 
       <Tarjeta className="p-5">
         <form onSubmit={crear} aria-labelledby="h-nuevo-cajero" className="flex flex-col gap-4">
           <h2 id="h-nuevo-cajero" className="text-sm font-semibold">
-            Nuevo cajero
+            Nuevo {singular}
           </h2>
           <div className="grid gap-4 md:grid-cols-[1fr_1fr_1fr_auto] md:items-end">
             <div className="flex flex-col gap-1.5">
@@ -176,7 +196,7 @@ function GestionCajeros() {
             </div>
             <Boton type="submit" disabled={guardando}>
               <Icono nombre="mas" tamano={16} />
-              {guardando ? 'Guardando…' : 'Crear cajero'}
+              {guardando ? 'Guardando…' : `Crear ${singular}`}
             </Boton>
           </div>
           {errorForm && <Aviso tipo="error">{errorForm}</Aviso>}
@@ -189,7 +209,7 @@ function GestionCajeros() {
       <Tarjeta className="overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
-            <caption className="sr-only">Cajeros de la sucursal</caption>
+            <caption className="sr-only">{`${mayuscula(plural)} de ${ambito}`}</caption>
             <thead className="border-b border-linea bg-hueso text-xs text-piedra">
               <tr>
                 <th scope="col" className="px-4 py-2.5 font-medium">
@@ -232,7 +252,7 @@ function GestionCajeros() {
               {!cargando && cajeros.length === 0 && (
                 <tr>
                   <td colSpan={4} className="px-4 py-10 text-center text-sm text-piedra">
-                    No hay cajeros en tu sucursal.
+                    No hay {plural} en {ambito}.
                   </td>
                 </tr>
               )}
@@ -245,7 +265,7 @@ function GestionCajeros() {
                   onEliminar={() => eliminar(c)}
                   onAbrirReset={() => setResetId(resetId === c.id ? null : c.id)}
                   onRestablecer={async (password) => {
-                    await api.patch(`/usuarios/${c.id}`, { password })
+                    await api.patch(url(c.id), { password })
                     setResetId(null)
                     setAviso(`Contraseña de ${c.nombre} restablecida.`)
                   }}

@@ -1,4 +1,3 @@
-import { ReportesPage } from './features/reportes/ReportesPage'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { RequireRol } from './auth/RequireRol'
 import { Layout } from './components/Layout'
@@ -10,6 +9,8 @@ import { InventarioPage } from './features/inventario/InventarioPage'
 import { AgregarProductoPage } from './features/inventario/AgregarProductoPage'
 import { MermaPage } from './features/inventario/MermaPage'
 import { UsuariosPage } from './features/usuarios/UsuariosPage'
+import { AdministradoresPage } from './features/usuarios/AdministradoresPage'
+import { ReportesPage } from './features/reportes/ReportesPage'
 
 export function App() {
   return (
@@ -41,6 +42,14 @@ export function App() {
           element={
             <RequireRol minimo="ADMIN">
               <UsuariosPage />
+            </RequireRol>
+          }
+        />
+        <Route
+          path="administradores"
+          element={
+            <RequireRol minimo="JEFE">
+              <AdministradoresPage />
             </RequireRol>
           }
         />
