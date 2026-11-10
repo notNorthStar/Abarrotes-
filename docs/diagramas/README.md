@@ -1,7 +1,8 @@
 # Diagramas (Mermaid)
 
 - `clases.md` — diagrama de clases / ER (Sosa) → `img/clases.png`, `img/er.png`
-- `casos-de-uso.md` — casos de uso y descripciones (Miguel) → `img/casos-de-uso.png`
+- `casos-de-uso.md` — casos de uso y descripciones del Sprint 1 + 2 (Miguel) → `img/casos-de-uso.png`
+- `casos-de-uso-sprint-3.md` — casos de uso y descripciones del Sprint 3 (Sosa, D-04) → `img/casos-de-uso-sprint-3.png`
 - burndown / burnup: en `docs/scrum/burndown.md` (Sosa) → `img/burndown.png`, `img/burnup.png`
 
 ## Exportar a imagen

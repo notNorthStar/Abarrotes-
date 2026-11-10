@@ -13,7 +13,7 @@ Actualizar cada día con los puntos de HU **completamente hechas** (DoD) al cier
 | 5 | 6 nov | 15.9 | 23 | |
 | 6 | 7 nov | 14.2 | 23 | |
 | 7 | 8 nov | 12.4 | 23 | |
-| 8 | 9 nov | 10.6 | 7 | Se integran HU-10 (#50) y HU-13 con PDF (#51), de Miguel |
+| 8 | 9 nov | 10.6 | 2 | Se integran HU-10 (#50) y HU-13 con PDF (#51), de Miguel, y HU-11 (#53) y HU-15 (#54), de Sosa |
 | 9 | 10 nov | 8.8 | | |
 | 10 | 11 nov | 7.1 | | |
 | 11 | 12 nov | 5.3 | | |
