@@ -8,6 +8,7 @@ import { CajaPage } from './features/caja/CajaPage'
 import { InventarioPage } from './features/inventario/InventarioPage'
 import { AgregarProductoPage } from './features/inventario/AgregarProductoPage'
 import { MermaPage } from './features/inventario/MermaPage'
+import { ProveedoresPage } from './features/proveedores/ProveedoresPage'
 import { UsuariosPage } from './features/usuarios/UsuariosPage'
 import { AdministradoresPage } from './features/usuarios/AdministradoresPage'
 import { ReportesPage } from './features/reportes/ReportesPage'
@@ -37,6 +38,7 @@ export function App() {
         <Route path="inventario" element={<InventarioPage />} />
         <Route path="productos/nuevo" element={<AgregarProductoPage />} />
         <Route path="mermas" element={<MermaPage />} />
+        <Route path="proveedores" element={<ProveedoresPage />} />
         <Route
           path="usuarios"
           element={
