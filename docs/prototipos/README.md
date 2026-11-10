@@ -21,8 +21,9 @@ Las imágenes de este catálogo son capturas de las pantallas reales de Abarrote
 | P-08 | Registrar merma · `/mermas` | HU-10 | [merma.png](img/merma.png) | Búsqueda del producto, existencia, cantidad, motivo y comentario de la merma. |
 | P-09 | Reporte semanal · `/reportes` | HU-13 | [reporte.png](img/reporte.png) | Semana de lunes a domingo, ingresos por forma de pago, ventas con su responsable y exportación a PDF. |
 | P-10 | Cuentas de administrador · `/administradores` | HU-15 | [administradores.png](img/administradores.png) | Selector de sucursal, alta, estado de cuenta y acciones de gestión para el jefe. |
+| P-11 | Visitas de proveedores · `/proveedores` | HU-07 | [proveedores.png](img/proveedores.png) | Registro de visitas del administrador y lista por fecha y proveedor con filtros de próximas y pasadas. |
 
-Las pantallas P-08 a P-10 son del Sprint 3 (D-04, Sosa). Se capturaron el 9 de noviembre de 2026 con el mismo procedimiento, y se relacionan con [casos-de-uso-sprint-3.md](../diagramas/casos-de-uso-sprint-3.md). La pantalla de HU-07 se agrega cuando se integre.
+Las pantallas P-08 a P-11 son del Sprint 3 (D-04, Sosa). Se capturaron el 9 de noviembre de 2026 con el mismo procedimiento, y se relacionan con [casos-de-uso-sprint-3.md](../diagramas/casos-de-uso-sprint-3.md).
 
 ## Alertas
 
@@ -45,6 +46,6 @@ Usar la base local con datos de ejemplo. Los usuarios de ejemplo comparten la co
 5. Abrir Cobro para P-03. Para A-02, disminuir el pago por debajo del total e intentar confirmar. No registrar una venta únicamente para producir una captura de error.
 6. En Caja, capturar efectivo contado distinto del esperado; registrar A-03 antes de cerrar. Así se conserva el turno para seguir la demostración.
 7. Capturar P-04, P-06 y P-07 con `admin.centro`, que tiene acceso al inventario y a la gestión de cajeros.
-8. Sprint 3: con `cajero1`, en Registrar merma buscar «Coca», elegir Coca-Cola 600 ml, capturar 2 piezas como caducado y tomar P-08 sin confirmar. Para A-05, cambiar la cantidad a 999 y confirmar. Con `admin.centro` capturar P-09; con `jefe`, P-10.
+8. Sprint 3: con `cajero1`, en Registrar merma buscar «Coca», elegir Coca-Cola 600 ml, capturar 2 piezas como caducado y tomar P-08 sin confirmar. Para A-05, cambiar la cantidad a 999 y confirmar. Con `admin.centro` capturar P-09 y, después de registrar una visita de Bimbo para el 12 de noviembre, P-11; con `jefe`, P-10.
 
 Las capturas se guardan en `img/` y se relacionan con las nueve descripciones en [casos-de-uso.md](../diagramas/casos-de-uso.md). No incluyen contraseñas visibles, tokens ni datos ajenos a los ejemplos locales.
