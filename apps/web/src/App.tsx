@@ -7,6 +7,7 @@ import { VentaPage } from './features/venta/VentaPage'
 import { CajaPage } from './features/caja/CajaPage'
 import { InventarioPage } from './features/inventario/InventarioPage'
 import { AgregarProductoPage } from './features/inventario/AgregarProductoPage'
+import { ProveedoresPage } from './features/proveedores/ProveedoresPage'
 import { UsuariosPage } from './features/usuarios/UsuariosPage'
 
 export function App() {
@@ -25,6 +26,7 @@ export function App() {
         <Route path="caja" element={<CajaPage />} />
         <Route path="inventario" element={<InventarioPage />} />
         <Route path="productos/nuevo" element={<AgregarProductoPage />} />
+        <Route path="proveedores" element={<ProveedoresPage />} />
         <Route
           path="usuarios"
           element={
