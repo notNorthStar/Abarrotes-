@@ -23,7 +23,10 @@ export type Producto = {
 
 export type EstadoCuenta = 'ACTIVO' | 'SUSPENDIDO' | 'ELIMINADO'
 
-/** Cuenta gestionada en HU-12 (cajeros). GET /api/usuarios */
+/** Sucursal activa para el selector del jefe (HU-15). GET /api/administradores/sucursales */
+export type Sucursal = { id: number; nombre: string }
+
+/** Cuenta gestionada en HU-12 (cajeros, GET /api/usuarios) y HU-15 (administradores, GET /api/administradores). */
 export type CuentaUsuario = {
   id: number
   nombre: string
