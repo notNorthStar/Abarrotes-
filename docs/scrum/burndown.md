@@ -9,11 +9,11 @@ Actualizar cada día con los puntos de HU **completamente hechas** (DoD) al cier
 | 1 | 2 nov | 23.0 | 23 | |
 | 2 | 3 nov | 21.2 | 23 | |
 | 3 | 4 nov | 19.5 | 23 | Planeación del sprint |
-| 4 | 5 nov | 17.7 | | |
-| 5 | 6 nov | 15.9 | | |
-| 6 | 7 nov | 14.2 | | |
-| 7 | 8 nov | 12.4 | | |
-| 8 | 9 nov | 10.6 | | |
+| 4 | 5 nov | 17.7 | 23 | |
+| 5 | 6 nov | 15.9 | 23 | |
+| 6 | 7 nov | 14.2 | 23 | |
+| 7 | 8 nov | 12.4 | 23 | |
+| 8 | 9 nov | 10.6 | 7 | Se integran HU-10 (#50) y HU-13 con PDF (#51), de Miguel |
 | 9 | 10 nov | 8.8 | | |
 | 10 | 11 nov | 7.1 | | |
 | 11 | 12 nov | 5.3 | | |
