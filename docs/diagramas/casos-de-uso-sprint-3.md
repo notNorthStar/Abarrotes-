@@ -4,7 +4,7 @@
 
 Este documento cubre las cinco historias del Sprint 3 (2 al 15 de noviembre). Continúa a [casos-de-uso.md](casos-de-uso.md), que describe el Sprint 1 y el Sprint 2. Describe el comportamiento acordado en el [backlog](../02-backlog.md); el estado de cada tarea se consulta en el [tablero](https://github.com/users/notNorthStar/projects/1/views/2).
 
-**Estado al 9 de noviembre:** HU-10, HU-11, HU-13 y HU-15 están integradas en `develop` (PRs #50, #53, #51 y #54). HU-07 está en desarrollo; su PR vence el 10 de noviembre, así que su descripción todavía no tiene captura.
+**Estado al 9 de noviembre:** las cinco historias están integradas en `develop`: HU-10 (#50), HU-13 (#51), HU-11 (#53), HU-15 (#54) y HU-07 (#56).
 
 ## Diagrama
 
@@ -47,12 +47,12 @@ Las capturas son de la aplicación real con datos de ejemplo, tomadas el 9 de no
 | P-08 | `/mermas` | [Registrar merma](../../apps/web/src/features/inventario/MermaPage.tsx) | [Registro](../prototipos/img/merma.png) · [Existencia insuficiente](../prototipos/img/alerta-merma-sin-existencia.png) |
 | P-09 | `/reportes` | [Reporte semanal](../../apps/web/src/features/reportes/ReportesPage.tsx) | [Reporte de la semana](../prototipos/img/reporte.png) |
 | P-10 | `/administradores` | [Administradores](../../apps/web/src/features/usuarios/AdministradoresPage.tsx) | [Cuentas de administrador](../prototipos/img/administradores.png) |
+| P-11 | `/proveedores` | [Proveedores](../../apps/web/src/features/proveedores/ProveedoresPage.tsx) | [Visitas de proveedores](../prototipos/img/proveedores.png) |
 | P-02, P-03, P-05 | `/venta`, `/caja` | Las del Sprint 2 | Las usa el administrador en CU-11 |
-| P-11 | Pendiente | HU-07 | Se agrega cuando se integre |
 
 ## CU-07 · Registrar y consultar visitas de proveedores
 
-**Historia / responsable de implementación:** HU-07 · Gonzalo. **Estado:** en desarrollo. **Actores:** cajero (consulta) y administrador (registra y consulta). **Pantalla:** P-11, pendiente.
+**Historia / responsable de implementación:** HU-07 · Gonzalo (PR #56). **Actores:** cajero (consulta) y administrador (registra y consulta). **Pantalla:** P-11.
 
 **Objetivo:** que el cajero sepa qué día viene cada proveedor, para revisar el inventario con anticipación.
 
@@ -61,7 +61,7 @@ Las capturas son de la aplicación real con datos de ejemplo, tomadas el 9 de no
 **Flujo principal:**
 1. El administrador captura el proveedor, la fecha de la visita y una nota opcional.
 2. El sistema guarda la visita en la sucursal del administrador.
-3. El cajero abre la lista de visitas, ordenada por fecha y proveedor.
+3. El cajero abre Proveedores y consulta la lista de visitas, ordenada por fecha y proveedor, con filtros de próximas y pasadas.
 
 **Alternos:** un cajero no puede registrar visitas. Cada usuario ve solo las visitas de su sucursal. No hay calendario visual.
 
@@ -139,7 +139,6 @@ Las capturas son de la aplicación real con datos de ejemplo, tomadas el 9 de no
 
 **Postcondiciones:** la cuenta refleja la operación; al eliminarla se conservan sus turnos y operaciones. Reutiliza la gestión de cuentas de CU-12. **Trazabilidad:** CA1–CA4.
 
-## Pendiente
+## Mantenimiento
 
-1. Agregar la captura de HU-07 (P-11) cuando se integre su PR, y quitar la marca "en desarrollo" de CU-07.
-2. Volver a exportar `img/casos-de-uso-sprint-3.png` si cambia el diagrama.
+Si cambia el diagrama, volver a exportar `img/casos-de-uso-sprint-3.png`.
