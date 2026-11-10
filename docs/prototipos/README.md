@@ -18,6 +18,11 @@ Las imágenes de este catálogo son capturas de las pantallas reales de Abarrote
 | P-05 | Caja · `/caja` | HU-05, HU-09 | [caja.png](img/caja.png) | Apertura, corte por método de pago, pagos a proveedores y cierre. |
 | P-06 | Agregar productos · `/productos/nuevo` | HU-08 | [productos.png](img/productos.png) | Alta de producto y entrada de existencias a uno registrado. |
 | P-07 | Cuentas de cajero · `/usuarios` | HU-12 | [cajeros.png](img/cajeros.png) | Alta, estado de cuenta y acciones de gestión para el administrador. |
+| P-08 | Registrar merma · `/mermas` | HU-10 | [merma.png](img/merma.png) | Búsqueda del producto, existencia, cantidad, motivo y comentario de la merma. |
+| P-09 | Reporte semanal · `/reportes` | HU-13 | [reporte.png](img/reporte.png) | Semana de lunes a domingo, ingresos por forma de pago, ventas con su responsable y exportación a PDF. |
+| P-10 | Cuentas de administrador · `/administradores` | HU-15 | [administradores.png](img/administradores.png) | Selector de sucursal, alta, estado de cuenta y acciones de gestión para el jefe. |
+
+Las pantallas P-08 a P-10 son del Sprint 3 (D-04, Sosa). Se capturaron el 9 de noviembre de 2026 con el mismo procedimiento, y se relacionan con [casos-de-uso-sprint-3.md](../diagramas/casos-de-uso-sprint-3.md). La pantalla de HU-07 se agrega cuando se integre.
 
 ## Alertas
 
@@ -27,6 +32,7 @@ Las imágenes de este catálogo son capturas de las pantallas reales de Abarrote
 | A-02 / P-03 | Intentar confirmar una venta con una suma de pagos menor al total. | Pago insuficiente y monto faltante; no se registra la venta. | [alerta-pago-insuficiente.png](img/alerta-pago-insuficiente.png) |
 | A-03 / P-05 | Capturar un efectivo contado distinto del esperado en el cierre. | Sobrante o faltante y solicitud de comentario para explicar la diferencia. | [alerta-diferencia-corte.png](img/alerta-diferencia-corte.png) |
 | A-04 / P-01 | Entrar con la cuenta de ejemplo `suspendido` y su contraseña válida. | Acceso bloqueado por cuenta suspendida. | [alerta-usuario-suspendido.png](img/alerta-usuario-suspendido.png) |
+| A-05 / P-08 | Registrar una merma mayor que la existencia del producto. | «La cantidad supera la existencia disponible»; el inventario no cambia. | [alerta-merma-sin-existencia.png](img/alerta-merma-sin-existencia.png) |
 
 ## Cómo reproducir las capturas
 
@@ -39,5 +45,6 @@ Usar la base local con datos de ejemplo. Los usuarios de ejemplo comparten la co
 5. Abrir Cobro para P-03. Para A-02, disminuir el pago por debajo del total e intentar confirmar. No registrar una venta únicamente para producir una captura de error.
 6. En Caja, capturar efectivo contado distinto del esperado; registrar A-03 antes de cerrar. Así se conserva el turno para seguir la demostración.
 7. Capturar P-04, P-06 y P-07 con `admin.centro`, que tiene acceso al inventario y a la gestión de cajeros.
+8. Sprint 3: con `cajero1`, en Registrar merma buscar «Coca», elegir Coca-Cola 600 ml, capturar 2 piezas como caducado y tomar P-08 sin confirmar. Para A-05, cambiar la cantidad a 999 y confirmar. Con `admin.centro` capturar P-09; con `jefe`, P-10.
 
 Las capturas se guardan en `img/` y se relacionan con las nueve descripciones en [casos-de-uso.md](../diagramas/casos-de-uso.md). No incluyen contraseñas visibles, tokens ni datos ajenos a los ejemplos locales.

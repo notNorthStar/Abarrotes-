@@ -7,10 +7,10 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 
 | ID | Tarea | HU | Pts | Responsable | Estado | PR | Terminado |
 |---|---|---|---|---|---|---|---|
-| T-15 | Verificar y ajustar operaciones de cajero para el administrador | HU-11 | 2 | Sosa | ⬜ | | |
-| T-16 | Pruebas: el administrador abre su caja y el corte queda por persona | HU-11 | | Sosa | ⬜ | | |
-| T-17 | API de cuentas de administrador para el jefe (reutiliza HU-12) | HU-15 | 3 | Sosa | ⬜ | | |
-| T-18 | Pantalla de cuentas de administrador | HU-15 | | Sosa | ⬜ | | |
+| T-15 | Verificar y ajustar operaciones de cajero para el administrador | HU-11 | 2 | Sosa | ✅ | #53 | 9 nov |
+| T-16 | Pruebas: el administrador abre su caja y el corte queda por persona | HU-11 | | Sosa | ✅ | #53 | 9 nov |
+| T-17 | API de cuentas de administrador para el jefe (reutiliza HU-12) | HU-15 | 3 | Sosa | ✅ | #54 | 9 nov |
+| T-18 | Pantalla de cuentas de administrador | HU-15 | | Sosa | ✅ | #54 | 9 nov |
 | T-19 | API de merma: motivo obligatorio, descuento de inventario y movimiento + pruebas | HU-10 | 3 | Miguel | ✅ | #50 | 9 nov |
 | T-20 | Pantalla para registrar producto caducado o dañado | HU-10 | | Miguel | ✅ | #50 | 9 nov |
 | T-21 | API de visitas de proveedores: registrar (admin) y consultar (cajero) + pruebas | HU-07 | 2 | Gonzalo | ⬜ | | |
@@ -18,7 +18,7 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-23 | API del reporte semanal por sucursal + pruebas | HU-13 | 13 | Miguel | ✅ | #51 | 9 nov |
 | T-24 | Pantalla del reporte en tabla | HU-13 | | Miguel | ✅ | #51 | 9 nov |
 | T-25 | Exportar el reporte a PDF | HU-13 | | Miguel | ✅ | #51 | 9 nov |
-| D-04 | Casos de uso y capturas de las pantallas nuevas | Doc | — | Sosa | ⬜ | | |
-| D-05 | Minutas, burndown, dailies y documento Scrum del Sprint 3 | Doc | — | Sosa | ⬜ | | |
+| D-04 | Casos de uso y capturas de las pantallas nuevas | Doc | — | Sosa | 🟨 | | Falta la captura de HU-07 |
+| D-05 | Minutas, burndown, dailies y documento Scrum del Sprint 3 | Doc | — | Sosa | 🟨 | #52 | Burndown al día; cierre el 15 nov |
 
-**Total comprometido:** 23 pts · **Completado:** 16 pts (Miguel, HU-10 y HU-13) · **Restante:** 7 pts (Sosa 5 · Gonzalo 2)
+**Total comprometido:** 23 pts · **Completado:** 21 pts (Miguel 16 · Sosa 5) · **Restante:** 2 pts (Gonzalo, HU-07)
