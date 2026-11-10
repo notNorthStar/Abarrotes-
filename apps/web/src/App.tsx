@@ -7,6 +7,7 @@ import { VentaPage } from './features/venta/VentaPage'
 import { CajaPage } from './features/caja/CajaPage'
 import { InventarioPage } from './features/inventario/InventarioPage'
 import { AgregarProductoPage } from './features/inventario/AgregarProductoPage'
+import { MermaPage } from './features/inventario/MermaPage'
 import { UsuariosPage } from './features/usuarios/UsuariosPage'
 
 export function App() {
@@ -25,6 +26,7 @@ export function App() {
         <Route path="caja" element={<CajaPage />} />
         <Route path="inventario" element={<InventarioPage />} />
         <Route path="productos/nuevo" element={<AgregarProductoPage />} />
+        <Route path="mermas" element={<MermaPage />} />
         <Route
           path="usuarios"
           element={

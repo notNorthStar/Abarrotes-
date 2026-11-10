@@ -17,6 +17,7 @@ const DESTINOS: Destino[] = [
   { to: '/caja', texto: 'Caja', icono: 'caja', minimo: 'CAJERO', grupo: 'Operación' },
   { to: '/inventario', texto: 'Inventario', icono: 'inventario', minimo: 'CAJERO', grupo: 'Catálogo' },
   { to: '/productos/nuevo', texto: 'Agregar productos', icono: 'agregar', minimo: 'CAJERO', grupo: 'Catálogo' },
+  { to: '/mermas', texto: 'Registrar merma', icono: 'menos', minimo: 'CAJERO', grupo: 'Catálogo' },
   { to: '/usuarios', texto: 'Cajeros', icono: 'cajeros', minimo: 'ADMIN', grupo: 'Administración' },
 ]
 
