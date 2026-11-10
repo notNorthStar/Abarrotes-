@@ -19,6 +19,7 @@ const DESTINOS: Destino[] = [
   { to: '/productos/nuevo', texto: 'Agregar productos', icono: 'agregar', minimo: 'CAJERO', grupo: 'Catálogo' },
   { to: '/mermas', texto: 'Registrar merma', icono: 'menos', minimo: 'CAJERO', grupo: 'Catálogo' },
   { to: '/usuarios', texto: 'Cajeros', icono: 'cajeros', minimo: 'ADMIN', grupo: 'Administración' },
+  { to: '/reportes', texto: 'Reporte semanal', icono: 'recibo', minimo: 'ADMIN', grupo: 'Administración' },
 ]
 
 const NOMBRE_ROL: Record<Rol, string> = { CAJERO: 'Cajero', ADMIN: 'Administrador', JEFE: 'Jefe' }
