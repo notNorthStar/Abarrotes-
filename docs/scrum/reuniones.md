@@ -175,3 +175,118 @@ Recorrido completo en la app (capturas en `docs/prototipos/img/`):
 | Confirmar el Product Owner con la maestra | Scrum Master | Inicio del Sprint 3 |
 | Re-planear el Sprint 3 según la disponibilidad real del equipo (incluida la posible reincorporación de Gonzalo) | Todos | Planeación del Sprint 3 |
 | Mantener el burndown actualizado diariamente | Scrum Master | Sprint 3 |
+
+---
+
+## Planeación del Sprint 3 — 4 nov 2026
+
+> Reparto propuesto por el Scrum Master; **falta que Miguel y Gonzalo lo confirmen.**
+
+**Meta:** que el administrador controle mermas, cubra la caja y vea el reporte semanal.
+
+**Compromiso:** 5 HU, 23 pts, igual al plan del Product Backlog.
+
+| HU | Nombre | Pts | Responsable |
+|---|---|---|---|
+| HU-10 | Registro de producto caducado/dañado | 3 | Miguel |
+| HU-11 | Operaciones de cajero para el administrador | 2 | Sosa |
+| HU-15 | Gestión de cuentas de administrador | 3 | Sosa |
+| HU-07 | Saber visitas de proveedores | 2 | Gonzalo |
+| HU-13 | Reporte semanal por sucursal | 13 | Miguel |
+
+### Acuerdos
+
+- Gonzalo tiene una sola historia porque estará ausente la mayor parte del sprint. Si no hay PR de HU-07 el 10 de noviembre, pasa a Sosa.
+- Si la API de HU-13 no está lista el 11 de noviembre, Sosa toma la exportación a PDF.
+- Sosa revisa e integra todos los PRs. Cierre el 15 de noviembre con el tag `v0.3.0`.
+
+### Riesgos
+
+- HU-13 concentra más de la mitad de los puntos y depende de HU-10.
+- Disponibilidad limitada de Gonzalo.
+- En el Sprint 2 el avance se detectó tarde; este sprint se retoma el daily.
+
+### Pendientes
+
+- [x] Confirmar el reparto con Miguel y Gonzalo: cada quien entregó las historias asignadas.
+- [ ] Confirmar al Product Owner.
+- [x] Decidir con el PO: una merma mayor que la existencia se rechaza (9 nov). La semana de lunes a domingo se aplicó como estaba en el backlog.
+
+---
+
+## Sprint Review — cierre del Sprint 3
+
+> Minuta preparada por el Scrum Master el 17 nov 2026 con el incremento terminado. **Confirmar asistentes y retroalimentación de la demo.**
+
+| Campo | Detalle |
+|---|---|
+| Fecha | Cierre del sprint: 15 nov 2026 · minuta: 17 nov 2026 |
+| Asistentes | Luis David Sosa Fernández (SM + dev) · Miguel Angel Marcelo Taracena (dev) · Gonzalo Mendoza Herrera (dev) · Product Owner: por confirmar |
+| Meta | Que el administrador controle mermas, cubra la caja y vea el reporte semanal |
+| Compromiso | 5 HU · 23 pts |
+| Entregado | **5 HU · 23 pts (100 %)**, todo integrado el 9 nov (día 8 de 14) |
+
+### HU entregadas
+
+| HU | Nombre | Pts | Responsable | PR | ¿Cumple DoD? |
+|---|---|---|---|---|---|
+| HU-10 | Registro de producto caducado/dañado | 3 | Miguel | #50 | Sí |
+| HU-13 | Reporte semanal por sucursal (con PDF) | 13 | Miguel | #51 | Sí |
+| HU-11 | Operaciones de cajero para el administrador | 2 | Sosa | #53 | Sí |
+| HU-15 | Gestión de cuentas de administrador | 3 | Sosa | #54 | Sí |
+| HU-07 | Saber visitas de proveedores | 2 | Gonzalo | #56 | Sí |
+
+Documentación: casos de uso y capturas del sprint (D-04, #55 y #57); sprint backlog y burndown al día (D-05, #52). DoD verificada en cada PR: criterios de aceptación cubiertos, pruebas automatizadas (31 web + 163 API al cierre, 64 más que en el Sprint 2), lint, tipos y build correctos, PR revisado y aprobado por el Scrum Master e integrado a `develop`.
+
+### Incremento demostrado
+
+Recorrido en la app con los datos de ejemplo (capturas en `docs/prototipos/img/`):
+1. `cajero1` registra 2 piezas de Coca-Cola 600 ml como caducadas: la existencia baja y su caja no cambia. Una merma mayor que la existencia se rechaza.
+2. `admin.centro` abre su propia caja, vende y cobra; su corte solo incluye sus operaciones, aunque un cajero tenga otra caja abierta.
+3. `admin.centro` consulta el reporte semanal: ingresos por forma de pago, ventas, pagos a proveedor, altas y mermas con su responsable, y lo exporta a PDF.
+4. `admin.centro` registra una visita de proveedor; `cajero1` la ve en la lista y `cajero.norte`, de otra sucursal, no.
+5. `jefe` elige una sucursal y crea, suspende, reactiva y elimina cuentas de administrador; un administrador suspendido no puede entrar.
+
+### Retroalimentación
+
+- [Completar después de la demo: observaciones de la maestra / PO.]
+- Pregunta abierta al cliente (9 nov): si los cambios de otros usuarios deben verse en tiempo real. Hoy cada pantalla los muestra al recargar sus datos. Si lo pide, entra como historia nueva al backlog.
+
+---
+
+## Retrospectiva — Sprint 3
+
+> **Borrador** redactado por el Scrum Master a partir de los hechos del sprint. El equipo debe revisarlo y agregar su opinión antes de la entrega.
+
+| Campo | Detalle |
+|---|---|
+| Fecha | 17 nov 2026 (borrador) |
+| Asistentes | [Confirmar] |
+
+### ¿Qué salió bien?
+
+- Se cumplió el 100 % del compromiso (23 de 23 pts) seis días antes del fin del sprint.
+- Los tres integrantes entregaron código propio con PR revisado: Miguel completó sus 16 pts e hizo también la exportación a PDF, que estaba prevista como respaldo de Sosa; Gonzalo entregó HU-07, su primera historia integrada.
+- El tablero de GitHub Projects hizo visible el estado de cada historia y tarea para todo el equipo y para la maestra.
+- La calidad se sostuvo: 194 pruebas automatizadas y ningún PR integrado rompió `develop`.
+- Las decisiones de alcance (merma mayor que la existencia, semana de lunes a domingo) se resolvieron y quedaron anotadas en los PRs.
+
+### ¿Qué mejorar?
+
+- El burndown estuvo plano siete días: no hubo nada en GitHub hasta el día 8, cuando se integró todo. El avance real no fue visible a tiempo.
+- No se registraron dailies del Sprint 3, aunque era una acción acordada en la retrospectiva anterior.
+- Nadie movió sus tarjetas a *En progreso* ni a *En revisión*; el tablero solo cambiaba cuando el Scrum Master integraba.
+- El PR de HU-07 se abrió contra `main` en lugar de `develop`, y un `git pull` después del rebase duplicó sus commits.
+- El cierre formal (review, retro y tag) se hizo el 17 nov, dos días después de la fecha.
+- El Product Owner sigue sin confirmarse.
+
+### Acciones
+
+| Acción | Responsable | Para cuándo |
+|---|---|---|
+| Subir avance a una rama al menos cada dos días, aunque esté a medias | Todos | Sprint 4 |
+| Daily asíncrono registrado en `docs/scrum/dailies/` | Todos (lo revisa el SM) | Sprint 4 |
+| Mover las tarjetas del tablero al empezar y al abrir el PR | Todos | Sprint 4 |
+| Revisar antes de abrir un PR que la base sea `develop` y subir con `--force-with-lease` después de un rebase | Gonzalo y Miguel | Sprint 4 |
+| Cerrar el Sprint 4 en su fecha (29 nov) | Scrum Master | Fin del Sprint 4 |
+| Confirmar el Product Owner con la maestra | Scrum Master | Inicio del Sprint 4 |

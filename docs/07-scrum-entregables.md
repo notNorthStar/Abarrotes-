@@ -10,7 +10,7 @@ Borrador del documento: `docs/scrum/documento-scrum.md`.
 | 2. Fundamentación y valores | Por qué Scrum | Sosa | — | ✅ |
 | 3. Personas y roles | Tabla del equipo (solo 3 integrantes) | Sosa | `docs/01-vision-y-equipo.md` | ✅ |
 | 4.1 Pila de producto | Backlog priorizado | Sosa | `docs/02-backlog.md` | ✅ |
-| 4.2 Pila del sprint | Tareas de S1+S2 con estado | Todos | `docs/scrum/sprint-backlog.md` | ✅ |
+| 4.2 Pila del sprint | Tareas de S1+S2 con estado | Todos | `docs/scrum/sprint-2-backlog.md` | ✅ |
 | 4.3 Diagrama de clases | Desde `schema.prisma` | Sosa | `docs/diagramas/clases.md` | ✅ |
 | 4.4 Diagrama de casos de uso | Actores: cajero, admin, jefe | Miguel | `docs/diagramas/casos-de-uso.md` → `img/casos-de-uso.png` | ✅ |
 | 4.5 Descripciones de casos de uso con prototipos | 1 por HU de S1+S2 | Miguel | `docs/diagramas/casos-de-uso.md` | ✅ |

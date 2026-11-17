@@ -7,7 +7,11 @@ import { VentaPage } from './features/venta/VentaPage'
 import { CajaPage } from './features/caja/CajaPage'
 import { InventarioPage } from './features/inventario/InventarioPage'
 import { AgregarProductoPage } from './features/inventario/AgregarProductoPage'
+import { MermaPage } from './features/inventario/MermaPage'
+import { ProveedoresPage } from './features/proveedores/ProveedoresPage'
 import { UsuariosPage } from './features/usuarios/UsuariosPage'
+import { AdministradoresPage } from './features/usuarios/AdministradoresPage'
+import { ReportesPage } from './features/reportes/ReportesPage'
 
 export function App() {
   return (
@@ -21,15 +25,33 @@ export function App() {
         }
       >
         <Route index element={<InicioPage />} />
+        <Route
+          path="reportes"
+          element={
+            <RequireRol minimo="ADMIN">
+              <ReportesPage />
+            </RequireRol>
+          }
+        />
         <Route path="venta" element={<VentaPage />} />
         <Route path="caja" element={<CajaPage />} />
         <Route path="inventario" element={<InventarioPage />} />
         <Route path="productos/nuevo" element={<AgregarProductoPage />} />
+        <Route path="mermas" element={<MermaPage />} />
+        <Route path="proveedores" element={<ProveedoresPage />} />
         <Route
           path="usuarios"
           element={
             <RequireRol minimo="ADMIN">
               <UsuariosPage />
+            </RequireRol>
+          }
+        />
+        <Route
+          path="administradores"
+          element={
+            <RequireRol minimo="JEFE">
+              <AdministradoresPage />
             </RequireRol>
           }
         />

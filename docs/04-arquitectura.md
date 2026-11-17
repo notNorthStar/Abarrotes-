@@ -87,6 +87,14 @@ Base: `/api`. Auth: header `Authorization: Bearer <jwt>`. Payload del JWT: `{ su
 | POST | `/usuarios` | ADMIN | 12 |
 | PATCH | `/usuarios/:id` | ADMIN | 12 (suspender/reactivar/reset password) |
 | DELETE | `/usuarios/:id` | ADMIN | 12 (lógico) |
+| POST | `/productos/:id/mermas` | CAJERO | 10 (caducado o dañado) |
+| GET | `/reportes/semanal?fecha=` | ADMIN | 13 |
+| GET | `/reportes/semanal/pdf?fecha=` | ADMIN | 13 (descarga) |
+| GET | `/administradores/sucursales` | JEFE | 15 (selector) |
+| GET | `/administradores?sucursalId=` | JEFE | 15 |
+| POST | `/administradores?sucursalId=` | JEFE | 15 |
+| PATCH | `/administradores/:id?sucursalId=` | JEFE | 15 (suspender/reactivar/reset password) |
+| DELETE | `/administradores/:id?sucursalId=` | JEFE | 15 (lógico) |
 
 `POST /ventas` body:
 ```json

@@ -2,45 +2,38 @@
 
 Guía para trabajar en Abarrotes+ con tu IA (**Codex**, **Cursor** o **Antigravity**). Léela una vez; después tu IA se encarga del resto con `AGENTS.md`.
 
-## Situación (28 oct)
+## Situación (4 nov)
 
-- **El domingo 1 de noviembre entregamos Sprint 1 + Sprint 2** (9 HU, 47 pts) más el documento Scrum. **Objetivo: cerrar todo hoy, 28 oct.**
-- Ya están en `develop` (31 pts): T-00, **HU-01** login, **HU-06** cobro, **HU-12** cuentas de cajero, **HU-08** alta de productos (Sosa), **HU-03** granel y **HU-04** inventario (Miguel), más casos de uso, diagrama de clases y burndown.
-- **Gonzalo no puede continuar este sprint.** Sus tareas se repartieron el 28 oct: **HU-02 y D-02 → Miguel**; **HU-09 y HU-05 → Sosa**.
+- **Sprint 3: del 2 al 15 de noviembre.** Meta: que el administrador controle mermas, cubra la caja y vea el reporte semanal (5 HU, 23 pts).
+- El Sprint 1 + 2 está cerrado y entregado (`v0.2.0`, 47 pts).
 - Tu trabajo es **programar tus HU y mandar tus PRs**. **No revisas PRs**: Sosa revisa, aprueba e integra todo.
 - Cada quien commitea **desde su propia cuenta de GitHub**: eso es lo que la maestra ve como tu aporte.
+- Antes de empezar: `git pull` en `develop` y `npm install`. La interfaz cambió: sigue `docs/diseno/README.md`.
 
-## Tu trabajo (re-planeado al 28 oct)
+## Tu trabajo
 
-### Miguel (`MiguelTaracena`): carrito, inventario y prototipos (15 pts)
+El estado de todo está en el **[tablero del Sprint 3](https://github.com/users/notNorthStar/projects/1/views/2)**. Cada historia y cada tarea es un issue asignado a su responsable.
 
-| Orden | Qué | Estado / para |
+### Miguel (`MiguelTaracena`): 16 pts
+
+| Orden | Qué | PR para |
 |---|---|---|
-| — | **HU-03** Producto a granel | ✅ #8 |
-| — | **HU-04** Consulta de inventario | ✅ #9 |
-| — | **D-01** Casos de uso | ✅ #10 |
-| 1 | **HU-02** Cobrar con código de barras (T-03, T-04) — *reasignada de Gonzalo* | **Hoy 28 oct** |
-| 2 | **D-02** Prototipos de pantallas y alertas — *reasignada de Gonzalo* | **Hoy 28 oct** |
+| 1 | **HU-10** Producto caducado o dañado (#32; T-19 #33, T-20 #34) | Dom 8 nov |
+| 2 | **HU-13** Reporte semanal por sucursal (#41; T-23 #42, T-24 #43, T-25 #44) | Jue 12 nov |
 
-Ahora eres dueño de `features/venta/carrito`, `VentaPage.tsx` (ya hiciste la tabla de la cuenta), la lectura de `productos` y `features/inventario/InventarioPage.tsx`.
+Haz HU-10 primero, porque el reporte incluye las mermas. Si el miércoles 11 la API del reporte no está lista, avisa: Sosa toma el PDF.
 
-**Pistas para HU-02:**
-- Input de escaneo con foco permanente: el lector USB escribe el código + Enter. Busca con `GET /api/productos/codigo/:codigo` y agrega con `useCarrito().agregarProducto(p)` (si ya está, **suma** cantidad: el store ya lo hace).
-- Código no encontrado (404) → aviso y **búsqueda manual** por nombre (`GET /api/productos?q=`).
-- Quitar renglón y cambiar cantidad desde la tabla de la cuenta (`quitar`, `cambiarCantidad` ya existen en el store).
-- Para probar el cobro completo necesitas **caja abierta**: llega con HU-05 (Sosa) hoy mismo.
+### Gonzalo (`gxnzHer`): 2 pts
 
-**Pistas para D-02:** pueden ser capturas de las pantallas reales (login, venta, cobro, caja, inventario, agregar productos, cajeros) y de las alertas (producto no encontrado, pago insuficiente, diferencia en el corte, usuario suspendido) en `docs/prototipos/`, con un `README.md` que las liste. Enlázalas en `docs/diagramas/casos-de-uso.md` (P-01–P-07).
+| Qué | PR para |
+|---|---|
+| **HU-07** Saber visitas de proveedores (#38; T-21 #39, T-22 #40) | Mar 10 nov |
 
-### Sosa: caja (11 pts nuevos)
+Es tu única historia, porque estarás ausente la mayor parte del sprint, y no depende de nadie. El modelo `VisitaProveedor` ya existe. **Si sabes que no llegas al martes 10, avísale a Sosa antes**, para reasignarla sin retrasar el cierre.
 
-**HU-09** Pagos a proveedor (T-10) y **HU-05** Abrir caja y corte (T-09, T-11), en el módulo `caja` y `features/caja`.
+### Sosa: 5 pts
 
-### Gonzalo (`gxnzHer`)
-
-Sin tareas este sprint. Si se reincorpora, se coordina con Sosa para el Sprint 3.
-
-**HU-08 (alta de productos) es de Sosa**: no la toques; la pantalla "Agregar productos" sirve para cargar datos de prueba.
+**HU-11**, **HU-15**, revisión e integración de PRs, y documentación del sprint (D-04, D-05).
 
 ## Instalación (una vez)
 
@@ -80,9 +73,20 @@ Con `implementar-hu.md` la IA:
 3. Programa, corre `npm test` y `npm run lint`.
 4. Hace commits, sube la rama y abre el PR **contra `develop` con Sosa (`notNorthStar`) como reviewer**. Si tu IA no puede abrir el PR, abre el link que te da GitHub al hacer push.
 
+## Mueve tus tarjetas
+
+En el [tablero](https://github.com/users/notNorthStar/projects/1/views/2) arrastra **tus** tarjetas (la historia y sus tareas):
+
+| Cuándo | A qué columna |
+|---|---|
+| Empiezas a trabajar | **En progreso** |
+| Abres el PR | **En revisión** |
+
+Tu IA te lo recuerda, pero lo haces tú: puede no tener permiso sobre el tablero. **Hecho** lo marca Sosa cuando integra tu PR. En el PR escribe `Refs #N` con el número de la historia.
+
 ## Después de abrir tu PR
 
-- **Sosa lo revisa.** Si pide cambios, verás sus comentarios en el PR. Dile a tu IA: `Atiende los comentarios del PR #N` (o pégale los comentarios). Corrige **en la misma rama** y haz push: el PR se actualiza solo.
+- **Sosa lo revisa.** Si pide cambios, tu tarjeta sigue en *En revisión* y verás sus comentarios en el PR. Dile a tu IA: `Atiende los comentarios del PR #N` (o pégale los comentarios). Corrige **en la misma rama** y haz push: el PR se actualiza solo.
 - Cuando Sosa lo integra, la rama se borra. Para la siguiente HU, tu IA vuelve a partir de `develop` actualizado.
 - **No esperes a que se apruebe un PR para empezar la siguiente HU**: empieza la siguiente desde `develop`.
 
@@ -103,4 +107,5 @@ Con `implementar-hu.md` la IA:
 | `docs/03-plan-entrega.md` | Dueños de módulo, definición de hecho |
 | `docs/04-arquitectura.md` | Estructura del código y API |
 | `docs/05-modelo-datos.md` | Base de datos y fórmulas de dinero |
-| `docs/06-flujo-trabajo.md` | Ramas, commits, PRs |
+| `docs/06-flujo-trabajo.md` | Ramas, commits, PRs, tablero |
+| [Tablero](https://github.com/users/notNorthStar/projects/1/views/2) | Quién hace qué y en qué va cada tarea |

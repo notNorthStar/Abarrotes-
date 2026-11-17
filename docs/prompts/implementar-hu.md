@@ -11,10 +11,10 @@ Vas a implementar **{HU}** de Abarrotes+. Sigue estos pasos en orden y no te sal
    - Endpoints, servicios, componentes y archivos a crear/modificar.
    - Pruebas que escribirás (una o más por CA con lógica).
    - Dudas de alcance (si las hay, pregúntalas ahora).
-   Espera mi OK.
+   Espera mi OK. Al recibirlo, recuérdame mover mis tarjetas de {HU} a *En progreso* en el tablero.
 4. **Implementa** primero el backend (schemas Zod → service → routes → pruebas), luego el front. Respeta los dueños de módulo; si necesitas algo de otro módulo, usa su contrato público o dímelo.
 5. **Verifica.** `npm test` y `npm run lint`. Prueba el flujo con los usuarios del seed. Reporta resultados reales; si algo falla, arréglalo o explícalo.
-6. **Sprint backlog.** Marca mis tareas de {HU} en `docs/scrum/sprint-backlog.md` como 🟦.
+6. **Issue.** Busca el número de {HU}: `gh issue list --search "[{HU}]"`; si no hay `gh`, está en `docs/00-empieza-aqui.md` o pregúntamelo.
 7. **Commits** pequeños: `tipo(modulo): descripción [{HU}]`.
-8. **PR con base `develop`.** Antes, `git fetch origin && git rebase origin/develop` y vuelve a correr pruebas. Prepara título `[{HU}] Nombre` y cuerpo con la plantilla `.github/pull_request_template.md` (CA cubiertos con ✅, cómo probar, dudas). Pregúntame antes de hacer push / abrir el PR. **Reviewer: siempre `notNorthStar` (Sosa)**; con `gh`: `gh pr create --base develop --reviewer notNorthStar --title ... --body-file ...`; si no hay `gh`, dame el link de GitHub para abrirlo. **Nunca hagas merge**: lo integra Sosa. (Si yo soy Sosa, pregúntame si integro directo con `gh pr merge --squash --delete-branch --admin`: la protección de ramas exige aprobación de Code Owner y `--admin` la salta solo para Sosa.)
+8. **PR con base `develop`.** Antes, `git fetch origin && git rebase origin/develop` y vuelve a correr pruebas. Prepara título `[{HU}] Nombre` y cuerpo con la plantilla `.github/pull_request_template.md` (CA cubiertos con ✅, cómo probar, dudas, y `Refs #N` con el issue de {HU}; nunca `Closes`). Al abrirlo, recuérdame mover mis tarjetas a *En revisión*. Pregúntame antes de hacer push / abrir el PR. **Reviewer: siempre `notNorthStar` (Sosa)**; con `gh`: `gh pr create --base develop --reviewer notNorthStar --title ... --body-file ...`; si no hay `gh`, dame el link de GitHub para abrirlo. **Nunca hagas merge**: lo integra Sosa. (Si yo soy Sosa, pregúntame si integro directo con `gh pr merge --squash --delete-branch --admin`: la protección de ramas exige aprobación de Code Owner y `--admin` la salta solo para Sosa.)
 9. **Explícame** en 5–10 líneas qué hace cada archivo nuevo, para que pueda defenderlo en la demo.

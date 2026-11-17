@@ -11,7 +11,7 @@ Proyecto académico trabajado con **Scrum simulado**: sprints de 2 semanas, prod
 | Persona | GitHub | Rol Scrum | Dominio técnico principal |
 |---|---|---|---|
 | Luis David Sosa Fernández | `notNorthStar` | Scrum Master + Dev | Autenticación, cuentas, cobro/pagos, alta de productos, caja (pagos a proveedor, corte), setup del proyecto |
-| Gonzalo Mendoza Herrera | `gxnzHer` | Dev | Sin tareas en el Sprint 2 (baja temporal desde el 28 oct) |
+| Gonzalo Mendoza Herrera | `gxnzHer` | Dev | Visitas de proveedores (Sprint 3, disponibilidad limitada) |
 | Miguel Angel Marcelo Taracena | `MiguelTaracena` | Dev | Carrito: escaneo por código y granel; consulta de inventario; prototipos |
 
 - **Product Owner:** _[confirmar con la maestra / el equipo]_. Mientras tanto las dudas de alcance se resuelven con lo acordado en el Planning Poker (ver `02-backlog.md`).
@@ -32,9 +32,9 @@ Los roles son jerárquicos: `JEFE ⊃ ADMIN ⊃ CAJERO`.
 | Hito | Fecha |
 |---|---|
 | Sprint 1 (oficial) | 5 – 18 oct 2026 — **no se entregó** |
-| Sprint 2 (en curso) | 19 oct – 1 nov 2026 |
+| Sprint 2 | 19 oct – 1 nov 2026 — **cerrado** (`v0.2.0`) |
 | **Entrega Sprint 1 + Sprint 2** | **Domingo 1 de noviembre de 2026** |
-| Sprint 3 | 2 – 15 nov 2026 |
+| Sprint 3 (en curso) | 2 – 15 nov 2026 |
 | Sprint 4 | 16 – 29 nov 2026 |
 
 ## Fuentes originales

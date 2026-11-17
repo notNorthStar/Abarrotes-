@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.3.0 — Cierre del Sprint 3 · 15 nov 2026
+
+5 historias, 23 puntos, integradas el 9 de noviembre. Producto acumulado: 70 de 80 puntos.
+
+### Historias de usuario
+- **HU-10** Registro de producto caducado o dañado: motivo obligatorio, descuento de existencias sin afectar la caja y rechazo si la cantidad supera la existencia. (#50, Miguel)
+- **HU-13** Reporte semanal por sucursal (lunes a domingo): ingresos por forma de pago con efectivo neto de cambio, ventas, pagos a proveedor, productos agregados y mermas con su responsable; exportación a PDF. (#51, Miguel)
+- **HU-11** El administrador opera como cajero con su propia caja; el corte queda por persona. (#53, Sosa)
+- **HU-15** El jefe gestiona cuentas de administrador por sucursal: crear, suspender, reactivar, restablecer contraseña y eliminar (lógico). (#54, Sosa)
+- **HU-07** Visitas de proveedores: el administrador las registra y el cajero las consulta por fecha y proveedor. (#56, Gonzalo)
+
+### Dependencias
+- `pdfkit` 0.17.2 para el PDF del reporte semanal.
+
+### Documentación Scrum
+- Tablero en GitHub Projects con un issue por historia y tarea; casos de uso y capturas del Sprint 3 (#55, #57); sprint backlog, burndown y burnup; review, retrospectiva y documento Scrum del Sprint 3.
+
+### Calidad
+- 194 pruebas automatizadas (31 web + 163 API), lint, tipos y build correctos en cada PR.
+
 ## v0.2.0 — Cierre del Sprint 2 (Sprint 1 + Sprint 2) · 29 oct 2026
 
 Entrega: domingo 1 de noviembre de 2026. 9 historias, 47 puntos.

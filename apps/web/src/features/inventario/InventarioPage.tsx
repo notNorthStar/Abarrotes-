@@ -332,6 +332,10 @@ function Detalle({ producto }: { producto: Producto | null }) {
           {porReponer(producto) && <dd className="text-xs text-chile-texto">Por reponer</dd>}
         </div>
       </dl>
+      <Link to="/mermas" className={`${claseBoton('secundario')} h-11`}>
+        <Icono nombre="menos" tamano={16} />
+        Registrar merma
+      </Link>
       <Link to="/productos/nuevo" className={`${claseBoton('primario')} h-11`}>
         <Icono nombre="mas" tamano={16} />
         Registrar entrada

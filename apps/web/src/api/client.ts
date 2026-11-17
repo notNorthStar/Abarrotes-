@@ -33,7 +33,20 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
   return data as T
 }
 
+async function download(path: string): Promise<Blob> {
+  const token = tokenStore.get()
+  const res = await fetch(`/api${path}`, {
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+  })
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}))
+    throw new ApiError(res.status, data.error ?? 'No se pudo descargar el archivo')
+  }
+  return res.blob()
+}
+
 export const api = {
+  download,
   get: <T>(path: string) => request<T>('GET', path),
   post: <T>(path: string, body?: unknown) => request<T>('POST', path, body),
   patch: <T>(path: string, body?: unknown) => request<T>('PATCH', path, body),

@@ -27,6 +27,16 @@ export const entradaSchema = z.object({
   comentario: z.string().trim().max(200).optional(),
 })
 
+export const mermaSchema = z.object({
+  cantidad: decimal(3, 'La cantidad')
+    .refine((v) => Number(v) > 0, 'La cantidad debe ser mayor a 0')
+    .refine((v) => Number(v) <= 9999999.999, 'La cantidad supera el máximo permitido'),
+  motivo: z.enum(['CADUCADO', 'DANADO'], {
+    errorMap: () => ({ message: 'Selecciona el motivo: caducado o dañado' }),
+  }),
+  comentario: z.string().trim().max(200).optional(),
+})
+
 export const idSchema = z.coerce
   .number({ invalid_type_error: 'Id inválido' })
   .int('Id inválido')
@@ -34,3 +44,4 @@ export const idSchema = z.coerce
 
 export type CrearProducto = z.infer<typeof crearProductoSchema>
 export type Entrada = z.infer<typeof entradaSchema>
+export type Merma = z.infer<typeof mermaSchema>
