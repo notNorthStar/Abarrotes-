@@ -48,14 +48,28 @@ Actualizar cada día con los puntos de HU **completamente hechas** (DoD) al cier
 |---|---|---|---|
 | 1 | 18 oct | 24 | 0 |
 | 2 | 1 nov | 47 | 47 |
-| 3 | 15 nov | 70 | |
+| 3 | 15 nov | 70 | 70 |
 | 4 | 29 nov | 80 | |
 
 Para la gráfica: pedir a la IA `genera la gráfica de burndown/burnup como Mermaid xychart desde docs/scrum/burndown.md` o pasar la tabla a Sheets.
 
 ## Gráficas
 
-Actualizar las series "real" al llenar las tablas de arriba. Imágenes exportadas: [`burndown.png`](../diagramas/img/burndown.png), [`burnup.png`](../diagramas/img/burnup.png).
+Actualizar las series "real" al llenar las tablas de arriba. Imágenes exportadas: [`burndown-sprint-3.png`](../diagramas/img/burndown-sprint-3.png), [`burndown.png`](../diagramas/img/burndown.png) (Sprint 2), [`burnup.png`](../diagramas/img/burnup.png).
+
+### Burndown Sprint 3 (cerrado el 9 nov)
+
+Línea gris: ideal (23 → 0). Línea roja: real restante (días 1–8).
+
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#64748b, #dc2626"}}}}%%
+xychart-beta
+    title "Burndown Sprint 3 (23 pts)"
+    x-axis ["2 nov", "3 nov", "4 nov", "5 nov", "6 nov", "7 nov", "8 nov", "9 nov", "10 nov", "11 nov", "12 nov", "13 nov", "14 nov", "15 nov"]
+    y-axis "Puntos restantes" 0 --> 25
+    line [23.0, 21.2, 19.5, 17.7, 15.9, 14.2, 12.4, 10.6, 8.8, 7.1, 5.3, 3.5, 1.8, 0.0]
+    line [23, 23, 23, 23, 23, 23, 23, 0]
+```
 
 ### Burndown Sprint 2 (cerrado el 28 oct)
 
@@ -73,7 +87,7 @@ xychart-beta
 
 ### Burnup del producto (80 pts)
 
-Línea gris: plan acumulado. Barras rojas: real acumulado (Sprint 1 = 0; Sprint 2 = 47, completo).
+Línea gris: plan acumulado. Barras rojas: real acumulado (Sprint 1 = 0; Sprint 2 = 47 y Sprint 3 = 70, completos).
 
 ```mermaid
 %%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#64748b, #dc2626"}}}}%%
@@ -82,5 +96,5 @@ xychart-beta
     x-axis ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"]
     y-axis "Puntos acumulados" 0 --> 80
     line [24, 47, 70, 80]
-    bar [0, 47]
+    bar [0, 47, 70]
 ```

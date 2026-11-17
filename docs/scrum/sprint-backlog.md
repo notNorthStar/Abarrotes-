@@ -19,6 +19,6 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-24 | Pantalla del reporte en tabla | HU-13 | | Miguel | ✅ | #51 | 9 nov |
 | T-25 | Exportar el reporte a PDF | HU-13 | | Miguel | ✅ | #51 | 9 nov |
 | D-04 | Casos de uso y capturas de las pantallas nuevas | Doc | — | Sosa | ✅ | #55 | 9 nov |
-| D-05 | Minutas, burndown, dailies y documento Scrum del Sprint 3 | Doc | — | Sosa | 🟨 | #52 | Burndown al día; cierre el 15 nov |
+| D-05 | Minutas, burndown, dailies y documento Scrum del Sprint 3 | Doc | — | Sosa | ✅ | #52 y cierre | 17 nov (retro en borrador) |
 
-**Total comprometido:** 23 pts · **Completado:** 23 pts (Miguel 16 · Sosa 5 · Gonzalo 2) · **Restante:** 0 pts. Falta D-05 (cierre del sprint el 15 nov).
+**Total comprometido:** 23 pts · **Completado:** 23 pts (Miguel 16 · Sosa 5 · Gonzalo 2) · **Restante:** 0 pts. Sprint cerrado.
