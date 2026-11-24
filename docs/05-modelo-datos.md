@@ -200,3 +200,7 @@ diferencia              = efectivoContado − efectivoEsperado   // + sobrante, 
 - Usuarios (contraseña `abarrotes123`): `jefe` (JEFE), `admin.centro` (ADMIN), `cajero1`, `cajero2` (CAJERO, Centro), `cajero.norte` (CAJERO, Norte), `suspendido` (CAJERO, SUSPENDIDO).
 - ~20 productos por pieza con códigos EAN reales-ish (`7501000000011`…) y ~6 por kilo (jitomate, frijol, azúcar…).
 - 2 proveedores.
+
+## Imágenes (T-34, Sprint 4)
+
+`Imagen` guarda en la base las fotos de productos (hasta 5 activas; la más antigua es la principal) y el logotipo de cada proveedor (uno activo). Tiene `productoId` o `proveedorId`, nunca los dos. El id es un UUID porque se sirve sin sesión. Quitar o reemplazar deja la anterior como `ELIMINADO`.

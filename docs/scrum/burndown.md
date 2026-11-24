@@ -14,7 +14,7 @@ Actualizar cada día con los puntos de HU **completamente hechas** (DoD) al cier
 | 6 | 21 nov | 6.2 | 10 | |
 | 7 | 22 nov | 5.4 | 10 | |
 | 8 | 23 nov | 4.6 | 10 | |
-| 9 | 24 nov | 3.8 | 10 | Se publica el plan |
+| 9 | 24 nov | 3.8 | 8 | Se publica el plan; se integra HU-14 (#70) |
 | 10 | 25 nov | 3.1 | | |
 | 11 | 26 nov | 2.3 | | |
 | 12 | 27 nov | 1.5 | | |
