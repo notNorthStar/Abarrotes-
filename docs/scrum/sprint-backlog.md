@@ -16,7 +16,7 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-32 | Búsquedas con coincidencias en vivo, sin Enter | Mejora | — | Sosa | ✅ | #72 | 24 nov |
 | T-33 | Confirmar con Enter y operar toda la app con teclado | Mejora | — | Sosa | ✅ | #72 | 24 nov |
 | T-34 | Fotos de productos y logotipos de proveedores (tabla `Imagen`) | Mejora | — | Sosa | ✅ | #73 | 24 nov |
-| T-35 | Logotipo de la app y galería de arte en el login | Mejora | — | Sosa | ✅ | 24 nov | 24 nov |
+| T-35 | Logotipo de la app y galería de arte en el login | Mejora | — | Sosa | ✅ | #74 | 24 nov |
 | D-06 | Casos de uso y capturas de HU-14 y HU-16 | Doc | — | Gonzalo | ⬜ | | |
 | D-07 | Minutas, burndown, documento Scrum final y entrega `v1.0.0` | Doc | — | Sosa | ⬜ | | |
 
