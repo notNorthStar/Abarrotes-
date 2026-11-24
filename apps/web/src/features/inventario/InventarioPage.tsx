@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Decimal from 'decimal.js'
 import type { Producto } from '../../api/tipos'
 import { Icono } from '../../components/Icono'
+import { GaleriaProducto, Miniatura } from '../../components/Imagenes'
 import { useBusquedaProductos } from '../../hooks/useBusquedaProductos'
 import {
   Boton,
@@ -50,7 +51,7 @@ export function InventarioPage() {
   return (
     <PaginaConPanel
       etiquetaPanel="Detalle del producto"
-      panel={<Detalle producto={seleccionado} />}
+      panel={<Detalle producto={seleccionado} onCambio={recargar} />}
     >
       <EncabezadoPagina
         titulo="Inventario"
@@ -214,8 +215,9 @@ export function InventarioPage() {
                                 type="button"
                                 aria-pressed={activo}
                                 onClick={() => setSeleccionId(activo ? null : producto.id)}
-                                className={`min-h-12 w-full px-4 text-left text-sm ${activo ? 'font-medium' : ''}`}
+                                className={`flex min-h-12 w-full items-center gap-3 px-4 py-1.5 text-left text-sm ${activo ? 'font-medium' : ''}`}
                               >
+                                <Miniatura id={producto.imagenes?.[0]?.id} />
                                 {producto.nombre}
                               </button>
                             </th>
@@ -254,7 +256,7 @@ export function InventarioPage() {
   )
 }
 
-function Detalle({ producto }: { producto: Producto | null }) {
+function Detalle({ producto, onCambio }: { producto: Producto | null; onCambio: () => void }) {
   if (!producto) {
     return (
       <div className="flex flex-col items-center gap-3 rounded-xl bg-hueso px-5 py-10 text-center">
@@ -298,6 +300,13 @@ function Detalle({ producto }: { producto: Producto | null }) {
           {porReponer(producto) && <dd className="text-xs text-chile-texto">Por reponer</dd>}
         </div>
       </dl>
+      <GaleriaProducto
+        key={producto.id}
+        productoId={producto.id}
+        nombre={producto.nombre}
+        imagenes={producto.imagenes ?? []}
+        onCambio={onCambio}
+      />
       <Link to="/mermas" className={`${claseBoton('secundario')} h-11`}>
         <Icono nombre="menos" tamano={16} />
         Registrar merma

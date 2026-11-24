@@ -23,12 +23,13 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
   const headers: Record<string, string> = {}
   const token = tokenStore.get()
   if (token) headers.Authorization = `Bearer ${token}`
-  if (body !== undefined) headers['Content-Type'] = 'application/json'
+  const esArchivo = body instanceof Blob
+  if (body !== undefined) headers['Content-Type'] = esArchivo ? body.type : 'application/json'
 
   const res = await fetch(`/api${conSucursal(path, sucursalStore.get())}`, {
     method,
     headers,
-    body: body === undefined ? undefined : JSON.stringify(body),
+    body: body === undefined ? undefined : esArchivo ? body : JSON.stringify(body),
   })
   const data = await res.json().catch(() => ({}))
   if (!res.ok) throw new ApiError(res.status, data.error ?? 'Error de conexión')
@@ -51,6 +52,7 @@ export const api = {
   download,
   get: <T>(path: string) => request<T>('GET', path),
   post: <T>(path: string, body?: unknown) => request<T>('POST', path, body),
+  subir: (path: string, archivo: Blob) => request<{ id: string }>('POST', path, archivo),
   patch: <T>(path: string, body?: unknown) => request<T>('PATCH', path, body),
   delete: <T>(path: string) => request<T>('DELETE', path),
 }

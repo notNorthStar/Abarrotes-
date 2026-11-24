@@ -28,5 +28,3 @@ export type CorteCerrado = Corte & {
   diferencia: string
   comentario: string | null
 }
-
-export type Proveedor = { id: number; nombre: string }

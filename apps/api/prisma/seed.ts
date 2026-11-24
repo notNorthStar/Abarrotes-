@@ -46,6 +46,7 @@ async function main() {
   await prisma.turnoCaja.deleteMany()
   await prisma.movimientoInventario.deleteMany()
   await prisma.visitaProveedor.deleteMany()
+  await prisma.imagen.deleteMany()
   await prisma.proveedor.deleteMany()
   await prisma.producto.deleteMany()
   await prisma.usuario.deleteMany()

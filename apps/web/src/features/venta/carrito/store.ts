@@ -10,6 +10,7 @@ import { cantidadValida } from '../granel/calculosGranel'
 export type Renglon = {
   productoId: number
   nombre: string
+  imagenId?: string
   unidad: UnidadVenta
   precio: string
   cantidad: string
@@ -49,6 +50,7 @@ export const useCarrito = create<Carrito>((set, get) => ({
       const renglon: Renglon = {
         productoId: p.id,
         nombre: p.nombre,
+        ...(p.imagenes?.[0] && { imagenId: p.imagenes[0].id }),
         unidad: p.unidad,
         precio: p.precio,
         cantidad: validada,

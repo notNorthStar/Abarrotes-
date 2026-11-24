@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import Decimal from 'decimal.js'
 import { Icono } from '../../../components/Icono'
+import { Miniatura } from '../../../components/Imagenes'
 import { pesos } from '../../../components/ui'
 import { useCarrito, type Renglon } from './store'
 
@@ -68,7 +69,10 @@ export function FilaProducto({
   return (
     <tr className="hover:bg-[#FAF9F6]">
       <th scope="row" className={`${celda} px-4 py-3 font-normal`}>
-        {r.nombre}
+        <span className="flex items-center gap-3">
+          <Miniatura id={r.imagenId} />
+          {r.nombre}
+        </span>
       </th>
       <td className={`${celda} p-2`}>
         <form onSubmit={guardar}>

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Decimal from 'decimal.js'
 import type { Producto } from '../../../api/tipos'
 import { Icono } from '../../../components/Icono'
+import { Miniatura } from '../../../components/Imagenes'
 import { Boton, Esqueleto, pesos } from '../../../components/ui'
 import { useBusquedaProductos } from '../../../hooks/useBusquedaProductos'
 import { useCarrito } from '../carrito/store'
@@ -249,15 +250,18 @@ export function Granel({
                 <button
                   type="button"
                   onClick={() => elegir(p)}
-                  className={`flex min-h-[44px] flex-col items-start justify-center rounded-lg border px-3 py-1.5 text-left text-sm transition-colors ${
+                  className={`flex min-h-[44px] items-center gap-2.5 rounded-lg border px-3 py-1.5 text-left text-sm transition-colors ${
                     producto?.id === p.id
                       ? 'border-maiz-borde bg-maiz-claro'
                       : 'border-linea bg-hueso hover:border-borde hover:bg-superficie'
                   }`}
                 >
-                  {p.nombre}
-                  <span className="num text-xs text-piedra">
-                    ${new Decimal(p.precio).toFixed(2)}/kg · {p.codigoBarras}
+                  {p.imagenes?.[0] && <Miniatura id={p.imagenes[0].id} />}
+                  <span className="flex flex-col">
+                    {p.nombre}
+                    <span className="num text-xs text-piedra">
+                      ${new Decimal(p.precio).toFixed(2)}/kg · {p.codigoBarras}
+                    </span>
                   </span>
                 </button>
               </li>

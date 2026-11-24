@@ -3,6 +3,7 @@ import { api, ApiError } from '../../api/client'
 import type { Producto, UnidadVenta } from '../../api/tipos'
 import { BuscadorProductos } from '../../components/BuscadorProductos'
 import { Icono } from '../../components/Icono'
+import { BotonImagen, MAX_IMAGENES_PRODUCTO, Miniatura, reducirImagen } from '../../components/Imagenes'
 import { Aviso, Boton, EncabezadoPagina, Pagina, Tarjeta } from '../../components/ui'
 
 // HU-08 (Sosa): alta de productos nuevos y entrada de existencias. Cajero, admin y jefe.
@@ -32,6 +33,7 @@ function Campo({ id, etiqueta, children }: { id: string; etiqueta: ReactNode; ch
 
 function NuevoProducto() {
   const [form, setForm] = useState(formVacio)
+  const [fotos, setFotos] = useState<File[]>([])
   const [aviso, setAviso] = useState<AvisoForm | null>(null)
   const [enviando, setEnviando] = useState(false)
 
@@ -41,8 +43,16 @@ function NuevoProducto() {
     setAviso(null)
     try {
       const p = await api.post<Producto>('/productos', form)
-      setAviso({ tipo: 'ok', texto: `Se dio de alta "${p.nombre}" con ${p.existencia} en existencia.` })
       setForm(formVacio)
+      setFotos([])
+      const alta = `Se dio de alta "${p.nombre}" con ${p.existencia} en existencia.`
+      try {
+        for (const foto of fotos) await api.subir(`/productos/${p.id}/imagenes`, await reducirImagen(foto))
+        setAviso({ tipo: 'ok', texto: alta })
+      } catch (err) {
+        // El producto ya existe: las fotos que falten se agregan desde Inventario.
+        setAviso({ tipo: 'error', texto: `${alta} No se guardaron todas sus imágenes: ${mensajeDe(err)}` })
+      }
     } catch (err) {
       setAviso({ tipo: 'error', texto: mensajeDe(err) })
     } finally {
@@ -128,6 +138,32 @@ function NuevoProducto() {
           </Campo>
         </div>
 
+        <div className="flex flex-col gap-2">
+          <span className="text-[13px] font-medium">Imágenes (opcional, hasta {MAX_IMAGENES_PRODUCTO})</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <BotonImagen
+              varias
+              tamano="md"
+              texto="Elegir imágenes"
+              disabled={enviando || fotos.length >= MAX_IMAGENES_PRODUCTO}
+              onElegir={(nuevas) => setFotos((f) => [...f, ...nuevas].slice(0, MAX_IMAGENES_PRODUCTO))}
+            />
+            {fotos.map((foto, i) => (
+              <button
+                key={`${foto.name}-${i}`}
+                type="button"
+                disabled={enviando}
+                aria-label={`Quitar ${foto.name}`}
+                onClick={() => setFotos((f) => f.filter((_, n) => n !== i))}
+                className="flex h-10 max-w-[200px] items-center gap-2 rounded-lg border border-linea bg-hueso px-3 text-[13px] hover:bg-chile-claro hover:text-chile-texto"
+              >
+                <span className="truncate">{foto.name}</span>
+                <Icono nombre="cerrar" tamano={14} />
+              </button>
+            ))}
+          </div>
+        </div>
+
         {aviso && <Aviso tipo={aviso.tipo}>{aviso.texto}</Aviso>}
         <div>
           <Boton type="submit" disabled={enviando}>
@@ -187,7 +223,10 @@ function EntradaExistencias() {
       {producto && (
         <form onSubmit={registrar} className="flex flex-col gap-4 rounded-lg border border-linea bg-hueso p-4">
           <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <span className="text-sm font-medium">{producto.nombre}</span>
+            <span className="flex items-center gap-3 text-sm font-medium">
+              <Miniatura id={producto.imagenes?.[0]?.id} />
+              {producto.nombre}
+            </span>
             <span className="text-[13px] text-piedra">
               Existencia actual{' '}
               <span className="num font-medium text-tinta">
