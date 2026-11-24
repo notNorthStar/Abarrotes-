@@ -18,8 +18,8 @@
 | 12 | HU-15 | Gestión de cuentas de administrador | Medio | 3 | 3 | Sosa |
 | 13 | HU-07 | Saber visitas de proveedores | Bajo | 2 | 3 | Gonzalo |
 | 14 | HU-13 | Reporte semanal por sucursal | Medio | 13 | 3 | Miguel |
-| 15 | HU-14 | Operaciones de administrador (jefe) | Bajo | 2 | 4 | — |
-| 16 | HU-16 | Gestión de sucursales | Bajo | 8 | 4 | — |
+| 15 | HU-14 | Operaciones de administrador (jefe) | Bajo | 2 | 4 | Sosa |
+| 16 | HU-16 | Gestión de sucursales | Bajo | 8 | 4 | Miguel |
 
 ---
 
@@ -163,7 +163,29 @@
 - Duda para el PO: la semana se toma de lunes a domingo mientras no se indique otra cosa.
 - Nota: cualquier dependencia nueva para el PDF se menciona en el PR.
 
-## Sprint 4 (referencia)
+## Sprint 4 — "Que el jefe administre todas las sucursales" (10 pts)
 
-- **HU-14** Operaciones de admin para jefe (2): permisos de admin al jefe + **selector de sucursal**.
-- **HU-16** Gestión de sucursales (8): crear/suspender/eliminar; sucursal suspendida → bloquea acceso de sus usuarios, el inventario se conserva.
+Criterios tomados del Planning Poker (documento en Drive) y del código existente.
+
+### HU-14 · Operaciones de administrador para el jefe (2 pts) — Sosa
+> Como jefe quiero realizar las mismas operaciones del administrador para administrar el negocio en caso de fallas de los administradores.
+
+- CA1: El jefe puede hacer todo lo que hace un administrador (y, por jerarquía, un cajero): cajeros, productos, inventario, mermas, visitas de proveedores, reporte semanal y caja.
+- CA2: **Selector de sucursal** en la barra superior, visible solo para el jefe, con las sucursales activas.
+- CA3: Todas las pantallas operan sobre la sucursal elegida; la elección se conserva al navegar y al recargar.
+- CA4: El servidor sigue exigiendo la sucursal en cada petición del jefe (`?sucursalId=`); una sucursal que no existe se rechaza.
+- CA5: Administradores y cajeros no ven el selector y siguen operando solo en su sucursal.
+- Nota: el backend ya acepta `?sucursalId=` para el jefe; la historia es sobre todo el selector y quitar los avisos "disponible en HU-14".
+
+### HU-16 · Gestión de sucursales (8 pts) — Miguel
+> Como jefe quiero crear, suspender y eliminar sucursales para llevar una correcta gestión de las activas e inactivas.
+
+- CA1: **Solo el jefe** crea sucursales (nombre obligatorio, dirección opcional) y las ve en una lista con su estado.
+- CA2: **Suspender** bloquea el acceso de los usuarios de esa sucursal (no pueden iniciar sesión); se puede reactivar.
+- CA3: Al suspender o eliminar se **conservan** el inventario y el historial (ventas, turnos, movimientos).
+- CA4: **Eliminar es lógico** (`estado = ELIMINADO`): la sucursal desaparece de la lista y del selector de HU-14, y sus usuarios ya no pueden entrar.
+- CA5: No cambia el modelo de datos: la estructura multisucursal existe desde el Sprint 1.
+- Nota: el inicio de sesión ya rechaza a usuarios de sucursales no activas (HU-01).
+- Dudas para el PO:
+  1. Las sesiones abiertas de una sucursal que se suspende, ¿se cortan de inmediato o al expirar? Propuesta: en su siguiente petición.
+  2. ¿Se puede suspender o eliminar una sucursal con cajas abiertas? Propuesta: sí; las cajas se conservan tal como están.
