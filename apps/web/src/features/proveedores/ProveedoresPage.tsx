@@ -50,15 +50,6 @@ const TEXTO_ESTADO: Record<EstadoVisita, string> = {
 export function ProveedoresPage() {
   const { usuario } = useAuth()
 
-  if (usuario?.rol === 'JEFE') {
-    return (
-      <Pagina>
-        <EncabezadoPagina titulo="Visitas de proveedores" />
-        <Aviso tipo="info">Selecciona una sucursal (disponible en HU-14).</Aviso>
-      </Pagina>
-    )
-  }
-
   return <ContenidoProveedores esAdmin={usuario ? tieneRol(usuario.rol, 'ADMIN') : false} />
 }
 

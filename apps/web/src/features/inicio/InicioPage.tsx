@@ -53,7 +53,6 @@ export function InicioPage() {
       const [corte, actividad, productos] = await Promise.all([
         turno ? api.get<Corte>('/caja/actual/corte') : Promise.resolve(null),
         turno ? api.get<Actividad[]>('/caja/actual/actividad') : Promise.resolve([]),
-        // El jefe necesita elegir sucursal (HU-14); para él no se muestra la lista.
         api.get<Producto[]>('/productos').catch(() => null),
       ])
       if (vigente) setDatos({ turno, corte, actividad, reponer: productos ? productos.filter(porReponer) : null })
@@ -103,7 +102,7 @@ export function InicioPage() {
           etiqueta="Por reponer"
           cargando={cargando}
           valor={datos?.reponer ? String(datos.reponer.length) : '—'}
-          nota={datos?.reponer ? 'productos con existencia baja' : 'Selecciona una sucursal'}
+          nota={datos?.reponer ? 'productos con existencia baja' : 'No disponible'}
         />
       </section>
 

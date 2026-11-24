@@ -1,7 +1,6 @@
-import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react'
+import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { api, ApiError } from '../../api/client'
 import type { CuentaUsuario, EstadoCuenta } from '../../api/tipos'
-import { useAuth } from '../../auth/AuthContext'
 import { Icono } from '../../components/Icono'
 import { Aviso, Boton, Chip, EncabezadoPagina, Esqueleto, Pagina, Tarjeta } from '../../components/ui'
 
@@ -36,32 +35,19 @@ const claseEliminar =
   'inline-flex h-9 items-center justify-center gap-1.5 rounded-lg px-3 text-sm text-chile-texto transition-colors hover:bg-chile-claro'
 
 export function UsuariosPage() {
-  const { usuario } = useAuth()
-
-  if (usuario?.rol === 'JEFE') {
-    return (
-      <Pagina>
-        <EncabezadoPagina titulo="Cuentas de cajero" />
-        <Aviso tipo="info">Selecciona una sucursal (disponible en HU-14).</Aviso>
-      </Pagina>
-    )
-  }
-  return <GestionCuentas ruta="/usuarios" singular="cajero" plural="cajeros" ambito="tu sucursal" />
+  return <GestionCuentas ruta="/usuarios" singular="cajero" plural="cajeros" ambito="la sucursal" />
 }
 
 type GestionProps = {
   /** Recurso de la API: '/usuarios' (cajeros) o '/administradores'. */
   ruta: string
-  /** Query que se agrega a cada petición, p. ej. '?sucursalId=3' para el jefe. */
-  consulta?: string
   singular: string
   plural: string
-  /** Dónde viven las cuentas, para los textos: "tu sucursal", "Norte". */
+  /** Dónde viven las cuentas, para los textos: "la sucursal". */
   ambito: string
-  acciones?: ReactNode
 }
 
-export function GestionCuentas({ ruta, consulta = '', singular, plural, ambito, acciones }: GestionProps) {
+export function GestionCuentas({ ruta, singular, plural, ambito }: GestionProps) {
   const [cajeros, setCajeros] = useState<CuentaUsuario[]>([])
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
@@ -71,20 +57,20 @@ export function GestionCuentas({ ruta, consulta = '', singular, plural, ambito, 
   const [guardando, setGuardando] = useState(false)
   const [resetId, setResetId] = useState<number | null>(null)
 
-  const url = (id?: number) => `${ruta}${id === undefined ? '' : `/${id}`}${consulta}`
+  const url = (id?: number) => `${ruta}${id === undefined ? '' : `/${id}`}`
   const mayuscula = (texto: string) => texto[0].toUpperCase() + texto.slice(1)
   const Singular = mayuscula(singular)
 
   const cargar = useCallback(async () => {
     try {
-      setCajeros(await api.get<CuentaUsuario[]>(`${ruta}${consulta}`))
+      setCajeros(await api.get<CuentaUsuario[]>(ruta))
       setError('')
     } catch (err) {
       setError(mensaje(err))
     } finally {
       setCargando(false)
     }
-  }, [ruta, consulta])
+  }, [ruta])
 
   useEffect(() => {
     setCargando(true)
@@ -147,7 +133,7 @@ export function GestionCuentas({ ruta, consulta = '', singular, plural, ambito, 
 
   return (
     <Pagina>
-      <EncabezadoPagina titulo={`Cuentas de ${singular}`} subtitulo={subtitulo} acciones={acciones} />
+      <EncabezadoPagina titulo={`Cuentas de ${singular}`} subtitulo={subtitulo} />
 
       <Tarjeta className="p-5">
         <form onSubmit={crear} aria-labelledby="h-nuevo-cajero" className="flex flex-col gap-4">

@@ -35,5 +35,5 @@ cajaRoutes.get('/proveedores', requireRol('CAJERO'), async (_req, res) => {
 
 cajaRoutes.post('/actual/pagos-proveedor', requireRol('CAJERO'), async (req, res) => {
   const datos = pagoProveedorSchema.parse(req.body)
-  res.status(201).json(await caja.registrarPagoProveedor(req.usuario!.id, datos))
+  res.status(201).json(await caja.registrarPagoProveedor(req.usuario!.id, sucursalDe(req), datos))
 })

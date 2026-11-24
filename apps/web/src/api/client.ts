@@ -1,4 +1,6 @@
-// Única forma de llamar a la API desde el front. Agrega el token y convierte { error } en excepción.
+// Única forma de llamar a la API desde el front. Agrega el token (y la sucursal del jefe) y convierte { error } en excepción.
+
+import { conSucursal, sucursalStore } from './sucursal'
 
 const TOKEN_KEY = 'abarrotes.token'
 
@@ -23,7 +25,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
   if (token) headers.Authorization = `Bearer ${token}`
   if (body !== undefined) headers['Content-Type'] = 'application/json'
 
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`/api${conSucursal(path, sucursalStore.get())}`, {
     method,
     headers,
     body: body === undefined ? undefined : JSON.stringify(body),
@@ -35,7 +37,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
 
 async function download(path: string): Promise<Blob> {
   const token = tokenStore.get()
-  const res = await fetch(`/api${path}`, {
+  const res = await fetch(`/api${conSucursal(path, sucursalStore.get())}`, {
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   })
   if (!res.ok) {

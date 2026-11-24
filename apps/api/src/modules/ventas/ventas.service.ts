@@ -48,6 +48,8 @@ export async function crearVenta(usuarioId: number, sucursalId: number, datos: C
   const venta = await prisma.$transaction(async (tx) => {
     const turno = await turnoAbiertoDe(usuarioId, tx)
     if (!turno) throw new AppError(409, 'Abre tu caja antes de cobrar')
+    // HU-14: el jefe puede cambiar de sucursal con su caja abierta; la venta debe ser de la sucursal de su caja.
+    if (turno.sucursalId !== sucursalId) throw new AppError(409, 'Tu caja abierta es de otra sucursal')
 
     // El servidor recalcula con precios de la BD (nunca confía en el cliente).
     const productos = await tx.producto.findMany({

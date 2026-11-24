@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import type { Rol } from '@prisma/client'
 import { env } from '../lib/env'
 import { AppError } from '../lib/AppError'
+import { prisma } from '../lib/prisma'
 import type { UsuarioToken } from '../types/express'
 
 // Roles jerárquicos: JEFE ⊃ ADMIN ⊃ CAJERO
@@ -28,9 +29,17 @@ function autenticar(req: Request): UsuarioToken {
 
 /** Exige sesión y un rol mínimo. Uso: router.get('/', requireRol('ADMIN'), handler) */
 export function requireRol(minimo: Rol) {
-  return (req: Request, _res: Response, next: NextFunction) => {
+  return async (req: Request, _res: Response, next: NextFunction) => {
     const usuario = autenticar(req)
     if (NIVEL[usuario.rol] < NIVEL[minimo]) throw new AppError(403, 'No tienes permiso para esta acción')
+    // HU-14 CA4: la sucursal que indica el jefe debe existir.
+    if (usuario.rol === 'JEFE' && req.query.sucursalId !== undefined) {
+      const id = Number(req.query.sucursalId)
+      const valido = Number.isInteger(id) && id > 0 && id <= 2147483647
+      const sucursal =
+        valido && (await prisma.sucursal.findFirst({ where: { id, estado: { not: 'ELIMINADO' } }, select: { id: true } }))
+      if (!sucursal) throw new AppError(404, 'Sucursal no encontrada')
+    }
     req.usuario = usuario
     next()
   }
