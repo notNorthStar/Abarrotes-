@@ -1,3 +1,4 @@
+import { SucursalesPage } from './features/sucursales/SucursalesPage'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { RequireRol } from './auth/RequireRol'
 import { Layout } from './components/Layout'
@@ -25,6 +26,14 @@ export function App() {
         }
       >
         <Route index element={<InicioPage />} />
+        <Route
+          path="sucursales"
+          element={
+            <RequireRol minimo="JEFE">
+              <SucursalesPage />
+            </RequireRol>
+          }
+        />
         <Route
           path="reportes"
           element={
