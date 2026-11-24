@@ -25,6 +25,7 @@ const DESTINOS: Destino[] = [
   { to: '/proveedores', texto: 'Proveedores', icono: 'proveedor', minimo: 'CAJERO', grupo: 'Catálogo' },
   { to: '/usuarios', texto: 'Cajeros', icono: 'cajeros', minimo: 'ADMIN', grupo: 'Administración' },
   { to: '/administradores', texto: 'Administradores', icono: 'candado', minimo: 'JEFE', grupo: 'Administración' },
+  { to: '/sucursales', texto: 'Sucursales', icono: 'inicio', minimo: 'JEFE', grupo: 'Administración' },
   { to: '/reportes', texto: 'Reporte semanal', icono: 'recibo', minimo: 'ADMIN', grupo: 'Administración' },
 ]
 
