@@ -213,6 +213,7 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
           <span className="sr-only">Filtrar por proveedor o nota</span>
           <input
             id="buscar-proveedor"
+            data-busqueda
             className="min-w-0 flex-1 bg-transparent text-sm text-tinta outline-none"
             placeholder="Filtrar por proveedor o nota…"
             value={busqueda}

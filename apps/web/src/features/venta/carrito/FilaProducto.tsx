@@ -48,6 +48,12 @@ export function FilaProducto({
           setCantidad(e.target.value)
           setError('')
         }}
+        onKeyDown={(e) => {
+          // ↑ ↓ ajustan las piezas; Enter las aplica.
+          if (esKilo || (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') || !/^\d+$/.test(cantidad)) return
+          e.preventDefault()
+          setCantidad(String(Math.max(1, Number(cantidad) + (e.key === 'ArrowUp' ? 1 : -1))))
+        }}
         inputMode={esKilo ? 'decimal' : 'numeric'}
         aria-invalid={!!error}
         aria-describedby={error ? `error-${r.productoId}` : undefined}

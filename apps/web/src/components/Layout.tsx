@@ -6,6 +6,7 @@ import type { Rol, Sucursal } from '../api/tipos'
 import { useAuth } from '../auth/AuthContext'
 import { tieneRol } from '../auth/RequireRol'
 import { Icono, type NombreIcono } from './Icono'
+import { useTeclado } from '../hooks/teclado'
 import { useCarrito } from '../features/venta/carrito/store'
 import { Aviso, Esqueleto, Pagina, Tecla } from './ui'
 
@@ -111,6 +112,7 @@ export function Layout() {
   const [menuMovil, setMenuMovil] = useState(false)
   const esJefe = usuario?.rol === 'JEFE'
   const sucursal = useSucursalJefe(esJefe)
+  useTeclado()
   const abiertaDesde = useCajaAbierta(pathname, sucursal.elegida)
 
   const destinos = useMemo(
@@ -126,7 +128,7 @@ export function Layout() {
       } else if (e.key === 'F2') {
         e.preventDefault()
         navigate('/venta')
-      }
+      } else if (e.key === 'Escape') setMenuMovil(false)
     }
     window.addEventListener('keydown', atajos)
     return () => window.removeEventListener('keydown', atajos)
@@ -139,6 +141,12 @@ export function Layout() {
 
   return (
     <div className="flex min-h-screen bg-papel">
+      <a
+        href="#contenido"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-superficie focus:px-4 focus:py-2 focus:text-sm"
+      >
+        Saltar al contenido
+      </a>
       <Barra
         destinos={destinos}
         nombre={usuario.nombre}
@@ -202,7 +210,7 @@ export function Layout() {
           <EstadoCaja abiertaDesde={abiertaDesde} />
         </header>
 
-        <main className="min-w-0 flex-1">
+        <main id="contenido" tabIndex={-1} className="min-w-0 flex-1 outline-none">
           {!esJefe || sucursal.elegida !== null ? (
             // La clave recarga la pantalla con los datos de la sucursal elegida.
             <div key={sucursal.elegida ?? 'propia'} className="h-full">
@@ -278,6 +286,7 @@ function Barra({
   return (
     <nav
       aria-label="Principal"
+      data-flechas
       className={`w-[240px] flex-none flex-col gap-6 overflow-y-auto bg-riel px-3 py-4 text-riel-texto ${className}`}
     >
       <div className="flex items-center gap-2.5 px-1.5 pt-1">
@@ -352,18 +361,27 @@ function PaletaComandos({
   const entrada = useRef<HTMLInputElement>(null)
   const opciones = destinos.filter((d) => d.texto.toLowerCase().includes(texto.trim().toLowerCase()))
 
-  useEffect(() => entrada.current?.focus(), [])
+  useEffect(() => {
+    const anterior = document.activeElement
+    entrada.current?.focus()
+    return () => {
+      if (anterior instanceof HTMLElement) anterior.focus()
+    }
+  }, [])
   useEffect(() => setIndice(0), [texto])
 
   function teclas(e: React.KeyboardEvent) {
     if (e.key === 'Escape') onCerrar()
-    else if (e.key === 'ArrowDown') {
+    else if (e.key === 'ArrowDown' || (e.key === 'Tab' && !e.shiftKey)) {
       e.preventDefault()
       setIndice((i) => Math.min(i + 1, opciones.length - 1))
-    } else if (e.key === 'ArrowUp') {
+    } else if (e.key === 'ArrowUp' || e.key === 'Tab') {
       e.preventDefault()
       setIndice((i) => Math.max(i - 1, 0))
-    } else if (e.key === 'Enter' && opciones[indice]) onElegir(opciones[indice].to)
+    } else if (e.key === 'Enter' && opciones[indice]) {
+      e.preventDefault()
+      onElegir(opciones[indice].to)
+    }
   }
 
   return (

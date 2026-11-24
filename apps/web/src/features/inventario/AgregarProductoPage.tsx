@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { api, ApiError } from '../../api/client'
 import type { Producto, UnidadVenta } from '../../api/tipos'
+import { BuscadorProductos } from '../../components/BuscadorProductos'
 import { Icono } from '../../components/Icono'
 import { Aviso, Boton, EncabezadoPagina, Pagina, Tarjeta } from '../../components/ui'
 
@@ -140,23 +141,10 @@ function NuevoProducto() {
 }
 
 function EntradaExistencias() {
-  const [codigo, setCodigo] = useState('')
   const [producto, setProducto] = useState<Producto | null>(null)
   const [cantidad, setCantidad] = useState('')
   const [comentario, setComentario] = useState('')
   const [aviso, setAviso] = useState<AvisoForm | null>(null)
-
-  async function buscar(e: FormEvent) {
-    e.preventDefault()
-    setAviso(null)
-    setProducto(null)
-    if (!codigo.trim()) return
-    try {
-      setProducto(await api.get<Producto>(`/productos/codigo/${encodeURIComponent(codigo.trim())}`))
-    } catch (err) {
-      setAviso({ tipo: 'error', texto: mensajeDe(err) })
-    }
-  }
 
   async function registrar(e: FormEvent) {
     e.preventDefault()
@@ -172,7 +160,6 @@ function EntradaExistencias() {
         texto: `Entrada registrada: "${actualizado.nombre}" ahora tiene ${actualizado.existencia} en existencia.`,
       })
       setProducto(null)
-      setCodigo('')
       setCantidad('')
       setComentario('')
     } catch (err) {
@@ -187,25 +174,15 @@ function EntradaExistencias() {
         <p className="text-[13px] text-piedra">Suma piezas o kilos a un producto que ya existe.</p>
       </div>
 
-      <form onSubmit={buscar} className="flex flex-col gap-1.5">
-        <label htmlFor="ee-codigo" className="text-[13px] font-medium">
-          Código del producto
-        </label>
-        <div className="flex gap-2">
-          <input
-            id="ee-codigo"
-            className="campo num"
-            autoComplete="off"
-            placeholder="Escanea o escribe el código del producto"
-            value={codigo}
-            onChange={(e) => setCodigo(e.target.value)}
-          />
-          <Boton type="submit" variante="secundario" className="flex-none">
-            <Icono nombre="buscar" tamano={16} />
-            Buscar
-          </Boton>
-        </div>
-      </form>
+      <BuscadorProductos
+        id="ee-codigo"
+        etiqueta="Producto"
+        placeholder="Escanea, o escribe código o nombre"
+        onElegir={(p) => {
+          setAviso(null)
+          setProducto(p)
+        }}
+      />
 
       {producto && (
         <form onSubmit={registrar} className="flex flex-col gap-4 rounded-lg border border-linea bg-hueso p-4">
@@ -222,6 +199,7 @@ function EntradaExistencias() {
             <Campo id="ee-cantidad" etiqueta={`Cantidad que entra ${producto.unidad === 'KILO' ? '(kg)' : '(piezas)'}`}>
               <input
                 id="ee-cantidad"
+                key={producto.id}
                 className="campo num"
                 autoFocus
                 inputMode="decimal"
