@@ -1,0 +1,70 @@
+// Obras de la galería del login: SVG originales en public/arte. El humor es intencional.
+
+export type Obra = { archivo: string; titulo: string; anio: number; tecnica: string; estilo: string; cedula: string }
+
+export const OBRAS: Obra[] = [
+  {
+    archivo: 'lata-de-chiles-suprematista.svg',
+    titulo: 'Lata de chiles en suspensión (rajas descendentes)',
+    anio: 2024,
+    tecnica: 'Óleo y salmuera sobre lámina de hojalata',
+    estilo: 'Suprematismo',
+    cedula: 'La artista libera al chile de su envase y al espectador de toda esperanza de botana.',
+  },
+  {
+    archivo: 'bolillo-cubista.svg',
+    titulo: 'Bolillo visto desde todos sus ángulos a la vez',
+    anio: 2023,
+    tecnica: 'Óleo y migajón sobre papel de estraza',
+    estilo: 'Cubismo analítico',
+    cedula: 'Fragmenta la corteza para interrogar al migajón: ¿pan para el susto o susto para el pan?',
+  },
+  {
+    archivo: 'refresco-color-field.svg',
+    titulo: 'Sin título (refresco de cola al tiempo)',
+    anio: 2025,
+    tecnica: 'Jarabe y gas carbónico sobre lienzo sin imprimar',
+    estilo: 'Color field',
+    cedula: 'Dos campos de color contemplan su propia tibieza. La espuma, como toda ilusión, no dura.',
+  },
+  {
+    archivo: 'jitomate-gestual.svg',
+    titulo: 'Jitomate saladet n.º 5 (el que quedó al fondo de la caja)',
+    anio: 2022,
+    tecnica: 'Puré y acrílico sobre huacal desarmado',
+    estilo: 'Expresionismo gestual',
+    cedula: 'El gesto furioso denuncia el precio por kilo; lo que escurre es, técnicamente, merma.',
+  },
+  {
+    archivo: 'huevo-op-art.svg',
+    titulo: 'Kilo de huevo: vibración de 18 piezas (a veces 17)',
+    anio: 2024,
+    tecnica: 'Clara, yema y esmalte sobre cartón de huevo',
+    estilo: 'Op art',
+    cedula: 'La retina oscila entre la clara y la yema, igual que el precio entre lunes y viernes.',
+  },
+  {
+    archivo: 'bascula-constructivista.svg',
+    titulo: 'La báscula no miente (el pulgar sí)',
+    anio: 2021,
+    tecnica: 'Gouache y notas de remisión sobre cartón',
+    estilo: 'Constructivismo',
+    cedula: 'Diagonales al servicio del pueblo; el fiel de la balanza, al servicio de quien despacha.',
+  },
+  {
+    archivo: 'fiado-neoplasticista.svg',
+    titulo: 'Composición en rojo, maíz y azul con cuenta pendiente',
+    anio: 2025,
+    tecnica: 'Esmalte y bolígrafo sobre libreta de pasta dura',
+    estilo: 'Neoplasticismo',
+    cedula: 'La retícula ordena el universo; la celda roja recuerda que doña Lupita debe tres semanas.',
+  },
+  {
+    archivo: 'escoba-sumi-e.svg',
+    titulo: 'Escoba recargada, hora del cierre',
+    anio: 2023,
+    tecnica: 'Tinta y polvo de banqueta sobre papel de estraza',
+    estilo: 'Sumi-e',
+    cedula: 'Un solo trazo, sin corregir: el barrido de las 9 p. m. tampoco admite segunda pasada.',
+  },
+]

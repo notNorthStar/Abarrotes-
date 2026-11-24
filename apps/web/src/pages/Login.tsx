@@ -2,7 +2,9 @@ import { useState, type FormEvent } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ApiError } from '../api/client'
 import { useAuth } from '../auth/AuthContext'
+import { Logo } from '../components/Logo'
 import { Aviso, Boton } from '../components/ui'
+import { GaleriaLogin } from '../features/login/GaleriaLogin'
 import { rutaInicial } from '../rutaInicial'
 
 // HU-01: login con usuario y contraseña; redirige según el rol.
@@ -35,19 +37,13 @@ export function Login() {
 
   return (
     <div className="flex min-h-screen bg-papel text-tinta">
-      {/* Panel de marca: solo en pantallas grandes. */}
-      <aside className="hidden w-[44%] max-w-[560px] flex-none flex-col justify-between bg-riel px-12 py-10 lg:flex">
-        <Marca />
-        <p className="max-w-sm text-[22px] font-medium leading-snug tracking-tight text-white">
-          Punto de venta para tu abarrotes: cobra, cuadra tu caja y controla tu inventario.
-        </p>
-      </aside>
+      <GaleriaLogin />
 
       <main className="flex flex-1 flex-col items-center justify-center px-6 py-10">
         <div className="flex w-full max-w-[360px] flex-col gap-8">
           <div className="lg:hidden">
             <span className="inline-flex items-center gap-2.5 rounded-xl bg-riel px-3 py-2.5">
-              <Marca />
+              <Logo />
             </span>
           </div>
 
@@ -93,19 +89,5 @@ export function Login() {
         </div>
       </main>
     </div>
-  )
-}
-
-function Marca() {
-  return (
-    <span className="flex items-center gap-2.5">
-      <span
-        aria-hidden="true"
-        className="num flex h-7 w-7 items-center justify-center rounded-[7px] bg-maiz text-xs font-semibold text-tinta"
-      >
-        A+
-      </span>
-      <span className="text-[15px] font-semibold tracking-tight text-white">Abarrotes+</span>
-    </span>
   )
 }

@@ -42,3 +42,16 @@ Geist (UI) y Geist Mono (números), cargadas en `apps/web/index.html`. Títulos 
 - `Layout` (barra lateral + barra superior) envuelve todo; cada pantalla renderiza solo su contenido.
 - Pantallas con panel derecho de contexto: `PaginaConPanel` (Inicio, Venta → cobro, Caja → cerrar caja, Inventario → detalle).
 - El resto: `Pagina` + `EncabezadoPagina`.
+
+## Logotipo y login (T-35)
+
+- `components/Logo.tsx`: una A con el toldo de la tienda como travesaño y el "+" en la esquina. Misma figura en `public/favicon.svg`.
+- El panel del login es una galería (`features/login`): ocho SVG originales en `public/arte`, cada uno con su ficha de museo en `obras.ts`. El humor es intencional: arte abstracto sobre lo más mundano de una tienda. Para agregar una obra: SVG de 1200×1500 sin texto ni recursos externos, y su entrada en `obras.ts`.
+
+## Teclado (T-33)
+
+- Enter confirma y Esc cancela. Para confirmar usa `useConfirmar()`, nunca `window.confirm`.
+- Los formularios usan `<form onSubmit>` y `type="submit"`. Enter en `textarea` envía; Shift+Enter hace salto de línea.
+- Listas y tablas que se recorren con flechas: `data-flechas` (con `id`) y, en su buscador, `data-flechas-a="id"`. Los grupos con `role="group"` ya funcionan.
+- El buscador principal de cada pantalla lleva `data-busqueda` (atajo `/`).
+- Para buscar productos: `BuscadorProductos` o `useBusquedaProductos`, con coincidencias en vivo (T-32).

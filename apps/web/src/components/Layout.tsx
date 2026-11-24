@@ -6,6 +6,7 @@ import type { Rol, Sucursal } from '../api/tipos'
 import { useAuth } from '../auth/AuthContext'
 import { tieneRol } from '../auth/RequireRol'
 import { Icono, type NombreIcono } from './Icono'
+import { Logo } from './Logo'
 import { useTeclado } from '../hooks/teclado'
 import { useCarrito } from '../features/venta/carrito/store'
 import { Aviso, Esqueleto, Pagina, Tecla } from './ui'
@@ -289,14 +290,8 @@ function Barra({
       data-flechas
       className={`w-[240px] flex-none flex-col gap-6 overflow-y-auto bg-riel px-3 py-4 text-riel-texto ${className}`}
     >
-      <div className="flex items-center gap-2.5 px-1.5 pt-1">
-        <span
-          aria-hidden="true"
-          className="num flex h-7 w-7 items-center justify-center rounded-[7px] bg-maiz text-xs font-semibold text-tinta"
-        >
-          A+
-        </span>
-        <span className="text-[15px] font-semibold tracking-tight text-white">Abarrotes+</span>
+      <div className="px-1.5 pt-1">
+        <Logo />
       </div>
 
       {grupos.map((grupo) => (

@@ -36,8 +36,9 @@ export default {
       },
       keyframes: {
         brillo: { '0%': { backgroundPosition: '100% 0' }, '100%': { backgroundPosition: '-100% 0' } },
+        aparecer: { from: { opacity: '0' }, to: { opacity: '1' } },
       },
-      animation: { brillo: 'brillo 1.3s ease-in-out infinite' },
+      animation: { brillo: 'brillo 1.3s ease-in-out infinite', aparecer: 'aparecer 1.2s ease-out' },
     },
   },
   plugins: [],
