@@ -1,7 +1,7 @@
 // HU-06 (Sosa): cobro con efectivo, tarjeta y transferencia; pago mixto, referencia y cambio.
 // El resumen se calcula aquí solo para guiar al cajero: el servidor recalcula todo al confirmar.
 import Decimal from 'decimal.js'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { api, ApiError } from '../../../api/client'
 import { Icono } from '../../../components/Icono'
 import { Aviso, Boton, Tecla, pesos } from '../../../components/ui'
@@ -25,6 +25,11 @@ const MONTO_VALIDO = /^\d+(\.\d{1,2})?$/
 
 /** Monto capturado como Decimal; vacío o inválido cuenta como 0 en el resumen. */
 const aDecimal = (monto: string) => (MONTO_VALIDO.test(monto.trim()) ? new Decimal(monto.trim()) : new Decimal(0))
+
+const EVENTO_COBRAR = 'abarrotes:cobrar'
+
+/** Lleva el foco al pago (agrega efectivo si no hay ninguno). No confirma la venta. */
+export const prepararCobro = () => window.dispatchEvent(new Event(EVENTO_COBRAR))
 
 let siguienteId = 1
 const nuevoPago = (metodo: MetodoPago = 'EFECTIVO', monto = ''): PagoForm => ({
@@ -90,25 +95,51 @@ export function Cobro() {
   const vacio = renglones.length === 0
   const puedeConfirmar = !vacio && !enviando && pagos.length > 0
 
-  // F9 confirma la venta (mismo efecto que el botón).
-  const atajo = useRef<() => void>(() => {})
-  atajo.current = () => {
-    if (puedeConfirmar) void confirmar()
+  const lista = useRef<HTMLUListElement>(null)
+  const preparar = () => {
+    if (vacio || enviando) return
+    if (pagos.length === 0) agregar('EFECTIVO')
+    else lista.current?.querySelector('input')?.select()
   }
+
+  // Al agregar un pago, el foco pasa a su monto: basta Enter para cobrar o escribir lo recibido.
+  const pagosAntes = useRef(0)
+  useEffect(() => {
+    if (pagos.length > pagosAntes.current) {
+      const monto = lista.current?.lastElementChild?.querySelector('input')
+      monto?.focus()
+      monto?.select()
+    }
+    pagosAntes.current = pagos.length
+  }, [pagos.length])
+
+  // F9: prepara el pago y, si ya hay uno, confirma la venta.
+  const atajos = useRef({ f9: () => {}, preparar })
+  atajos.current = { f9: () => (puedeConfirmar ? void confirmar() : preparar()), preparar }
   useEffect(() => {
     function alTeclear(e: KeyboardEvent) {
       if (e.key !== 'F9') return
       e.preventDefault()
-      atajo.current()
+      atajos.current.f9()
     }
+    const alPreparar = () => atajos.current.preparar()
     window.addEventListener('keydown', alTeclear)
-    return () => window.removeEventListener('keydown', alTeclear)
+    window.addEventListener(EVENTO_COBRAR, alPreparar)
+    return () => {
+      window.removeEventListener('keydown', alTeclear)
+      window.removeEventListener(EVENTO_COBRAR, alPreparar)
+    }
   }, [])
 
   const faltante = diferencia.isNegative()
 
+  function enviar(e: FormEvent) {
+    e.preventDefault()
+    if (puedeConfirmar) void confirmar()
+  }
+
   return (
-    <>
+    <form onSubmit={enviar} noValidate className="flex flex-1 flex-col gap-6">
       <div className="flex flex-col gap-1">
         <h2 className="text-sm font-semibold">Cobro</h2>
         <span className="text-[13px] text-piedra">Total a cobrar</span>
@@ -137,7 +168,7 @@ export function Cobro() {
       </div>
 
       {pagos.length > 0 && (
-        <ul aria-label="Pagos" className="flex flex-col gap-2.5">
+        <ul ref={lista} aria-label="Pagos" className="flex flex-col gap-2.5">
           {pagos.map((p) => {
             const montoInvalido = p.monto !== '' && !MONTO_VALIDO.test(p.monto.trim())
             const campoMonto = (
@@ -208,14 +239,14 @@ export function Cobro() {
 
       {error && <Aviso tipo="error">{error}</Aviso>}
 
-      <Boton tamano="lg" onClick={confirmar} disabled={!puedeConfirmar} className="h-12 gap-2.5 rounded-[10px]">
+      <Boton type="submit" tamano="lg" disabled={!puedeConfirmar} className="h-12 gap-2.5 rounded-[10px]">
         {enviando ? 'Registrando…' : 'Confirmar venta'}
         <Tecla oscura>F9</Tecla>
       </Boton>
 
       <div className="mt-auto flex flex-wrap gap-x-3.5 gap-y-1.5 border-t border-[#EEEBE5] pt-3.5 text-xs text-piedra">
         <span>
-          <span className="num text-tinta">Enter</span> agregar código
+          <span className="num text-tinta">Enter</span> agregar · vacío: ir a cobrar
         </span>
         <span>
           <span className="num text-tinta">F9</span> cobrar
@@ -224,6 +255,6 @@ export function Cobro() {
           <span className="num text-tinta">F2</span> ir a venta
         </span>
       </div>
-    </>
+    </form>
   )
 }

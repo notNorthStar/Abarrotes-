@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { api, ApiError } from '../../api/client'
 import type { CuentaUsuario, EstadoCuenta } from '../../api/tipos'
+import { useConfirmar } from '../../components/Confirmar'
 import { Icono } from '../../components/Icono'
 import { Aviso, Boton, Chip, EncabezadoPagina, Esqueleto, Pagina, Tarjeta } from '../../components/ui'
 
@@ -48,6 +49,7 @@ type GestionProps = {
 }
 
 export function GestionCuentas({ ruta, singular, plural, ambito }: GestionProps) {
+  const confirmar = useConfirmar()
   const [cajeros, setCajeros] = useState<CuentaUsuario[]>([])
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
@@ -116,13 +118,14 @@ export function GestionCuentas({ ruta, singular, plural, ambito }: GestionProps)
     )
   }
 
-  function eliminar(c: CuentaUsuario) {
-    if (
-      !window.confirm(
-        `¿Eliminar la cuenta de ${c.nombre}? Su historial de operaciones se conserva.`,
-      )
-    )
-      return
+  async function eliminar(c: CuentaUsuario) {
+    const acepta = await confirmar({
+      titulo: `¿Eliminar la cuenta de ${c.nombre}?`,
+      detalle: 'Su historial de operaciones se conserva.',
+      aceptar: 'Eliminar',
+      peligro: true,
+    })
+    if (!acepta) return
     void accion(() => api.delete(url(c.id)), `${c.nombre} fue eliminado.`)
   }
 
@@ -212,7 +215,7 @@ export function GestionCuentas({ ruta, singular, plural, ambito }: GestionProps)
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody data-flechas>
               {cargando &&
                 ['36%', '28%', '42%'].map((ancho) => (
                   <tr key={ancho} className="border-t border-linea first:border-t-0">
@@ -248,7 +251,7 @@ export function GestionCuentas({ ruta, singular, plural, ambito }: GestionProps)
                   cajero={c}
                   restableciendo={resetId === c.id}
                   onCambiarEstado={() => cambiarEstado(c)}
-                  onEliminar={() => eliminar(c)}
+                  onEliminar={() => void eliminar(c)}
                   onAbrirReset={() => setResetId(resetId === c.id ? null : c.id)}
                   onRestablecer={async (password) => {
                     await api.patch(url(c.id), { password })

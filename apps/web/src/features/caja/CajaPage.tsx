@@ -1,6 +1,7 @@
 import Decimal from 'decimal.js'
 import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { api, ApiError } from '../../api/client'
+import { useConfirmar } from '../../components/Confirmar'
 import { avisarCambioCaja } from '../../components/Layout'
 import {
   Aviso,
@@ -434,6 +435,7 @@ function PagoProveedor({ corte, onRegistrado }: { corte: Corte; onRegistrado: ()
 }
 
 function CerrarCaja({ corte, onCerrada }: { corte: Corte; onCerrada: (c: CorteCerrado) => void }) {
+  const confirmar = useConfirmar()
   const [contado, setContado] = useState('')
   const [comentario, setComentario] = useState('')
   const [error, setError] = useState('')
@@ -445,7 +447,12 @@ function CerrarCaja({ corte, onCerrada }: { corte: Corte; onCerrada: (c: CorteCe
   async function cerrar(e: FormEvent) {
     e.preventDefault()
     setError('')
-    if (!window.confirm('¿Cerrar la caja? Ya no podrás cobrar en este turno.')) return
+    const acepta = await confirmar({
+      titulo: '¿Cerrar la caja?',
+      detalle: 'Ya no podrás cobrar en este turno.',
+      aceptar: 'Cerrar caja',
+    })
+    if (!acepta) return
     try {
       onCerrada(
         await api.post<CorteCerrado>('/caja/actual/cerrar', {
