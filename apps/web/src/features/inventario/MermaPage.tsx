@@ -1,5 +1,4 @@
 import { useRef, useState, type FormEvent } from 'react'
-import { useAuth } from '../../auth/AuthContext'
 import { api, ApiError } from '../../api/client'
 import type { Producto } from '../../api/tipos'
 import { Icono } from '../../components/Icono'
@@ -14,9 +13,7 @@ import {
 } from '../../components/ui'
 
 export function MermaPage() {
-  const { usuario } = useAuth()
   const [texto, setTexto] = useState('')
-  const [sucursal, setSucursal] = useState('')
   const [productos, setProductos] = useState<Producto[]>([])
   const [producto, setProducto] = useState<Producto | null>(null)
   const [cantidad, setCantidad] = useState('')
@@ -27,8 +24,6 @@ export function MermaPage() {
   const [enviando, setEnviando] = useState(false)
   const [aviso, setAviso] = useState<{ tipo: 'ok' | 'error'; texto: string } | null>(null)
   const version = useRef(0)
-  const jefe = usuario?.rol === 'JEFE'
-  const consultaSucursal = jefe ? `&sucursalId=${encodeURIComponent(sucursal)}` : ''
   const errorDe = (e: unknown) =>
     e instanceof ApiError ? e.message : 'No se pudo completar la operación. Intenta de nuevo.'
 
@@ -42,7 +37,7 @@ export function MermaPage() {
     setAviso(null)
     try {
       const lista = await api.get<Producto[]>(
-        `/productos?q=${encodeURIComponent(texto.trim())}${consultaSucursal}`,
+        `/productos?q=${encodeURIComponent(texto.trim())}`,
       )
       if (intento === version.current) {
         setProductos(lista)
@@ -62,7 +57,7 @@ export function MermaPage() {
     setAviso(null)
     try {
       const actualizado = await api.post<Producto>(
-        `/productos/${producto.id}/mermas${jefe ? `?sucursalId=${encodeURIComponent(sucursal)}` : ''}`,
+        `/productos/${producto.id}/mermas`,
         { cantidad, motivo, ...(comentario.trim() && { comentario: comentario.trim() }) },
       )
       setProductos((lista) => lista.map((p) => (p.id === actualizado.id ? actualizado : p)))
@@ -160,27 +155,6 @@ export function MermaPage() {
       />
       {aviso && <Aviso tipo={aviso.tipo}>{aviso.texto}</Aviso>}
       <form onSubmit={buscar} className="flex flex-wrap items-end gap-3">
-        {jefe && (
-          <label className="flex flex-col gap-1.5 text-[13px] font-medium">
-            Número de sucursal
-            <input
-              className="campo num"
-              type="number"
-              min="1"
-              required
-              value={sucursal}
-              disabled={enviando}
-              onChange={(e) => {
-                ++version.current
-                setSucursal(e.target.value)
-                setProducto(null)
-                setProductos([])
-                setBuscado(false)
-                setBuscando(false)
-              }}
-            />
-          </label>
-        )}
         <label className="flex min-w-0 flex-1 flex-col gap-1.5 text-[13px] font-medium">
           Nombre o código de barras
           <input

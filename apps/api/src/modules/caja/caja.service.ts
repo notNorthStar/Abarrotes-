@@ -32,9 +32,10 @@ export function proveedores() {
 }
 
 /** HU-09: registra un pago a proveedor ligado al turno abierto. El proveedor se crea si no existe. */
-export async function registrarPagoProveedor(usuarioId: number, datos: PagoProveedor) {
+export async function registrarPagoProveedor(usuarioId: number, sucursalId: number, datos: PagoProveedor) {
   return prisma.$transaction(async (tx) => {
     const turno = await exigirTurnoAbierto(usuarioId, tx)
+    if (turno.sucursalId !== sucursalId) throw new AppError(409, 'Tu caja abierta es de otra sucursal')
     const proveedor = await tx.proveedor.upsert({
       where: { nombre: datos.proveedor },
       update: {},

@@ -1,11 +1,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { api } from '../api/client'
-import type { Rol } from '../api/tipos'
+import { sucursalInicial, sucursalStore } from '../api/sucursal'
+import type { Rol, Sucursal } from '../api/tipos'
 import { useAuth } from '../auth/AuthContext'
 import { tieneRol } from '../auth/RequireRol'
 import { Icono, type NombreIcono } from './Icono'
-import { Tecla } from './ui'
+import { useCarrito } from '../features/venta/carrito/store'
+import { Aviso, Esqueleto, Pagina, Tecla } from './ui'
 
 // Shell "Mostrador": barra lateral oscura, barra superior con migas, paleta de comandos (Ctrl K) y estado de caja.
 
@@ -39,7 +41,7 @@ const EVENTO_CAJA = 'abarrotes:caja'
 export const avisarCambioCaja = () => window.dispatchEvent(new Event(EVENTO_CAJA))
 
 /** Estado de la caja del usuario, para el indicador de la barra superior. */
-function useCajaAbierta(ruta: string) {
+function useCajaAbierta(ruta: string, sucursalId: number | null) {
   const [abiertaDesde, setAbiertaDesde] = useState<string | null | undefined>(undefined)
   const [version, setVersion] = useState(0)
   useEffect(() => {
@@ -56,8 +58,49 @@ function useCajaAbierta(ruta: string) {
     return () => {
       vigente = false
     }
-  }, [ruta, version])
+  }, [ruta, version, sucursalId])
   return abiertaDesde
+}
+
+/** HU-14: sucursales activas y la elegida por el jefe. Para los demás roles no consulta nada. */
+function useSucursalJefe(esJefe: boolean) {
+  const [sucursales, setSucursales] = useState<Sucursal[] | null>(null)
+  const [elegida, setElegida] = useState<number | null>(null)
+  const [error, setError] = useState('')
+  const vaciarCarrito = useCarrito((s) => s.vaciar)
+
+  useEffect(() => {
+    if (!esJefe) return
+    let vigente = true
+    // Sin sucursal guardada: si la anterior ya no existe, la API rechazaría incluso esta consulta.
+    const guardada = sucursalStore.get()
+    sucursalStore.clear()
+    api
+      .get<Sucursal[]>('/administradores/sucursales')
+      .then((lista) => {
+        if (!vigente) return
+        const id = sucursalInicial(lista, guardada)
+        if (id !== null) sucursalStore.set(id)
+        setSucursales(lista)
+        setElegida(id)
+      })
+      .catch(() => {
+        if (guardada !== null) sucursalStore.set(guardada)
+        if (vigente) setError('No se pudieron consultar las sucursales. Recarga la página.')
+      })
+    return () => {
+      vigente = false
+      if (sucursalStore.get() === null && guardada !== null) sucursalStore.set(guardada)
+    }
+  }, [esJefe])
+
+  function elegir(id: number) {
+    sucursalStore.set(id)
+    vaciarCarrito() // los productos de la cuenta son de la sucursal anterior
+    setElegida(id)
+  }
+
+  return { sucursales, elegida, elegir, error }
 }
 
 export function Layout() {
@@ -66,7 +109,9 @@ export function Layout() {
   const { pathname } = useLocation()
   const [paleta, setPaleta] = useState(false)
   const [menuMovil, setMenuMovil] = useState(false)
-  const abiertaDesde = useCajaAbierta(pathname)
+  const esJefe = usuario?.rol === 'JEFE'
+  const sucursal = useSucursalJefe(esJefe)
+  const abiertaDesde = useCajaAbierta(pathname, sucursal.elegida)
 
   const destinos = useMemo(
     () => (usuario ? DESTINOS.filter((d) => tieneRol(usuario.rol, d.minimo)) : []),
@@ -123,7 +168,24 @@ export function Layout() {
             </svg>
           </button>
           <nav aria-label="Ruta" className="flex items-center gap-2 text-[13px] text-piedra">
-            <span>{usuario.rol === 'JEFE' ? 'Todas las sucursales' : 'Mi sucursal'}</span>
+            {esJefe ? (
+              sucursal.sucursales && (
+                <select
+                  aria-label="Sucursal"
+                  value={sucursal.elegida ?? ''}
+                  onChange={(e) => sucursal.elegir(Number(e.target.value))}
+                  className="h-9 max-w-[180px] rounded-lg border border-linea bg-superficie px-2 text-[13px] font-medium text-tinta"
+                >
+                  {sucursal.sucursales.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.nombre}
+                    </option>
+                  ))}
+                </select>
+              )
+            ) : (
+              <span>Mi sucursal</span>
+            )}
             <span aria-hidden="true">/</span>
             <span className="font-medium text-tinta">{actual?.texto ?? 'Abarrotes+'}</span>
           </nav>
@@ -141,7 +203,22 @@ export function Layout() {
         </header>
 
         <main className="min-w-0 flex-1">
-          <Outlet />
+          {!esJefe || sucursal.elegida !== null ? (
+            // La clave recarga la pantalla con los datos de la sucursal elegida.
+            <div key={sucursal.elegida ?? 'propia'} className="h-full">
+              <Outlet />
+            </div>
+          ) : (
+            <Pagina>
+              {sucursal.error ? (
+                <Aviso tipo="error">{sucursal.error}</Aviso>
+              ) : sucursal.sucursales ? (
+                <Aviso tipo="info">No hay sucursales activas.</Aviso>
+              ) : (
+                <Esqueleto className="h-10 w-64" />
+              )}
+            </Pagina>
+          )}
         </main>
       </div>
 
