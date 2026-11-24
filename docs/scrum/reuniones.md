@@ -290,3 +290,40 @@ Recorrido en la app con los datos de ejemplo (capturas en `docs/prototipos/img/`
 | Revisar antes de abrir un PR que la base sea `develop` y subir con `--force-with-lease` después de un rebase | Gonzalo y Miguel | Sprint 4 |
 | Cerrar el Sprint 4 en su fecha (29 nov) | Scrum Master | Fin del Sprint 4 |
 | Confirmar el Product Owner con la maestra | Scrum Master | Inicio del Sprint 4 |
+
+---
+
+## Planeación del Sprint 4 — 17 nov 2026 (publicada el 24 nov)
+
+> Reparto propuesto por el Scrum Master el 17 nov; el 24 nov se publicó con el calendario ajustado, porque no había avance. **falta que Miguel y Gonzalo lo confirmen.**
+
+**Meta:** que el jefe administre todas las sucursales.
+
+**Compromiso:** 2 HU, 10 pts, igual al plan del Product Backlog. Es el último sprint: con él el producto llega a 80 de 80 pts y se entrega `v1.0.0` el 29 de noviembre.
+
+| HU | Nombre | Pts | Responsable |
+|---|---|---|---|
+| HU-14 | Operaciones de administrador para el jefe (selector de sucursal) | 2 | Sosa |
+| HU-16 | Gestión de sucursales | 8 | Miguel |
+
+Tareas sin puntos: T-31 correcciones de la revisión de HU-07 y D-06 casos de uso y capturas (Gonzalo); D-07 cierre final (Sosa).
+
+### Acuerdos
+
+- Los criterios de aceptación de HU-14 y HU-16 se escribieron con las aclaraciones del Planning Poker (`docs/02-backlog.md`).
+- Si no hay PR de la API de HU-16 el 26 de noviembre, Sosa toma su pantalla. Si Gonzalo no sube avance de D-06 el 28 a mediodía, Sosa lo toma.
+- Acciones de la retro del Sprint 3: subir avance cada dos días, daily registrado y mover las tarjetas del tablero.
+- Cierre el 29 de noviembre con la review, la retro, el documento Scrum final y el tag `v1.0.0`.
+
+### Riesgos
+
+- El plan se publicó el 24, día 9 de 14: quedan 5 días para 10 puntos.
+- HU-16 toca el acceso de usuarios (`middleware/auth.ts`), que es compartido.
+- Disponibilidad limitada de Gonzalo.
+
+### Pendientes
+
+- [ ] Confirmar el reparto con Miguel y Gonzalo.
+- [ ] Confirmar al Product Owner.
+- [ ] Decidir con el PO las dos dudas de HU-16: sesiones abiertas de una sucursal suspendida y sucursales con cajas abiertas.
+- [ ] Preguntar al cliente si quiere ver cambios en tiempo real (historia nueva fuera de este compromiso).

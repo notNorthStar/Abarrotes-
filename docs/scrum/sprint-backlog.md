@@ -1,24 +1,19 @@
-# Sprint Backlog — Sprint 3 (2 al 15 nov 2026)
+# Sprint Backlog — Sprint 4 (16 al 29 nov 2026)
 
-**Meta del sprint:** que el administrador controle mermas, cubra la caja y vea el reporte semanal.
+**Meta del sprint:** que el jefe administre todas las sucursales.
 
 Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · ✅ Hecho (mergeado)
-**El estado en vivo está en el [tablero](https://github.com/users/notNorthStar/projects/1/views/2).** Este archivo guarda el PR y la fecha de cada tarea para el burndown; lo actualiza Sosa al integrar. El Sprint 1 + 2 está en `sprint-2-backlog.md`.
+**El estado en vivo está en el [tablero](https://github.com/users/notNorthStar/projects/1/views/5).** Este archivo guarda el PR y la fecha de cada tarea para el burndown; lo actualiza Sosa al integrar. Los sprints anteriores están en `sprint-2-backlog.md` (Sprint 1 + 2) y `sprint-3-backlog.md`.
 
 | ID | Tarea | HU | Pts | Responsable | Estado | PR | Terminado |
 |---|---|---|---|---|---|---|---|
-| T-15 | Verificar y ajustar operaciones de cajero para el administrador | HU-11 | 2 | Sosa | ✅ | #53 | 9 nov |
-| T-16 | Pruebas: el administrador abre su caja y el corte queda por persona | HU-11 | | Sosa | ✅ | #53 | 9 nov |
-| T-17 | API de cuentas de administrador para el jefe (reutiliza HU-12) | HU-15 | 3 | Sosa | ✅ | #54 | 9 nov |
-| T-18 | Pantalla de cuentas de administrador | HU-15 | | Sosa | ✅ | #54 | 9 nov |
-| T-19 | API de merma: motivo obligatorio, descuento de inventario y movimiento + pruebas | HU-10 | 3 | Miguel | ✅ | #50 | 9 nov |
-| T-20 | Pantalla para registrar producto caducado o dañado | HU-10 | | Miguel | ✅ | #50 | 9 nov |
-| T-21 | API de visitas de proveedores: registrar (admin) y consultar (cajero) + pruebas | HU-07 | 2 | Gonzalo | ✅ | #56 | 9 nov |
-| T-22 | Pantalla: lista por fecha y proveedor, y formulario del admin | HU-07 | | Gonzalo | ✅ | #56 | 9 nov |
-| T-23 | API del reporte semanal por sucursal + pruebas | HU-13 | 13 | Miguel | ✅ | #51 | 9 nov |
-| T-24 | Pantalla del reporte en tabla | HU-13 | | Miguel | ✅ | #51 | 9 nov |
-| T-25 | Exportar el reporte a PDF | HU-13 | | Miguel | ✅ | #51 | 9 nov |
-| D-04 | Casos de uso y capturas de las pantallas nuevas | Doc | — | Sosa | ✅ | #55 | 9 nov |
-| D-05 | Minutas, burndown, dailies y documento Scrum del Sprint 3 | Doc | — | Sosa | ✅ | #52 y cierre | 17 nov (retro en borrador) |
+| T-26 | Selector de sucursal del jefe en la barra superior; el cliente envía `sucursalId` en cada petición | HU-14 | 2 | Sosa | ⬜ | | |
+| T-27 | Quitar los avisos y campos de sucursal por pantalla; pruebas del jefe operando en una sucursal | HU-14 | | Sosa | ⬜ | | |
+| T-28 | API de sucursales: crear, listar, suspender, reactivar y eliminar (lógico) + pruebas | HU-16 | 8 | Miguel | ⬜ | | |
+| T-29 | Bloqueo de acceso de los usuarios de una sucursal suspendida o eliminada + pruebas | HU-16 | | Miguel | ⬜ | | |
+| T-30 | Pantalla de sucursales del jefe | HU-16 | | Miguel | ⬜ | | |
+| T-31 | Correcciones de la revisión de HU-07: rutas duplicadas, validación de fecha y mayúsculas | HU-07 | — | Gonzalo | ⬜ | | |
+| D-06 | Casos de uso y capturas de HU-14 y HU-16 | Doc | — | Gonzalo | ⬜ | | |
+| D-07 | Minutas, burndown, documento Scrum final y entrega `v1.0.0` | Doc | — | Sosa | ⬜ | | |
 
-**Total comprometido:** 23 pts · **Completado:** 23 pts (Miguel 16 · Sosa 5 · Gonzalo 2) · **Restante:** 0 pts. Sprint cerrado.
+**Total comprometido:** 10 pts · **Completado:** 0 pts · **Restante:** 10 pts (Miguel 8 · Sosa 2)

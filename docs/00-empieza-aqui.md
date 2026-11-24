@@ -2,38 +2,40 @@
 
 Guía para trabajar en Abarrotes+ con tu IA (**Codex**, **Cursor** o **Antigravity**). Léela una vez; después tu IA se encarga del resto con `AGENTS.md`.
 
-## Situación (4 nov)
+## Situación (24 nov)
 
-- **Sprint 3: del 2 al 15 de noviembre.** Meta: que el administrador controle mermas, cubra la caja y vea el reporte semanal (5 HU, 23 pts).
-- El Sprint 1 + 2 está cerrado y entregado (`v0.2.0`, 47 pts).
+- **Sprint 4: del 16 al 29 de noviembre.** Meta: que el jefe administre todas las sucursales (2 HU, 10 pts). Es el último sprint: se entrega `v1.0.0`.
+- Entregados: Sprint 1 + 2 (`v0.2.0`, 47 pts) y Sprint 3 (`v0.3.0`, 23 pts).
+- **Acuerdos de la retro del Sprint 3:** sube tu avance a tu rama cada día (quedan pocos) aunque esté a medias, registra tu daily y mueve tus tarjetas del tablero.
 - Tu trabajo es **programar tus HU y mandar tus PRs**. **No revisas PRs**: Sosa revisa, aprueba e integra todo.
 - Cada quien commitea **desde su propia cuenta de GitHub**: eso es lo que la maestra ve como tu aporte.
 - Antes de empezar: `git pull` en `develop` y `npm install`. La interfaz cambió: sigue `docs/diseno/README.md`.
 
 ## Tu trabajo
 
-El estado de todo está en el **[tablero del Sprint 3](https://github.com/users/notNorthStar/projects/1/views/2)**. Cada historia y cada tarea es un issue asignado a su responsable.
+El estado de todo está en el **[tablero](https://github.com/users/notNorthStar/projects/1/views/5)** (vista "Sprint 4"). Cada historia y cada tarea es un issue asignado a su responsable.
 
-### Miguel (`MiguelTaracena`): 16 pts
+### Miguel (`MiguelTaracena`): 8 pts
 
 | Orden | Qué | PR para |
 |---|---|---|
-| 1 | **HU-10** Producto caducado o dañado (#32; T-19 #33, T-20 #34) | Dom 8 nov |
-| 2 | **HU-13** Reporte semanal por sucursal (#41; T-23 #42, T-24 #43, T-25 #44) | Jue 12 nov |
+| 1 | **HU-16** API de sucursales (#48; T-28 #62) y bloqueo de acceso de sus usuarios (T-29 #63) | Jue 26 nov |
+| 2 | **HU-16** Pantalla de sucursales del jefe (T-30 #64) | Vie 27 nov |
 
-Haz HU-10 primero, porque el reporte incluye las mermas. Si el miércoles 11 la API del reporte no está lista, avisa: Sosa toma el PDF.
+Los criterios y dos dudas para el PO están en `docs/02-backlog.md`; anota en el PR qué decidiste. El inicio de sesión ya rechaza sucursales no activas (HU-01). El bloqueo toca `middleware/auth.ts`, que es compartido: si lo cambias, avisa en el PR. Si el jueves 26 no está la API, avisa: Sosa toma la pantalla.
 
-### Gonzalo (`gxnzHer`): 2 pts
+### Gonzalo (`gxnzHer`): sin puntos de historia
 
-| Qué | PR para |
-|---|---|
-| **HU-07** Saber visitas de proveedores (#38; T-21 #39, T-22 #40) | Mar 10 nov |
+| Orden | Qué | PR para |
+|---|---|---|
+| 1 | **T-31** (#65) Correcciones de tu PR de HU-07: quitar las rutas duplicadas `/`, validar la fecha solo como `AAAA-MM-DD` y quitar las mayúsculas de la fecha | Jue 26 nov |
+| 2 | **D-06** (#66) Casos de uso y capturas de HU-14 y HU-16, con el formato de `docs/diagramas/casos-de-uso-sprint-3.md` | Sáb 28 nov |
 
-Es tu única historia, porque estarás ausente la mayor parte del sprint, y no depende de nadie. El modelo `VisitaProveedor` ya existe. **Si sabes que no llegas al martes 10, avísale a Sosa antes**, para reasignarla sin retrasar el cierre.
+Los detalles de T-31 están en la revisión de tu PR #56. **Abre tus PR contra `develop`**, y si haces rebase, sube con `git push --force-with-lease`. D-06 depende de que HU-14 y HU-16 estén integradas. Si el sábado 28 a mediodía no has subido avance, Sosa lo toma.
 
-### Sosa: 5 pts
+### Sosa: 2 pts
 
-**HU-11**, **HU-15**, revisión e integración de PRs, y documentación del sprint (D-04, D-05).
+**HU-14** (#47, selector de sucursal del jefe), revisión e integración de PRs, y cierre final (D-07 #67): review, retro, documento Scrum y `v1.0.0`.
 
 ## Instalación (una vez)
 
@@ -75,7 +77,7 @@ Con `implementar-hu.md` la IA:
 
 ## Mueve tus tarjetas
 
-En el [tablero](https://github.com/users/notNorthStar/projects/1/views/2) arrastra **tus** tarjetas (la historia y sus tareas):
+En el [tablero](https://github.com/users/notNorthStar/projects/1/views/5) arrastra **tus** tarjetas (la historia y sus tareas):
 
 | Cuándo | A qué columna |
 |---|---|
@@ -108,4 +110,4 @@ Tu IA te lo recuerda, pero lo haces tú: puede no tener permiso sobre el tablero
 | `docs/04-arquitectura.md` | Estructura del código y API |
 | `docs/05-modelo-datos.md` | Base de datos y fórmulas de dinero |
 | `docs/06-flujo-trabajo.md` | Ramas, commits, PRs, tablero |
-| [Tablero](https://github.com/users/notNorthStar/projects/1/views/2) | Quién hace qué y en qué va cada tarea |
+| [Tablero](https://github.com/users/notNorthStar/projects/1/views/5) | Quién hace qué y en qué va cada tarea |

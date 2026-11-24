@@ -47,7 +47,7 @@ git push -u origin hu-02-escaneo-codigo   # (si ya hiciste push antes de un reba
 
 ## Tablero
 
-El estado de las tareas se lleva en el **[tablero de GitHub Projects](https://github.com/users/notNorthStar/projects/1/views/2)**. Cada historia y tarea es un issue; las tareas son sub-issues de su historia.
+El estado de las tareas se lleva en el **[tablero de GitHub Projects](https://github.com/users/notNorthStar/projects/1/views/5)**. Cada historia y tarea es un issue; las tareas son sub-issues de su historia.
 
 | Columna | Significa | Quién mueve la tarjeta |
 |---|---|---|

@@ -110,7 +110,7 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 
 #### Sprint 3
 
-Meta: que el administrador controle mermas, cubra la caja y vea el reporte semanal. Desde este sprint el estado se lleva en el [tablero de GitHub Projects](https://github.com/users/notNorthStar/projects/1/views/2): un issue por historia y por tarea, asignado a su responsable. `docs/scrum/sprint-backlog.md` guarda el PR y la fecha de cada tarea para el burndown.
+Meta: que el administrador controle mermas, cubra la caja y vea el reporte semanal. Desde este sprint el estado se lleva en el [tablero de GitHub Projects](https://github.com/users/notNorthStar/projects/1/views/2): un issue por historia y por tarea, asignado a su responsable. `docs/scrum/sprint-3-backlog.md` guarda el PR y la fecha de cada tarea para el burndown.
 
 | ID | Tarea | HU | Pts | Responsable | Estado | PR |
 |---|---|---|---|---|---|---|

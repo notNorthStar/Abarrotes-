@@ -1,5 +1,26 @@
 # Burndown / Burnup
 
+## Burndown Sprint 4 (10 pts)
+
+Actualizar cada día con los puntos de HU **completamente hechas** (DoD) al cierre del día. Ideal: lineal de 10 (16 nov) a 0 (29 nov).
+
+| Día | Fecha | Ideal | Real restante | Notas |
+|---|---|---|---|---|
+| 1 | 16 nov | 10.0 | 10 | |
+| 2 | 17 nov | 9.2 | 10 | Cierre del Sprint 3; se redacta el plan del Sprint 4 |
+| 3 | 18 nov | 8.5 | 10 | |
+| 4 | 19 nov | 7.7 | 10 | |
+| 5 | 20 nov | 6.9 | 10 | |
+| 6 | 21 nov | 6.2 | 10 | |
+| 7 | 22 nov | 5.4 | 10 | |
+| 8 | 23 nov | 4.6 | 10 | |
+| 9 | 24 nov | 3.8 | 10 | Se publica el plan |
+| 10 | 25 nov | 3.1 | | |
+| 11 | 26 nov | 2.3 | | |
+| 12 | 27 nov | 1.5 | | |
+| 13 | 28 nov | 0.8 | | |
+| 14 | 29 nov | 0.0 | | |
+
 ## Burndown Sprint 3 (23 pts)
 
 Actualizar cada día con los puntos de HU **completamente hechas** (DoD) al cierre del día. Ideal: lineal de 23 (2 nov) a 0 (15 nov).
