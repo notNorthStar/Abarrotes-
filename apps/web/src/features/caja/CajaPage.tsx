@@ -2,6 +2,8 @@ import Decimal from 'decimal.js'
 import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { api, ApiError } from '../../api/client'
 import { useConfirmar } from '../../components/Confirmar'
+import { Miniatura } from '../../components/Imagenes'
+import { useLogos } from '../proveedores/LogosProveedores'
 import { avisarCambioCaja } from '../../components/Layout'
 import {
   Aviso,
@@ -14,7 +16,7 @@ import {
   Tarjeta,
   pesos,
 } from '../../components/ui'
-import type { Corte, CorteCerrado, Proveedor, Turno } from './tipos'
+import type { Corte, CorteCerrado, Turno } from './tipos'
 
 // HU-05 (abrir caja, corte y cierre) y HU-09 (pagos a proveedor). Sosa, reasignadas de Gonzalo el 28 oct.
 
@@ -269,16 +271,9 @@ const METODOS_PAGO = [
 
 function PagoProveedor({ corte, onRegistrado }: { corte: Corte; onRegistrado: () => void }) {
   const [form, setForm] = useState(pagoVacio)
-  const [proveedores, setProveedores] = useState<Proveedor[]>([])
+  const { proveedores, recargar: recargarLogos } = useLogos()
   const [error, setError] = useState('')
   const [aviso, setAviso] = useState('')
-
-  useEffect(() => {
-    api
-      .get<Proveedor[]>('/caja/proveedores')
-      .then(setProveedores)
-      .catch(() => setProveedores([]))
-  }, [aviso])
 
   async function registrar(e: FormEvent) {
     e.preventDefault()
@@ -291,6 +286,7 @@ function PagoProveedor({ corte, onRegistrado }: { corte: Corte; onRegistrado: ()
       })
       setAviso(`Pago a ${form.proveedor.trim()} registrado.`)
       setForm(pagoVacio)
+      void recargarLogos()
       onRegistrado()
     } catch (err) {
       setError(mensaje(err))
@@ -405,11 +401,18 @@ function PagoProveedor({ corte, onRegistrado }: { corte: Corte; onRegistrado: ()
                 {pagos.map((p) => (
                   <tr key={p.id} className="hover:bg-hueso">
                     <td className="border-t border-linea px-4 py-3">
-                      <span className="flex flex-col gap-0.5">
-                        <span>{p.proveedor}</span>
-                        {p.comentario && (
-                          <span className="text-xs text-piedra">{p.comentario}</span>
-                        )}
+                      <span className="flex items-center gap-3">
+                        <Miniatura
+                          id={proveedores.find((x) => x.nombre === p.proveedor)?.logoId}
+                          icono="proveedor"
+                          contener
+                        />
+                        <span className="flex flex-col gap-0.5">
+                          <span>{p.proveedor}</span>
+                          {p.comentario && (
+                            <span className="text-xs text-piedra">{p.comentario}</span>
+                          )}
+                        </span>
                       </span>
                     </td>
                     <td className="border-t border-linea px-2 py-2">

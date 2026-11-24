@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { api, ApiError } from '../../api/client'
 import type { Producto } from '../../api/tipos'
 import { Icono } from '../../components/Icono'
+import { Miniatura } from '../../components/Imagenes'
 import { useBusquedaProductos } from '../../hooks/useBusquedaProductos'
 import {
   Aviso,
@@ -191,11 +192,12 @@ export function MermaPage() {
                       <th className="border-t border-linea text-left font-normal">
                         <button
                           type="button"
-                          className="min-h-12 w-full px-4 py-3 text-left"
+                          className="flex min-h-12 w-full items-center gap-3 px-4 py-1.5 text-left"
                           disabled={enviando}
                           aria-pressed={producto?.id === p.id}
                           onClick={() => elegir(p)}
                         >
+                          <Miniatura id={p.imagenes?.[0]?.id} />
                           {p.nombre}
                         </button>
                       </th>

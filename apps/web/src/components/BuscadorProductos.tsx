@@ -3,6 +3,7 @@ import { api, ApiError } from '../api/client'
 import type { Producto } from '../api/tipos'
 import { useBusquedaProductos } from '../hooks/useBusquedaProductos'
 import { Icono } from './Icono'
+import { Miniatura } from './Imagenes'
 import { Aviso, Tecla, pesos } from './ui'
 
 /**
@@ -175,6 +176,7 @@ export function BuscadorProductos({
                     i === indice ? 'bg-maiz-claro' : 'hover:bg-crema'
                   }`}
                 >
+                  <Miniatura id={p.imagenes?.[0]?.id} />
                   <span className="min-w-0 flex-1">
                     <span className="block truncate">{p.nombre}</span>
                     <span className="num block text-xs text-piedra">{p.codigoBarras}</span>

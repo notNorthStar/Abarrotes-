@@ -3,6 +3,8 @@ import { api, ApiError } from '../../api/client'
 import { useAuth } from '../../auth/AuthContext'
 import { tieneRol } from '../../auth/RequireRol'
 import { Icono } from '../../components/Icono'
+import { Miniatura } from '../../components/Imagenes'
+import { LogosProveedores, useLogos } from './LogosProveedores'
 import { Aviso, Boton, Chip, EncabezadoPagina, Esqueleto, Pagina, Tarjeta } from '../../components/ui'
 import {
    claveDiaIso,
@@ -60,6 +62,7 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
   const [error, setError] = useState('')
   const [aviso, setAviso] = useState('')
 
+  const logos = useLogos()
   const [busqueda, setBusqueda] = useState('')
   const [filtro, setFiltro] = useState<FiltroVisita>('TODAS')
 
@@ -104,7 +107,7 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
       })
       setForm({ proveedor: '', fecha: hoyIsoLocal(), nota: '' })
       setAviso(`Visita de "${creada.proveedor}" programada para el ${claveDiaIso(creada.fecha)}.`)
-      await cargar()
+      await Promise.all([cargar(), logos.recargar()])
     } catch (err) {
       setErrorForm(mensaje(err))
     } finally {
@@ -313,12 +316,11 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2.5">
-                          <span
-                            aria-hidden="true"
-                            className="flex h-8 w-8 flex-none items-center justify-center rounded-lg bg-crema text-grafito"
-                          >
-                            <Icono nombre="proveedor" tamano={16} />
-                          </span>
+                          <Miniatura
+                            id={logos.proveedores.find((p) => p.id === v.proveedorId)?.logoId}
+                            icono="proveedor"
+                            contener
+                          />
                           <span className="font-medium">{v.proveedor}</span>
                         </div>
                       </td>
@@ -333,6 +335,8 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
           </table>
         </div>
       </Tarjeta>
+
+      {esAdmin && <LogosProveedores proveedores={logos.proveedores} onCambio={logos.recargar} />}
     </Pagina>
   )
 }

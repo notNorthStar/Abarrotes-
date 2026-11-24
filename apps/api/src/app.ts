@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { manejarErrores } from './middleware/errores'
+import { imagenesRoutes } from './modules/imagenes/imagenes.routes'
 import { authRoutes } from './modules/auth/auth.routes'
 import { productosRoutes } from './modules/productos/productos.routes'
 import { ventasRoutes } from './modules/ventas/ventas.routes'
@@ -17,6 +18,7 @@ app.use(express.json())
 app.get('/api/salud', (_req, res) => {
   res.json({ ok: true })
 })
+app.use('/api', imagenesRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/productos', productosRoutes)
 app.use('/api/ventas', ventasRoutes)

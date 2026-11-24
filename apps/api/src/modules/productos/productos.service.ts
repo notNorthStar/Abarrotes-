@@ -2,7 +2,10 @@ import { Prisma, type UnidadVenta } from '@prisma/client'
 import { prisma } from '../../lib/prisma'
 import { AppError } from '../../lib/AppError'
 import { D } from '../../lib/dinero'
+import { imagenesActivas } from '../imagenes/imagenes.service'
 import type { CrearProducto, Entrada, Merma } from './productos.schemas'
+
+const conImagenes = { imagenes: imagenesActivas } satisfies Prisma.ProductoInclude
 
 // Lectura (T-00, HU-03/HU-04: Miguel) y alta/entradas (HU-08: Sosa).
 
@@ -19,6 +22,7 @@ export function buscar(sucursalId: number, q?: string) {
         ],
       }),
     },
+    include: conImagenes,
     orderBy: { nombre: 'asc' },
     take: 50,
   })
@@ -28,6 +32,7 @@ export function buscar(sucursalId: number, q?: string) {
 export async function porCodigo(sucursalId: number, codigoBarras: string) {
   const producto = await prisma.producto.findUnique({
     where: { sucursalId_codigoBarras: { sucursalId, codigoBarras } },
+    include: conImagenes,
   })
   if (!producto || producto.estado !== 'ACTIVO') throw new AppError(404, 'Producto no encontrado')
   return producto
@@ -54,6 +59,7 @@ export async function crear(sucursalId: number, usuarioId: number, datos: CrearP
         sucursalId,
         movimientos: { create: { tipo: 'ALTA', cantidad: datos.cantidad, usuarioId } },
       },
+      include: conImagenes,
     })
   } catch (e) {
     if (e instanceof Prisma.PrismaClientKnownRequestError && e.code === 'P2002') {
@@ -76,6 +82,7 @@ export async function registrarEntrada(sucursalId: number, usuarioId: number, pr
     return tx.producto.update({
       where: { id: productoId },
       data: { existencia: { increment: datos.cantidad } },
+      include: conImagenes,
     })
   })
 }
@@ -104,6 +111,6 @@ export async function registrarMerma(sucursalId: number, usuarioId: number, prod
         usuarioId,
       },
     })
-    return tx.producto.findUniqueOrThrow({ where: { id: productoId } })
+    return tx.producto.findUniqueOrThrow({ where: { id: productoId }, include: conImagenes })
   })
 }

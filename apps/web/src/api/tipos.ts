@@ -11,6 +11,12 @@ export type Usuario = {
   sucursalId: number | null
 }
 
+/** Imagen guardada en la API: se muestra con urlImagen(id). */
+export type ImagenRef = { id: string }
+
+/** GET /api/logos-proveedores */
+export type ProveedorLogo = { id: number; nombre: string; logoId: string | null }
+
 export type Producto = {
   id: number
   codigoBarras: string
@@ -19,6 +25,8 @@ export type Producto = {
   unidad: UnidadVenta
   existencia: string
   sucursalId: number
+  /** La principal va primero. */
+  imagenes?: ImagenRef[]
 }
 
 export type EstadoCuenta = 'ACTIVO' | 'SUSPENDIDO' | 'ELIMINADO'
