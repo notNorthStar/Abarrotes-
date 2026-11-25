@@ -6,6 +6,7 @@ import { api, ApiError } from '../../../api/client'
 import { Icono } from '../../../components/Icono'
 import { Aviso, Boton, Tecla, pesos } from '../../../components/ui'
 import { useCarrito } from '../carrito/store'
+import { folioTarjeta } from './folio'
 
 type MetodoPago = 'EFECTIVO' | 'TARJETA' | 'TRANSFERENCIA'
 
@@ -36,7 +37,7 @@ const nuevoPago = (metodo: MetodoPago = 'EFECTIVO', monto = ''): PagoForm => ({
   id: siguienteId++,
   metodo,
   monto,
-  referencia: '',
+  referencia: metodo === 'TARJETA' ? folioTarjeta() : '',
 })
 
 const claseCampo =
@@ -199,10 +200,10 @@ export function Cobro() {
                   </button>
                 </div>
                 {necesitaReferencia(p.metodo) ? (
-                  <div className="grid grid-cols-2 gap-2">
+                  <div className="grid grid-cols-[2fr_3fr] gap-2">
                     {campoMonto}
                     <label className="flex flex-col gap-1 text-xs text-piedra">
-                      Referencia
+                      {p.metodo === 'TARJETA' ? 'Folio' : 'Referencia'}
                       <input
                         value={p.referencia}
                         onChange={(e) => editar(p.id, { referencia: e.target.value })}
