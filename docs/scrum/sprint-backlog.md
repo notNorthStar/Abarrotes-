@@ -9,9 +9,9 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 |---|---|---|---|---|---|---|---|
 | T-26 | Selector de sucursal del jefe en la barra superior; el cliente envía `sucursalId` en cada petición | HU-14 | 2 | Sosa | ✅ | #70 | 24 nov |
 | T-27 | Quitar los avisos y campos de sucursal por pantalla; pruebas del jefe operando en una sucursal | HU-14 | | Sosa | ✅ | #70 | 24 nov |
-| T-28 | API de sucursales: crear, listar, suspender, reactivar y eliminar (lógico) + pruebas | HU-16 | 8 | Miguel | ⬜ | | |
-| T-29 | Bloqueo de acceso de los usuarios de una sucursal suspendida o eliminada + pruebas | HU-16 | | Miguel | ⬜ | | |
-| T-30 | Pantalla de sucursales del jefe | HU-16 | | Miguel | ⬜ | | |
+| T-28 | API de sucursales: crear, listar, suspender, reactivar y eliminar (lógico) + pruebas | HU-16 | 8 | Miguel | ✅ | #87 | 25 nov |
+| T-29 | Bloqueo de acceso de los usuarios de una sucursal suspendida o eliminada + pruebas | HU-16 | | Miguel | ✅ | #87 | 25 nov |
+| T-30 | Pantalla de sucursales del jefe | HU-16 | | Miguel | ✅ | #87 | 25 nov |
 | T-31 | Correcciones de la revisión de HU-07: rutas duplicadas, validación de fecha y mayúsculas | HU-07 | — | Gonzalo | ✅ | #69 | 24 nov |
 | T-32 | Búsquedas con coincidencias en vivo, sin Enter | Mejora | — | Sosa | ✅ | #72 | 24 nov |
 | T-33 | Confirmar con Enter y operar toda la app con teclado | Mejora | — | Sosa | ✅ | #72 | 24 nov |
@@ -21,6 +21,6 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | D-06 | Casos de uso y capturas de HU-14 y HU-16 | Doc | — | Gonzalo | ⬜ | | |
 | D-07 | Minutas, burndown, documento Scrum final y entrega `v1.0.0` | Doc | — | Sosa | ⬜ | | |
 
-**Total comprometido:** 10 pts · **Completado:** 2 pts (Sosa, HU-14) · **Restante:** 8 pts (Miguel, HU-16)
+**Total comprometido:** 10 pts · **Completado:** 10 pts (Miguel 8 · Sosa 2) · **Restante:** 0 pts. Faltan D-06 y D-07.
 
 > T-32 a T-36 son mejoras que Sosa pidió el 24 de noviembre. No venían en el Product Backlog ni se estimaron en Planning Poker, así que no suman puntos.
