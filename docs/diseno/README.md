@@ -45,7 +45,7 @@ Geist (UI) y Geist Mono (números), cargadas en `apps/web/index.html`. Títulos 
 
 ## Logotipo y login (T-35)
 
-- `components/Logo.tsx`: una A con el toldo de la tienda como travesaño y el "+" en la esquina. Misma figura en `public/favicon.svg`.
+- `components/Logo.tsx`: barras de un código de barras y la cuarta es el "+" (el nombre se escribe sin él). Para fondo oscuro; `public/favicon.svg` lleva la misma figura sobre un cuadro tinta.
 - El panel del login es una galería (`features/login`): ocho SVG originales en `public/arte`, cada uno con su ficha de museo en `obras.ts`. El humor es intencional: arte abstracto sobre lo más mundano de una tienda. Para agregar una obra: SVG de 1200×1500 sin texto ni recursos externos, y su entrada en `obras.ts`.
 
 ## Teclado (T-33)
