@@ -7,7 +7,7 @@ import { Miniatura } from '../../components/Imagenes'
 import { LogosProveedores, useLogos } from './LogosProveedores'
 import { Aviso, Boton, Chip, EncabezadoPagina, Esqueleto, Pagina, Tarjeta } from '../../components/ui'
 import {
-   claveDiaIso,
+  claveDiaIso,
   estadoDeVisita,
   formatearFechaVisita,
   hoyIsoLocal,
@@ -310,7 +310,7 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
                     <tr key={v.id} className="border-t border-linea first:border-t-0 hover:bg-hueso">
                       <td className="px-4 py-3">
                         <div className="flex flex-col">
-                          <span className="font-medium capitalize">{formatearFechaVisita(v.fecha)}</span>
+                          <span className="font-medium">{formatearFechaVisita(v.fecha)}</span>
                           <span className="num text-xs text-piedra">{claveDiaIso(v.fecha)}</span>
                         </div>
                       </td>
