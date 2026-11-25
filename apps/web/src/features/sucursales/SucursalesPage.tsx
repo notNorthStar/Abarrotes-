@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { api, ApiError } from '../../api/client'
 import { avisarCambioSucursales } from '../../components/Layout'
+import { useConfirmar } from '../../components/Confirmar'
 import { Icono } from '../../components/Icono'
 import {
   Aviso,
@@ -25,6 +26,7 @@ const ordenar = (lista: SucursalGestion[]) =>
   [...lista].sort((a, b) => a.nombre.localeCompare(b.nombre, 'es') || a.id - b.id)
 
 export function SucursalesPage() {
+  const confirmar = useConfirmar()
   const [sucursales, setSucursales] = useState<SucursalGestion[]>([])
   const [cargando, setCargando] = useState(true)
   const [intento, setIntento] = useState(0)
@@ -85,13 +87,17 @@ export function SucursalesPage() {
     })
   }
 
-  function cambiar(sucursal: SucursalGestion) {
+  async function cambiar(sucursal: SucursalGestion) {
     const suspender = sucursal.estado === 'ACTIVO'
     if (
       suspender &&
-      !window.confirm(
-        `¿Suspender la sucursal ${sucursal.nombre}? Sus usuarios no podrán entrar y sus sesiones quedarán bloqueadas en la siguiente petición. Se conservarán las cajas abiertas, el inventario y el historial.`,
-      )
+      !(await confirmar({
+        titulo: `¿Suspender la sucursal ${sucursal.nombre}?`,
+        detalle:
+          'Sus usuarios no podrán entrar y sus sesiones quedarán bloqueadas en la siguiente petición. Las cajas abiertas, el inventario y el historial se conservan.',
+        aceptar: 'Suspender',
+        peligro: true,
+      }))
     )
       return
     void ejecutar(async () => {
@@ -107,11 +113,15 @@ export function SucursalesPage() {
     })
   }
 
-  function eliminar(sucursal: SucursalGestion) {
+  async function eliminar(sucursal: SucursalGestion) {
     if (
-      !window.confirm(
-        `¿Eliminar la sucursal ${sucursal.nombre}? Dejará de aparecer en las listas y sus usuarios no podrán entrar. Se conservarán las cajas abiertas, el inventario y el historial. Esta acción no se puede deshacer desde esta pantalla.`,
-      )
+      !(await confirmar({
+        titulo: `¿Eliminar la sucursal ${sucursal.nombre}?`,
+        detalle:
+          'Dejará de aparecer en las listas y sus usuarios no podrán entrar. Las cajas abiertas, el inventario y el historial se conservan. Esta acción no se puede deshacer desde esta pantalla.',
+        aceptar: 'Eliminar',
+        peligro: true,
+      }))
     )
       return
     void ejecutar(async () => {
@@ -221,7 +231,7 @@ export function SucursalesPage() {
                 </p>
               </div>
               <div className="overflow-x-auto">
-                <table className="w-full min-w-[640px] text-sm">
+                <table id="sucursales-lista" data-flechas className="w-full min-w-[640px] text-sm">
                   <caption className="sr-only">Lista de sucursales y acciones de gestión</caption>
                   <thead className="bg-hueso text-left text-xs text-piedra">
                     <tr>
