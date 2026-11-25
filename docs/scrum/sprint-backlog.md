@@ -12,7 +12,7 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-28 | API de sucursales: crear, listar, suspender, reactivar y eliminar (lógico) + pruebas | HU-16 | 8 | Miguel | ⬜ | | |
 | T-29 | Bloqueo de acceso de los usuarios de una sucursal suspendida o eliminada + pruebas | HU-16 | | Miguel | ⬜ | | |
 | T-30 | Pantalla de sucursales del jefe | HU-16 | | Miguel | ⬜ | | |
-| T-31 | Correcciones de la revisión de HU-07: rutas duplicadas, validación de fecha y mayúsculas | HU-07 | — | Gonzalo | ⬜ | | |
+| T-31 | Correcciones de la revisión de HU-07: rutas duplicadas, validación de fecha y mayúsculas | HU-07 | — | Gonzalo | ✅ | #69 | 24 nov |
 | T-32 | Búsquedas con coincidencias en vivo, sin Enter | Mejora | — | Sosa | ✅ | #72 | 24 nov |
 | T-33 | Confirmar con Enter y operar toda la app con teclado | Mejora | — | Sosa | ✅ | #72 | 24 nov |
 | T-34 | Fotos de productos y logotipos de proveedores (tabla `Imagen`) | Mejora | — | Sosa | ✅ | #73 | 24 nov |
