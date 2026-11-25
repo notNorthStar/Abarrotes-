@@ -48,8 +48,7 @@ Geist (UI) y Geist Mono (números), cargadas en `apps/web/index.html`. Títulos 
 - `components/Logo.tsx`: barras de un código de barras y la cuarta es el "+". Para fondo oscuro; `public/favicon.svg` lleva la misma figura sobre un cuadro tinta.
 - El panel del login es una galería (`features/login`): ocho SVG originales en `public/arte`, cada uno con su ficha de museo en `obras.ts`. El humor es intencional: arte abstracto sobre lo más mundano de una tienda. Para agregar una obra: SVG de 1200×1500 sin texto ni recursos externos, y su entrada en `obras.ts`.
 
-- El lado del formulario es la pared (`.pared`) y el formulario, una cédula montada en ella. La franja y el foco toman el `acento` de la obra en exhibición; cada acento debe dar 3:1 sobre blanco.
-- El pie muestra `VERSION` (`apps/web/src/version.ts`): cambiarla al cerrar cada sprint.
+- Una línea arriba y otra abajo de la pantalla toman el `acento` de la obra en exhibición; el lado del formulario queda liso, en `papel`.
 
 ## Teclado (T-33)
 
