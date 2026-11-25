@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { ApiError } from '../api/client'
 import { useAuth } from '../auth/AuthContext'
+import { Icono } from '../components/Icono'
 import { Logo } from '../components/Logo'
 import { Aviso, Boton } from '../components/ui'
 import { GaleriaLogin } from '../features/login/GaleriaLogin'
@@ -12,6 +13,7 @@ export function Login() {
   const { usuario, iniciarSesion } = useAuth()
   const navigate = useNavigate()
   const [form, setForm] = useState({ usuario: '', password: '' })
+  const [verPassword, setVerPassword] = useState(false)
   const [error, setError] = useState('')
   const [enviando, setEnviando] = useState(false)
 
@@ -41,11 +43,9 @@ export function Login() {
 
       <main className="flex flex-1 flex-col items-center justify-center px-6 py-10">
         <div className="flex w-full max-w-[360px] flex-col gap-8">
-          <div className="lg:hidden">
-            <span className="inline-flex items-center gap-2.5 rounded-xl bg-riel px-3 py-2.5">
-              <Logo />
-            </span>
-          </div>
+          <span className="inline-flex self-start rounded-2xl bg-riel px-5 py-3.5">
+            <Logo grande />
+          </span>
 
           <div className="flex flex-col gap-1">
             <h1 className="text-[26px] font-semibold tracking-tight">Inicia sesión</h1>
@@ -72,14 +72,27 @@ export function Login() {
               <label htmlFor="login-password" className="text-[13px] font-medium">
                 Contraseña
               </label>
-              <input
-                id="login-password"
-                className="campo h-11"
-                type="password"
-                autoComplete="current-password"
-                value={form.password}
-                onChange={(e) => setForm({ ...form, password: e.target.value })}
-              />
+              <span className="relative">
+                <input
+                  id="login-password"
+                  className="campo h-11 pr-12"
+                  type={verPassword ? 'text' : 'password'}
+                  autoComplete="current-password"
+                  autoCapitalize="none"
+                  spellCheck={false}
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                />
+                <button
+                  type="button"
+                  aria-label={verPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                  aria-controls="login-password"
+                  onClick={() => setVerPassword((v) => !v)}
+                  className="absolute inset-y-0 right-0 flex w-11 items-center justify-center rounded-lg text-piedra hover:text-tinta"
+                >
+                  <Icono nombre={verPassword ? 'ojoTachado' : 'ojo'} />
+                </button>
+              </span>
             </div>
             {error && <Aviso tipo="error">{error}</Aviso>}
             <Boton type="submit" tamano="lg" disabled={enviando} className="mt-2 w-full">

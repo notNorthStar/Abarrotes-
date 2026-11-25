@@ -45,6 +45,7 @@
 - CA4: Si hay efectivo, el sistema **calcula el cambio** (efectivo recibido − saldo pendiente).
 - CA5: No se puede confirmar la venta si la suma de pagos < total. Tarjeta/transferencia no pueden exceder el saldo (solo el efectivo genera cambio).
 - CA6: Al confirmar: se guarda la venta con su detalle y pagos, y **se descuenta la existencia** de cada producto (en una transacción).
+- Nota (T-36, 24 nov): al pagar con tarjeta, la web pone un folio interno único; el cajero puede cambiarlo por el del comprobante. No hay conexión con el banco.
 
 ### HU-02 · Cobrar productos con código de barras (5 pts) — Miguel (reasignada de Gonzalo el 28 oct)
 > Como cajero quiero escanear el código de barras de un producto para agregarlo a la cuenta del cliente.

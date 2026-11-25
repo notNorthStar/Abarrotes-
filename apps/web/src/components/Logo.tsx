@@ -23,11 +23,11 @@ export function Simbolo({ tamano = 28 }: { tamano?: number }) {
 }
 
 /** Símbolo y nombre, sobre fondo oscuro. */
-export function Logo() {
+export function Logo({ grande = false }: { grande?: boolean }) {
   return (
-    <span className="flex items-center gap-2.5">
-      <Simbolo />
-      <span className="text-[15px] font-semibold tracking-tight text-white">
+    <span className={`flex items-center ${grande ? 'gap-3.5' : 'gap-2.5'}`}>
+      <Simbolo tamano={grande ? 44 : 28} />
+      <span className={`font-semibold tracking-tight text-white ${grande ? 'text-2xl' : 'text-[15px]'}`}>
         Abarrotes<span className="text-maiz">+</span>
       </span>
     </span>
