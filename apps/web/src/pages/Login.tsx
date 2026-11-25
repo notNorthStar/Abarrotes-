@@ -42,12 +42,12 @@ export function Login() {
   const fecha = new Date().toLocaleDateString('es-MX', { weekday: 'long', day: 'numeric', month: 'long' })
 
   return (
-    <div className="relative flex min-h-screen bg-papel text-tinta">
-      <LineaAcento color={obra.acento} className="top-0" />
-      <LineaAcento color={obra.acento} className="bottom-0" />
+    <div className="flex min-h-screen bg-papel text-tinta">
       <GaleriaLogin obra={obra} />
 
-      <main className="flex flex-1 flex-col px-6 py-7 lg:px-10">
+      <main className="relative flex flex-1 flex-col px-6 py-7 lg:px-10">
+        <LineaAcento color={obra.acento} className="top-0" />
+        <LineaAcento color={obra.acento} className="bottom-0" />
         <p className="self-end text-sm text-grafito first-letter:uppercase">{fecha}</p>
 
         <div className="m-auto flex w-full max-w-[360px] flex-col gap-8 py-8">
@@ -114,13 +114,13 @@ export function Login() {
   )
 }
 
-/** Línea en el borde de la pantalla con el color de la obra en exhibición. */
+/** Línea en el borde del lado del formulario, con el color de la obra en exhibición. */
 function LineaAcento({ color, className }: { color: string; className: string }) {
   return (
     <span
       aria-hidden="true"
       style={{ backgroundColor: color }}
-      className={`absolute inset-x-0 z-10 h-1 transition-colors duration-1000 ${className}`}
+      className={`absolute inset-x-0 h-1 transition-colors duration-1000 ${className}`}
     />
   )
 }
