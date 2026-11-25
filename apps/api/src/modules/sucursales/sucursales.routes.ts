@@ -9,7 +9,8 @@ import {
 import * as sucursales from './sucursales.service'
 
 export const sucursalesRoutes = Router()
-sucursalesRoutes.use(requireRol('JEFE'))
+// Gestión global: no depende de que la sucursal elegida siga activa o exista.
+sucursalesRoutes.use(requireRol('JEFE', false))
 sucursalesRoutes.get('/', async (req, res) => {
   const { estado } = listarSucursalesSchema.parse(req.query)
   res.json(await sucursales.listar(estado))

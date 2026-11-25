@@ -26,6 +26,36 @@ describe('HU-16 gestión de sucursales', () => {
   const cambiar = (id: number, estado: string) =>
     request(app).patch(`/api/sucursales/${id}`).set(api()).send({ estado })
 
+  it('la gestión global funciona con una selección inexistente o eliminada', async () => {
+    const p = await nueva()
+    await request(app).delete(`/api/sucursales/${p.id}`).set(api())
+    for (const id of [p.id, 2147483647]) {
+      expect((await request(app).get(`/api/auth/me?sucursalId=${id}`).set(api())).status).toBe(200)
+      expect((await request(app).get(`/api/sucursales?sucursalId=${id}`).set(api())).status).toBe(
+        200,
+      )
+      const nuevaSucursal = await request(app)
+        .post(`/api/sucursales?sucursalId=${id}`)
+        .set(api())
+        .send({ nombre: 'HU16 Gestión global' })
+      expect(nuevaSucursal.status).toBe(201)
+      expect(
+        (
+          await request(app)
+            .patch(`/api/sucursales/${nuevaSucursal.body.id}?sucursalId=${id}`)
+            .set(api())
+            .send({ estado: 'SUSPENDIDO' })
+        ).status,
+      ).toBe(200)
+      expect(
+        (
+          await request(app)
+            .delete(`/api/sucursales/${nuevaSucursal.body.id}?sucursalId=${id}`)
+            .set(api())
+        ).status,
+      ).toBe(200)
+    }
+  })
   it('CA1: el jefe crea una sucursal activa con nombre y dirección normalizados', async () => {
     const res = await request(app)
       .post('/api/sucursales')

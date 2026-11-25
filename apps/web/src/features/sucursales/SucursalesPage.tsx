@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { api, ApiError } from '../../api/client'
+import { avisarCambioSucursales } from '../../components/Layout'
 import { Icono } from '../../components/Icono'
 import {
   Aviso,
@@ -77,6 +78,7 @@ export function SucursalesPage() {
         direccion: direccion.trim(),
       })
       setSucursales((lista) => ordenar([...lista, nueva]))
+      avisarCambioSucursales()
       setNombre('')
       setDireccion('')
       setAviso({ tipo: 'ok', texto: `Se creó la sucursal ${nueva.nombre}.` })
@@ -97,6 +99,7 @@ export function SucursalesPage() {
         estado: suspender ? 'SUSPENDIDO' : 'ACTIVO',
       })
       setSucursales((lista) => lista.map((s) => (s.id === sucursal.id ? actualizada : s)))
+      avisarCambioSucursales()
       setAviso({
         tipo: 'ok',
         texto: `La sucursal ${sucursal.nombre} está ${suspender ? 'suspendida' : 'activa'}.`,
@@ -114,6 +117,7 @@ export function SucursalesPage() {
     void ejecutar(async () => {
       await api.delete(`/sucursales/${sucursal.id}`)
       setSucursales((lista) => lista.filter((s) => s.id !== sucursal.id))
+      avisarCambioSucursales()
       setAviso({
         tipo: 'ok',
         texto: `Se eliminó la sucursal ${sucursal.nombre}. Sus datos e historial se conservan.`,
