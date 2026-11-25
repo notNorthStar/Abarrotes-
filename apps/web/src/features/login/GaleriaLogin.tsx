@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-import { OBRAS } from './obras'
+import { OBRAS, type Obra } from './obras'
 
 // T-35 (Sosa): el panel del login es una galería de arte sobre lo más mundano de una tienda.
 
 const CAMBIO_MS = 9000
 
-export function GaleriaLogin() {
+/** Obra en exhibición; cambia sola, salvo que la persona prefiera menos movimiento. */
+export function useObra(): Obra {
   const [indice, setIndice] = useState(() => Math.floor(Math.random() * OBRAS.length))
-  const obra = OBRAS[indice]
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
@@ -18,6 +18,10 @@ export function GaleriaLogin() {
     return () => window.clearTimeout(reloj)
   }, [indice])
 
+  return OBRAS[indice]
+}
+
+export function GaleriaLogin({ obra }: { obra: Obra }) {
   return (
     <aside
       aria-label="Galería"

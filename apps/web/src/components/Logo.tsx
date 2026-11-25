@@ -11,13 +11,13 @@ function Simbolo({ alto }: { alto: number }) {
   )
 }
 
-/** Símbolo y nombre, sobre fondo oscuro. El "+" del nombre lo pone el símbolo. */
+/** Símbolo y nombre, sobre fondo oscuro. */
 export function Logo({ grande = false }: { grande?: boolean }) {
   return (
     <span className={`flex items-center ${grande ? 'gap-3.5' : 'gap-2.5'}`}>
       <Simbolo alto={grande ? 30 : 20} />
       <span className={`font-semibold tracking-tight text-white ${grande ? 'text-2xl' : 'text-[15px]'}`}>
-        Abarrotes<span className="sr-only">+</span>
+        Abarrotes<span className="text-maiz">+</span>
       </span>
     </span>
   )

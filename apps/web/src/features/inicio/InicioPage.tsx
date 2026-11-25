@@ -5,6 +5,7 @@ import type { Producto } from '../../api/tipos'
 import { useAuth } from '../../auth/AuthContext'
 import { Icono, type NombreIcono } from '../../components/Icono'
 import { Chip, Esqueleto, PaginaConPanel, Tarjeta, Tecla, claseBoton, pesos } from '../../components/ui'
+import { saludo } from '../../lib/saludo'
 import type { Corte, Turno } from '../caja/tipos'
 
 // Inicio: resumen del turno, acciones rápidas, actividad y productos por reponer.
@@ -29,11 +30,6 @@ type Datos = {
 const porReponer = (p: Producto) => Number(p.existencia) <= (p.unidad === 'KILO' ? 3 : 5)
 
 const METODO: Record<string, string> = { EFECTIVO: 'Efectivo', TARJETA: 'Tarjeta', TRANSFERENCIA: 'Transferencia' }
-
-function saludo() {
-  const h = new Date().getHours()
-  return h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches'
-}
 
 function haceCuanto(fecha: string) {
   const min = Math.round((Date.now() - new Date(fecha).getTime()) / 60000)
