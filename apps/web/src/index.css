@@ -30,11 +30,6 @@
     background-size: 200% 100%;
     animation: brillo 1.3s ease-in-out infinite;
   }
-  /* Pared de la galería del login: papel con grano fino. */
-  .pared {
-    @apply bg-crema;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .52 0 0 0 0 .40 0 0 0 0 .22 0 0 0 .5 -.12'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)' opacity='.38'/%3E%3C/svg%3E");
-  }
   /* Campo de formulario estándar. */
   .campo {
     @apply h-10 w-full rounded-lg border border-borde bg-superficie px-3 text-sm text-tinta outline-none focus:border-tinta;

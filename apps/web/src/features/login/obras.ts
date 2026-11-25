@@ -1,6 +1,7 @@
 // Obras de la galería del login: SVG originales en public/arte. El humor es intencional.
 
-// `acento`: color de la pintura para el formulario; debe dar 3:1 sobre blanco (hay prueba).
+// `acento`: color de la pintura para las líneas del login.
+
 export type Obra = { archivo: string; titulo: string; tecnica: string; estilo: string; acento: string; cedula: string }
 
 export const OBRAS: Obra[] = [
