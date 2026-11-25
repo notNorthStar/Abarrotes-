@@ -187,6 +187,4 @@ Criterios tomados del Planning Poker (documento en Drive) y del código existent
 - CA4: **Eliminar es lógico** (`estado = ELIMINADO`): la sucursal desaparece de la lista y del selector de HU-14, y sus usuarios ya no pueden entrar.
 - CA5: No cambia el modelo de datos: la estructura multisucursal existe desde el Sprint 1.
 - Nota: el inicio de sesión ya rechaza a usuarios de sucursales no activas (HU-01).
-- Dudas para el PO:
-  1. Las sesiones abiertas de una sucursal que se suspende, ¿se cortan de inmediato o al expirar? Propuesta: en su siguiente petición.
-  2. ¿Se puede suspender o eliminar una sucursal con cajas abiertas? Propuesta: sí; las cajas se conservan tal como están.
+- Decisiones del PO (25 nov): las sesiones abiertas de una sucursal suspendida se cortan en su siguiente petición; se puede suspender o eliminar con cajas abiertas, que se conservan tal como están.

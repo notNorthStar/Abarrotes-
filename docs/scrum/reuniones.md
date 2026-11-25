@@ -325,5 +325,5 @@ Tareas sin puntos: T-31 correcciones de la revisión de HU-07 y D-06 casos de us
 
 - [ ] Confirmar el reparto con Miguel y Gonzalo.
 - [ ] Confirmar al Product Owner.
-- [ ] Decidir con el PO las dos dudas de HU-16: sesiones abiertas de una sucursal suspendida y sucursales con cajas abiertas.
+- [x] Decidir las dos dudas de HU-16 (25 nov): sesiones cortadas en la siguiente petición; se permite suspender con cajas abiertas.
 - [ ] Preguntar al cliente si quiere ver cambios en tiempo real (historia nueva fuera de este compromiso).
