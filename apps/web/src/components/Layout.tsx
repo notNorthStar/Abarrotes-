@@ -25,6 +25,7 @@ const DESTINOS: Destino[] = [
   { to: '/proveedores', texto: 'Proveedores', icono: 'proveedor', minimo: 'CAJERO', grupo: 'Catálogo' },
   { to: '/usuarios', texto: 'Cajeros', icono: 'cajeros', minimo: 'ADMIN', grupo: 'Administración' },
   { to: '/administradores', texto: 'Administradores', icono: 'candado', minimo: 'JEFE', grupo: 'Administración' },
+  { to: '/sucursales', texto: 'Sucursales', icono: 'inicio', minimo: 'JEFE', grupo: 'Administración' },
   { to: '/reportes', texto: 'Reporte semanal', icono: 'recibo', minimo: 'ADMIN', grupo: 'Administración' },
 ]
 
@@ -38,6 +39,10 @@ const iniciales = (nombre: string) =>
     .join('')
 
 const EVENTO_CAJA = 'abarrotes:caja'
+const EVENTO_SUCURSALES = 'abarrotes:sucursales'
+
+/** HU-16: refresca las sucursales activas después de gestionar una sucursal. */
+export const avisarCambioSucursales = () => window.dispatchEvent(new Event(EVENTO_SUCURSALES))
 
 /** Avisa al indicador de la barra superior que la caja se abrió o se cerró. */
 export const avisarCambioCaja = () => window.dispatchEvent(new Event(EVENTO_CAJA))
@@ -70,6 +75,12 @@ function useSucursalJefe(esJefe: boolean) {
   const [elegida, setElegida] = useState<number | null>(null)
   const [error, setError] = useState('')
   const vaciarCarrito = useCarrito((s) => s.vaciar)
+  const [version, setVersion] = useState(0)
+  useEffect(() => {
+    const actualizar = () => setVersion((v) => v + 1)
+    window.addEventListener(EVENTO_SUCURSALES, actualizar)
+    return () => window.removeEventListener(EVENTO_SUCURSALES, actualizar)
+  }, [])
 
   useEffect(() => {
     if (!esJefe) return
@@ -83,6 +94,8 @@ function useSucursalJefe(esJefe: boolean) {
         if (!vigente) return
         const id = sucursalInicial(lista, guardada)
         if (id !== null) sucursalStore.set(id)
+        if (guardada !== id) vaciarCarrito()
+        setError('')
         setSucursales(lista)
         setElegida(id)
       })
@@ -94,7 +107,7 @@ function useSucursalJefe(esJefe: boolean) {
       vigente = false
       if (sucursalStore.get() === null && guardada !== null) sucursalStore.set(guardada)
     }
-  }, [esJefe])
+  }, [esJefe, version, vaciarCarrito])
 
   function elegir(id: number) {
     sucursalStore.set(id)
@@ -112,6 +125,7 @@ export function Layout() {
   const [paleta, setPaleta] = useState(false)
   const [menuMovil, setMenuMovil] = useState(false)
   const esJefe = usuario?.rol === 'JEFE'
+  const gestionSucursales = pathname.replace(/\/+$/, '') === '/sucursales'
   const sucursal = useSucursalJefe(esJefe)
   useTeclado()
   const abiertaDesde = useCajaAbierta(pathname, sucursal.elegida)
@@ -181,10 +195,12 @@ export function Layout() {
               sucursal.sucursales && (
                 <select
                   aria-label="Sucursal"
+                  disabled={sucursal.sucursales.length === 0}
                   value={sucursal.elegida ?? ''}
                   onChange={(e) => sucursal.elegir(Number(e.target.value))}
                   className="h-9 max-w-[180px] rounded-lg border border-linea bg-superficie px-2 text-[13px] font-medium text-tinta"
                 >
+                  {sucursal.sucursales.length === 0 && <option value="">Sin sucursales activas</option>}
                   {sucursal.sucursales.map((s) => (
                     <option key={s.id} value={s.id}>
                       {s.nombre}
@@ -212,9 +228,9 @@ export function Layout() {
         </header>
 
         <main id="contenido" tabIndex={-1} className="min-w-0 flex-1 outline-none">
-          {!esJefe || sucursal.elegida !== null ? (
+          {gestionSucursales || !esJefe || sucursal.elegida !== null ? (
             // La clave recarga la pantalla con los datos de la sucursal elegida.
-            <div key={sucursal.elegida ?? 'propia'} className="h-full">
+            <div key={gestionSucursales ? 'sucursales' : sucursal.elegida ?? 'propia'} className="h-full">
               <Outlet />
             </div>
           ) : (

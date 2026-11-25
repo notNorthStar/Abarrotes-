@@ -10,6 +10,8 @@ import { administradoresRoutes, usuariosRoutes } from './modules/usuarios/usuari
 import { reportesRoutes } from './modules/reportes/reportes.routes'
 import { proveedoresRoutes } from './modules/proveedores/proveedores.routes'
 
+import { sucursalesRoutes } from './modules/sucursales/sucursales.routes'
+
 export const app = express()
 
 app.use(cors())
@@ -27,5 +29,6 @@ app.use('/api/usuarios', usuariosRoutes)
 app.use('/api/administradores', administradoresRoutes)
 app.use('/api/reportes', reportesRoutes)
 app.use('/api/proveedores', proveedoresRoutes)
+app.use('/api/sucursales', sucursalesRoutes)
 
 app.use(manejarErrores)

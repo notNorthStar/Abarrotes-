@@ -10,6 +10,7 @@ authRoutes.post('/login', async (req, res) => {
   res.json(await auth.login(usuario, password))
 })
 
-authRoutes.get('/me', requireRol('CAJERO'), async (req, res) => {
+// El perfil es global; una selección obsoleta no debe cerrar la sesión del jefe.
+authRoutes.get('/me', requireRol('CAJERO', false), async (req, res) => {
   res.json(await auth.yo(req.usuario!.id))
 })

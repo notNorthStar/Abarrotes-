@@ -27,18 +27,34 @@ function autenticar(req: Request): UsuarioToken {
   }
 }
 
-/** Exige sesión y un rol mínimo. Uso: router.get('/', requireRol('ADMIN'), handler) */
-export function requireRol(minimo: Rol) {
+/** Exige sesión y rol mínimo. false omite solo la selección del jefe en rutas globales;
+ * el bloqueo de los usuarios de sucursales inactivas se verifica siempre. */
+export function requireRol(minimo: Rol, validarSucursalElegida = true) {
   return async (req: Request, _res: Response, next: NextFunction) => {
     const usuario = autenticar(req)
-    if (NIVEL[usuario.rol] < NIVEL[minimo]) throw new AppError(403, 'No tienes permiso para esta acción')
+    if (NIVEL[usuario.rol] < NIVEL[minimo])
+      throw new AppError(403, 'No tienes permiso para esta acción')
     // HU-14 CA4: la sucursal que indica el jefe debe existir.
-    if (usuario.rol === 'JEFE' && req.query.sucursalId !== undefined) {
+    if (validarSucursalElegida && usuario.rol === 'JEFE' && req.query.sucursalId !== undefined) {
       const id = Number(req.query.sucursalId)
       const valido = Number.isInteger(id) && id > 0 && id <= 2147483647
       const sucursal =
-        valido && (await prisma.sucursal.findFirst({ where: { id, estado: { not: 'ELIMINADO' } }, select: { id: true } }))
+        valido &&
+        (await prisma.sucursal.findFirst({
+          where: { id, estado: { not: 'ELIMINADO' } },
+          select: { id: true },
+        }))
       if (!sucursal) throw new AppError(404, 'Sucursal no encontrada')
+    }
+    // HU-16: consultar el estado actual impide usar un JWT anterior a la suspensión.
+    if (usuario.sucursalId !== null) {
+      const sucursal = await prisma.sucursal.findUnique({
+        where: { id: usuario.sucursalId },
+        select: { estado: true },
+      })
+      if (!sucursal || sucursal.estado !== 'ACTIVO') {
+        throw new AppError(403, 'Tu sucursal no está activa. Contacta al jefe.')
+      }
     }
     req.usuario = usuario
     next()
