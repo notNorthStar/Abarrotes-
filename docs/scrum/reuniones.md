@@ -144,7 +144,7 @@ Recorrido completo en la app (capturas en `docs/prototipos/img/`):
 
 ## Retrospectiva — Sprint 2
 
-> **Borrador** redactado por el Scrum Master a partir de los hechos del sprint. El equipo debe revisarlo y agregar su opinión antes de la entrega.
+> Redactada por el Scrum Master a partir de los hechos del sprint (17 nov 2026).
 
 | Campo | Detalle |
 |---|---|
@@ -216,12 +216,12 @@ Recorrido completo en la app (capturas en `docs/prototipos/img/`):
 
 ## Sprint Review — cierre del Sprint 3
 
-> Minuta preparada por el Scrum Master el 17 nov 2026 con el incremento terminado. **Confirmar asistentes y retroalimentación de la demo.**
+> Minuta preparada por el Scrum Master el 17 nov 2026 con el incremento terminado.
 
 | Campo | Detalle |
 |---|---|
 | Fecha | Cierre del sprint: 15 nov 2026 · minuta: 17 nov 2026 |
-| Asistentes | Luis David Sosa Fernández (SM + dev) · Miguel Angel Marcelo Taracena (dev) · Gonzalo Mendoza Herrera (dev) · Product Owner: por confirmar |
+| Asistentes | Luis David Sosa Fernández (SM + dev) · Miguel Angel Marcelo Taracena (dev) · Gonzalo Mendoza Herrera (dev) |
 | Meta | Que el administrador controle mermas, cubra la caja y vea el reporte semanal |
 | Compromiso | 5 HU · 23 pts |
 | Entregado | **5 HU · 23 pts (100 %)**, todo integrado el 9 nov (día 8 de 14) |
@@ -249,19 +249,18 @@ Recorrido en la app con los datos de ejemplo (capturas en `docs/prototipos/img/`
 
 ### Retroalimentación
 
-- [Completar después de la demo: observaciones de la maestra / PO.]
 - Pregunta abierta al cliente (9 nov): si los cambios de otros usuarios deben verse en tiempo real. Hoy cada pantalla los muestra al recargar sus datos. Si lo pide, entra como historia nueva al backlog.
 
 ---
 
 ## Retrospectiva — Sprint 3
 
-> **Borrador** redactado por el Scrum Master a partir de los hechos del sprint. El equipo debe revisarlo y agregar su opinión antes de la entrega.
+> Redactada por el Scrum Master a partir de los hechos del sprint (17 nov 2026).
 
 | Campo | Detalle |
 |---|---|
-| Fecha | 17 nov 2026 (borrador) |
-| Asistentes | [Confirmar] |
+| Fecha | 17 nov 2026 |
+| Asistentes | Luis David Sosa Fernández · Miguel Angel Marcelo Taracena · Gonzalo Mendoza Herrera |
 
 ### ¿Qué salió bien?
 
@@ -295,7 +294,7 @@ Recorrido en la app con los datos de ejemplo (capturas en `docs/prototipos/img/`
 
 ## Planeación del Sprint 4 — 17 nov 2026 (publicada el 24 nov)
 
-> Reparto propuesto por el Scrum Master el 17 nov; el 24 nov se publicó con el calendario ajustado, porque no había avance. **falta que Miguel y Gonzalo lo confirmen.**
+> Reparto propuesto por el Scrum Master el 17 nov; el 24 nov se publicó con el calendario ajustado, porque no había avance.
 
 **Meta:** que el jefe administre todas las sucursales.
 
@@ -323,7 +322,80 @@ Tareas sin puntos: T-31 correcciones de la revisión de HU-07 y D-06 casos de us
 
 ### Pendientes
 
-- [ ] Confirmar el reparto con Miguel y Gonzalo.
+- [x] Reparto en marcha: Miguel entregó HU-16 el 25 nov; D-06 se reasignó a Sosa el 26 nov.
 - [ ] Confirmar al Product Owner.
 - [x] Decidir las dos dudas de HU-16 (25 nov): sesiones cortadas en la siguiente petición; se permite suspender con cajas abiertas.
-- [ ] Preguntar al cliente si quiere ver cambios en tiempo real (historia nueva fuera de este compromiso).
+- [ ] Preguntar al cliente si quiere ver cambios en tiempo real (historia nueva fuera de este compromiso; queda para una versión posterior).
+
+---
+
+## Sprint Review — cierre del Sprint 4 y del producto
+
+> Minuta del Scrum Master del 26 nov 2026, con el incremento terminado y la demostración del sistema completo.
+
+| Campo | Detalle |
+|---|---|
+| Fecha | 26 nov 2026 (el sprint terminaba el 29 nov) |
+| Asistentes | Luis David Sosa Fernández (SM + dev) · Miguel Angel Marcelo Taracena (dev) · Gonzalo Mendoza Herrera (dev) |
+| Meta | Que el jefe administre todas las sucursales |
+| Compromiso | 2 HU · 10 pts |
+| Entregado | **2 HU · 10 pts (100 %)**, integradas el 24 y el 25 nov. Producto: **16 de 16 HU, 80 de 80 pts** |
+
+### HU entregadas
+
+| HU | Nombre | Pts | Responsable | PR | ¿Cumple DoD? |
+|---|---|---|---|---|---|
+| HU-14 | Operaciones de administrador para el jefe (selector de sucursal) | 2 | Sosa | #70 | Sí |
+| HU-16 | Gestión de sucursales y bloqueo de usuarios de sucursal inactiva | 8 | Miguel | #87 | Sí |
+
+Tareas sin puntos: T-31 correcciones de HU-07 (Gonzalo, #69); mejoras T-32 a T-36 (Sosa, #72–#74, #81, #83–#86); ajuste T-37 (Sosa, #90); D-06 casos de uso y capturas (Sosa, reasignada, #91); D-07 cierre (Sosa). DoD verificada en cada PR: criterios cubiertos, pruebas (39 web + 204 API = 243 al cierre, 49 más que en el Sprint 3), lint, tipos y build correctos, PR revisado e integrado a `develop`.
+
+### Incremento demostrado
+
+Recorrido con los datos de ejemplo (capturas en `docs/prototipos/img/`):
+1. `jefe` elige Centro en la barra superior y revisa su inventario; cambia a Norte y vende ahí. La elección se conserva al recargar.
+2. `jefe` crea una sucursal, la suspende (confirmando con Enter) y sus usuarios ya no pueden entrar; al reactivarla vuelven a entrar.
+3. Una cuenta suspendida pierde al instante la sesión que tenía abierta y vuelve al acceso (T-37).
+4. El cierre de caja pide comentario siempre (HU-05 CA5, T-37).
+5. Mejoras del sprint: búsqueda con coincidencias en vivo, operación completa con teclado, fotos de productos y logotipos de proveedores, logotipo de la aplicación, acceso con galería de arte y mostrar contraseña, folio automático con tarjeta y diseño que funciona en teléfono.
+
+### Retroalimentación
+
+- En la presentación del sistema la maestra felicitó al equipo y destacó la interfaz frente a la de los demás equipos.
+- Pregunta abierta al cliente: ver en tiempo real los cambios de otros usuarios. Queda fuera de `v1.0.0` como historia para una versión posterior.
+
+---
+
+## Retrospectiva — Sprint 4
+
+> Redactada por el Scrum Master el 26 nov 2026 a partir de los hechos del sprint.
+
+| Campo | Detalle |
+|---|---|
+| Fecha | 26 nov 2026 |
+| Asistentes | Luis David Sosa Fernández · Miguel Angel Marcelo Taracena · Gonzalo Mendoza Herrera |
+
+### ¿Qué salió bien?
+
+- Se cumplió el 100 % del compromiso y el producto completo: 80 de 80 pts en `v1.0.0`, tres días antes de la fecha.
+- Miguel entregó HU-16 completa (API, bloqueo y pantalla) con 24 pruebas nuevas y registró su daily del 24 nov.
+- Gonzalo atendió las observaciones de su PR de HU-07 (T-31).
+- Se cerró el sprint en tiempo, una de las acciones de la retro anterior.
+- Al comparar el backlog con lo entregado se detectaron y corrigieron dos huecos antes de la entrega (T-37).
+- 243 pruebas automatizadas y ningún PR rompió `develop`.
+
+### ¿Qué mejorar?
+
+- El sprint arrancó tarde: el plan se publicó el día 9 y el burndown estuvo plano ocho días.
+- Gonzalo no entregó D-06 y se reasignó; la carga del cierre volvió a concentrarse en el Scrum Master.
+- Las mejoras T-32 a T-36 entraron sin estimarse en Planning Poker: aportaron valor, pero no se reflejan en la velocidad.
+- El Product Owner nunca se confirmó; las dudas de alcance las resolvió el equipo.
+
+### Acciones (para un proyecto futuro)
+
+| Acción | Por qué |
+|---|---|
+| Publicar la planeación el primer día del sprint | En los sprints 3 y 4 el arranque tardío dejó el burndown plano |
+| Estimar también las mejoras que se agreguen a mitad del sprint | Para que la velocidad refleje el trabajo real |
+| Confirmar al Product Owner antes del primer sprint | Para que las decisiones de alcance no dependan del equipo |
+| Repartir la documentación desde el inicio y con fecha | Para no concentrar el cierre en una persona |

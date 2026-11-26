@@ -1,6 +1,6 @@
 # 03 · Plan de entrega
 
-## Sprint 4 (vigente): 16 al 29 de noviembre
+## Sprint 4 (cerrado el 26 nov; entregado en `v1.0.0`): 16 al 29 de noviembre
 
 **Meta:** que el jefe administre todas las sucursales. **Compromiso:** 2 HU, 10 pts. Es el último sprint: cierra el producto (80 de 80 pts) con la versión `v1.0.0`.
 
@@ -42,7 +42,7 @@
 ### Puntos de control
 
 - **Jue 26:** si no hay PR de la API de HU-16, Sosa toma la pantalla (T-30) para que Miguel termine la API.
-- **Sáb 28 a mediodía:** si Gonzalo no ha subido avance de D-06, Sosa lo toma.
+- **Sáb 28 a mediodía:** si Gonzalo no ha subido avance de D-06, Sosa lo toma. _(Se reasignó el 26 nov para cerrar el sprint antes.)_
 - **Cada día:** cada quien sube su avance a su rama aunque esté a medias (acción de la retro del Sprint 3).
 - **Fuera del compromiso:** si el cliente pide ver cambios en tiempo real, se agrega al backlog como historia nueva; no entra a este sprint sin re-planear.
 

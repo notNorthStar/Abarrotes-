@@ -2,8 +2,9 @@
 
 Guía para trabajar en Abarrotes+ con tu IA (**Codex**, **Cursor** o **Antigravity**). Léela una vez; después tu IA se encarga del resto con `AGENTS.md`.
 
-## Situación (24 nov)
+## Situación (26 nov)
 
+- **Proyecto entregado:** el Sprint 4 se cerró el 26 de noviembre con `v1.0.0` (80 de 80 pts). Lo que sigue es histórico.
 - **Sprint 4: del 16 al 29 de noviembre.** Meta: que el jefe administre todas las sucursales (2 HU, 10 pts). Es el último sprint: se entrega `v1.0.0`.
 - Entregados: Sprint 1 + 2 (`v0.2.0`, 47 pts) y Sprint 3 (`v0.3.0`, 23 pts).
 - **Acuerdos de la retro del Sprint 3:** sube tu avance a tu rama cada día (quedan pocos) aunque esté a medias, registra tu daily y mueve tus tarjetas del tablero.

@@ -16,7 +16,7 @@ Actualizar cada día con los puntos de HU **completamente hechas** (DoD) al cier
 | 8 | 23 nov | 4.6 | 10 | |
 | 9 | 24 nov | 3.8 | 8 | Se publica el plan; se integra HU-14 (#70) |
 | 10 | 25 nov | 3.1 | 0 | Se integra HU-16 (#87), de Miguel. Historias completas |
-| 11 | 26 nov | 2.3 | | |
+| 11 | 26 nov | 2.3 | 0 | Ajustes T-37, documentación D-06 y D-07; se entrega `v1.0.0`. Sprint cerrado |
 | 12 | 27 nov | 1.5 | | |
 | 13 | 28 nov | 0.8 | | |
 | 14 | 29 nov | 0.0 | | |
@@ -70,13 +70,27 @@ Actualizar cada día con los puntos de HU **completamente hechas** (DoD) al cier
 | 1 | 18 oct | 24 | 0 |
 | 2 | 1 nov | 47 | 47 |
 | 3 | 15 nov | 70 | 70 |
-| 4 | 29 nov | 80 | |
+| 4 | 29 nov | 80 | 80 |
 
 Para la gráfica: pedir a la IA `genera la gráfica de burndown/burnup como Mermaid xychart desde docs/scrum/burndown.md` o pasar la tabla a Sheets.
 
 ## Gráficas
 
-Actualizar las series "real" al llenar las tablas de arriba. Imágenes exportadas: [`burndown-sprint-3.png`](../diagramas/img/burndown-sprint-3.png), [`burndown.png`](../diagramas/img/burndown.png) (Sprint 2), [`burnup.png`](../diagramas/img/burnup.png).
+Actualizar las series "real" al llenar las tablas de arriba. Imágenes exportadas: [`burndown-sprint-4.png`](../diagramas/img/burndown-sprint-4.png), [`burndown-sprint-3.png`](../diagramas/img/burndown-sprint-3.png), [`burndown.png`](../diagramas/img/burndown.png) (Sprint 2), [`burnup.png`](../diagramas/img/burnup.png).
+
+### Burndown Sprint 4 (cerrado el 26 nov)
+
+Línea gris: ideal (10 → 0). Línea roja: real restante (días 1–11).
+
+```mermaid
+%%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#64748b, #dc2626"}}}}%%
+xychart-beta
+    title "Burndown Sprint 4 (10 pts)"
+    x-axis ["16 nov", "17 nov", "18 nov", "19 nov", "20 nov", "21 nov", "22 nov", "23 nov", "24 nov", "25 nov", "26 nov", "27 nov", "28 nov", "29 nov"]
+    y-axis "Puntos restantes" 0 --> 10
+    line [10.0, 9.2, 8.5, 7.7, 6.9, 6.2, 5.4, 4.6, 3.8, 3.1, 2.3, 1.5, 0.8, 0.0]
+    line [10, 10, 10, 10, 10, 10, 10, 10, 8, 0, 0]
+```
 
 ### Burndown Sprint 3 (cerrado el 9 nov)
 
@@ -108,7 +122,7 @@ xychart-beta
 
 ### Burnup del producto (80 pts)
 
-Línea gris: plan acumulado. Barras rojas: real acumulado (Sprint 1 = 0; Sprint 2 = 47 y Sprint 3 = 70, completos).
+Línea gris: plan acumulado. Barras rojas: real acumulado (Sprint 1 = 0; Sprint 2 = 47, Sprint 3 = 70 y Sprint 4 = 80, completos).
 
 ```mermaid
 %%{init: {"themeVariables": {"xyChart": {"plotColorPalette": "#64748b, #dc2626"}}}}%%
@@ -117,5 +131,5 @@ xychart-beta
     x-axis ["Sprint 1", "Sprint 2", "Sprint 3", "Sprint 4"]
     y-axis "Puntos acumulados" 0 --> 80
     line [24, 47, 70, 80]
-    bar [0, 47, 70]
+    bar [0, 47, 70, 80]
 ```
