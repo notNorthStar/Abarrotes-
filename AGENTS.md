@@ -4,7 +4,7 @@ Instrucciones para cualquier agente de IA (Claude Code, Cursor, Copilot, Codex, 
 
 ## Proyecto
 
-POS web multisucursal para una tienda de abarrotes. Proyecto escolar en **Scrum simulado** con 3 integrantes: **Luis David Sosa Fernández** (Scrum Master + dev), **Gonzalo Mendoza Herrera** y **Miguel Angel Marcelo Taracena**. Estamos en el **Sprint 4 (16 al 29 de noviembre de 2026)**, el último; la entrega final es `v1.0.0` el 29 de noviembre. El trabajo debe ser **colaborativo y verificable en GitHub**.
+POS web multisucursal para una tienda de abarrotes. Proyecto escolar en **Scrum simulado** con 3 integrantes: **Luis David Sosa Fernández** (Scrum Master + dev), **Gonzalo Mendoza Herrera** y **Miguel Angel Marcelo Taracena**. El proyecto se **entregó completo** en `v1.0.0` el 26 de noviembre de 2026 (cierre del Sprint 4, el último). El trabajo debe ser **colaborativo y verificable en GitHub**.
 
 ## Antes de trabajar, lee
 

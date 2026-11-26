@@ -2,7 +2,7 @@
 
 Sistema de punto de venta multisucursal para tiendas de abarrotes. Proyecto en Scrum de **Luis David Sosa Fernández, Gonzalo Mendoza Herrera y Miguel Angel Marcelo Taracena**.
 
-> 🚧 **Sprint 4 en curso** (16 al 29 nov): 2 HU, 10 pts, entrega final `v1.0.0`. Entregados: Sprint 1 + 2 en `v0.2.0` y Sprint 3 en `v0.3.0` (70 de 80 pts). Ver [tablero](https://github.com/users/notNorthStar/projects/1/views/5).
+> ✅ **Entrega final `v1.0.0`** (26 nov 2026): 16 de 16 historias, 80 de 80 pts en cuatro sprints. Versiones: `v0.2.0` (Sprint 1 + 2), `v0.3.0` (Sprint 3) y `v1.0.0` (Sprint 4). Ver [tablero](https://github.com/users/notNorthStar/projects/1/views/5) y [CHANGELOG](CHANGELOG.md).
 
 ## Para el equipo: cómo empezar (5 min)
 

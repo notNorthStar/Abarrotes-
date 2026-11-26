@@ -18,9 +18,10 @@ Estados: ⬜ Por hacer · 🟨 En progreso · 🟦 En revisión (PR abierto) · 
 | T-34 | Fotos de productos y logotipos de proveedores (tabla `Imagen`) | Mejora | — | Sosa | ✅ | #73 | 24 nov |
 | T-35 | Logotipo de la app y galería de arte en el login | Mejora | — | Sosa | ✅ | #74 | 24 nov |
 | T-36 | Login: mostrar contraseña, logo junto al formulario y ficha de arte discreta; folio automático con tarjeta | Mejora | — | Sosa | ✅ | Issue #80 | 24 nov |
-| D-06 | Casos de uso y capturas de HU-14 y HU-16 | Doc | — | Gonzalo | ⬜ | | |
-| D-07 | Minutas, burndown, documento Scrum final y entrega `v1.0.0` | Doc | — | Sosa | ⬜ | | |
+| T-37 | Comentario de cierre siempre obligatorio (HU-05 CA5) y corte de sesiones de cuentas suspendidas | Ajuste | — | Sosa | ✅ | #90 | 26 nov |
+| D-06 | Casos de uso y capturas de HU-14 y HU-16 | Doc | — | Sosa (reasignada de Gonzalo el 26 nov) | ✅ | #91 | 26 nov |
+| D-07 | Minutas, burndown, documento Scrum final y entrega `v1.0.0` | Doc | — | Sosa | ✅ | #92 | 26 nov |
 
-**Total comprometido:** 10 pts · **Completado:** 10 pts (Miguel 8 · Sosa 2) · **Restante:** 0 pts. Faltan D-06 y D-07.
+**Total comprometido:** 10 pts · **Completado:** 10 pts (Miguel 8 · Sosa 2) · **Restante:** 0 pts. Sprint cerrado el 26 de noviembre, tres días antes de su fin, con `v1.0.0`.
 
-> T-32 a T-36 son mejoras que Sosa pidió el 24 de noviembre. No venían en el Product Backlog ni se estimaron en Planning Poker, así que no suman puntos.
+> T-32 a T-36 son mejoras que Sosa pidió el 24 de noviembre. T-37 cierra dos huecos que encontró al comparar el backlog con lo entregado. No venían en el Product Backlog ni se estimaron en Planning Poker, así que no suman puntos.
