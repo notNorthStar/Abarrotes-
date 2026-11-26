@@ -46,15 +46,17 @@ export function requireRol(minimo: Rol, validarSucursalElegida = true) {
         }))
       if (!sucursal) throw new AppError(404, 'Sucursal no encontrada')
     }
-    // HU-16: consultar el estado actual impide usar un JWT anterior a la suspensión.
-    if (usuario.sucursalId !== null) {
-      const sucursal = await prisma.sucursal.findUnique({
-        where: { id: usuario.sucursalId },
-        select: { estado: true },
-      })
-      if (!sucursal || sucursal.estado !== 'ACTIVO') {
-        throw new AppError(403, 'Tu sucursal no está activa. Contacta al jefe.')
-      }
+    // Consultar el estado actual impide usar un JWT emitido antes de una suspensión:
+    // la de la cuenta (HU-12, HU-15) o la de su sucursal (HU-16).
+    const cuenta = await prisma.usuario.findUnique({
+      where: { id: usuario.id },
+      select: { estado: true, sucursal: { select: { estado: true } } },
+    })
+    if (!cuenta || cuenta.estado !== 'ACTIVO') {
+      throw new AppError(401, 'Tu cuenta ya no está activa. Inicia sesión de nuevo.')
+    }
+    if (usuario.sucursalId !== null && cuenta.sucursal?.estado !== 'ACTIVO') {
+      throw new AppError(403, 'Tu sucursal no está activa. Contacta al jefe.')
     }
     req.usuario = usuario
     next()
