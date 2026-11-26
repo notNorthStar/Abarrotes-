@@ -11,19 +11,9 @@ proveedoresRoutes.get('/catalogo', requireRol('CAJERO'), async (_req, res) => {
   res.json(await proveedores.listarProveedores())
 })
 
-proveedoresRoutes.get('/', requireRol('CAJERO'), async (req, res) => {
-  const q = typeof req.query.q === 'string' ? req.query.q : undefined
-  res.json(await proveedores.listarVisitas(sucursalDe(req), q))
-})
-
 proveedoresRoutes.get('/visitas', requireRol('CAJERO'), async (req, res) => {
   const q = typeof req.query.q === 'string' ? req.query.q : undefined
   res.json(await proveedores.listarVisitas(sucursalDe(req), q))
-})
-
-proveedoresRoutes.post('/', requireRol('ADMIN'), async (req, res) => {
-  const datos = crearVisitaSchema.parse(req.body)
-  res.status(201).json(await proveedores.registrarVisita(sucursalDe(req), datos))
 })
 
 proveedoresRoutes.post('/visitas', requireRol('ADMIN'), async (req, res) => {

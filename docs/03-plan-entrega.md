@@ -1,6 +1,52 @@
 # 03 · Plan de entrega
 
-## Sprint 3 (vigente): 2 al 15 de noviembre
+## Sprint 4 (cerrado el 26 nov; entregado en `v1.0.0`): 16 al 29 de noviembre
+
+**Meta:** que el jefe administre todas las sucursales. **Compromiso:** 2 HU, 10 pts. Es el último sprint: cierra el producto (80 de 80 pts) con la versión `v1.0.0`.
+
+| Persona | Historias | Pts | Además |
+|---|---|---|---|
+| **Miguel** | HU-16 (8) | 8 | — |
+| **Sosa** | HU-14 (2) | 2 | Scrum Master, revisión e integración de PRs, D-07 (cierre final) |
+| **Gonzalo** | — | — | T-31 correcciones de HU-07 y D-06 casos de uso y capturas |
+
+### Por qué este reparto
+
+- **Miguel** toma la historia grande: en el Sprint 3 entregó 16 pts con buenas pruebas, y HU-16 es un módulo nuevo que no depende de nadie.
+- **Sosa** toma HU-14 porque toca piezas compartidas (barra superior, cliente de la API y avisos en varias pantallas) y conviene que lo haga quien integra.
+- **Gonzalo** cierra las observaciones de su PR de HU-07 y documenta el sprint. Son tareas sin dependencias que dejan aporte verificable aunque tenga poco tiempo.
+
+### Dueños de módulo (Sprint 4)
+
+| Módulo | Dueño |
+|---|---|
+| `modules/sucursales` + `features/sucursales` (nuevos) | Miguel |
+| Bloqueo de usuarios de sucursal inactiva (`middleware/auth.ts`, `modules/auth`) | Miguel, coordinado con Sosa |
+| Selector de sucursal: `components/Layout.tsx`, `api/client.ts`, avisos en pantallas | Sosa |
+| `modules/proveedores` + `features/proveedores` | Gonzalo |
+
+`Layout.tsx` y `App.tsx` son compartidos: Miguel agrega solo su renglón de menú y su ruta. **No se espera cambiar `schema.prisma`.**
+
+### Calendario
+
+| Fecha | Sosa | Miguel | Gonzalo |
+|---|---|---|---|
+| **Mar 24 – Mié 25 nov** | HU-14 (selector) | API de sucursales (T-28) | Correcciones de HU-07 (T-31) |
+| **Jue 26** | **PR de HU-14**; revisión | **PR de la API y el bloqueo** (T-28, T-29) | **PR de T-31** |
+| **Vie 27** | Revisión e integración | **PR de la pantalla** (T-30) | Casos de uso (D-06) |
+| **Sáb 28** | Prueba completa | Correcciones de revisión | Capturas; **PR de D-06** |
+| **Dom 29** | **Cierre:** review, retro, documento Scrum final, `develop → main`, tag `v1.0.0` | Revisar la demo | — |
+
+> El plan se redactó el 17 de noviembre y se publicó el 24, sin avance previo: estas fechas sustituyen a las del borrador.
+
+### Puntos de control
+
+- **Jue 26:** si no hay PR de la API de HU-16, Sosa toma la pantalla (T-30) para que Miguel termine la API.
+- **Sáb 28 a mediodía:** si Gonzalo no ha subido avance de D-06, Sosa lo toma. _(Se reasignó el 26 nov para cerrar el sprint antes.)_
+- **Cada día:** cada quien sube su avance a su rama aunque esté a medias (acción de la retro del Sprint 3).
+- **Fuera del compromiso:** si el cliente pide ver cambios en tiempo real, se agrega al backlog como historia nueva; no entra a este sprint sin re-planear.
+
+## Sprint 3 (cerrado el 9 nov; entregado el 17 nov en `v0.3.0`): 2 al 15 de noviembre
 
 **Meta:** que el administrador controle mermas, cubra la caja y vea el reporte semanal. **Compromiso:** 5 HU, 23 pts.
 

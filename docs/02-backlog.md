@@ -18,8 +18,8 @@
 | 12 | HU-15 | Gestión de cuentas de administrador | Medio | 3 | 3 | Sosa |
 | 13 | HU-07 | Saber visitas de proveedores | Bajo | 2 | 3 | Gonzalo |
 | 14 | HU-13 | Reporte semanal por sucursal | Medio | 13 | 3 | Miguel |
-| 15 | HU-14 | Operaciones de administrador (jefe) | Bajo | 2 | 4 | — |
-| 16 | HU-16 | Gestión de sucursales | Bajo | 8 | 4 | — |
+| 15 | HU-14 | Operaciones de administrador (jefe) | Bajo | 2 | 4 | Sosa |
+| 16 | HU-16 | Gestión de sucursales | Bajo | 8 | 4 | Miguel |
 
 ---
 
@@ -45,6 +45,7 @@
 - CA4: Si hay efectivo, el sistema **calcula el cambio** (efectivo recibido − saldo pendiente).
 - CA5: No se puede confirmar la venta si la suma de pagos < total. Tarjeta/transferencia no pueden exceder el saldo (solo el efectivo genera cambio).
 - CA6: Al confirmar: se guarda la venta con su detalle y pagos, y **se descuenta la existencia** de cada producto (en una transacción).
+- Nota (T-36, 24 nov): al pagar con tarjeta, la web pone un folio interno único; el cajero puede cambiarlo por el del comprobante. No hay conexión con el banco.
 
 ### HU-02 · Cobrar productos con código de barras (5 pts) — Miguel (reasignada de Gonzalo el 28 oct)
 > Como cajero quiero escanear el código de barras de un producto para agregarlo a la cuenta del cliente.
@@ -83,14 +84,14 @@
 - CA2: El corte muestra totales **separados por forma de pago** (efectivo, tarjeta, transferencia).
 - CA3: **Efectivo esperado = monto inicial + ventas en efectivo (neto de cambio) − pagos a proveedor en efectivo**.
 - CA4: Al cerrar, el cajero captura el **efectivo contado**; el sistema muestra la **diferencia** (sobrante/faltante).
-- CA5: **Comentario obligatorio** al cerrar _(interpretación: obligatorio cuando la diferencia ≠ 0; confirmar con PO)_.
+- CA5: **Comentario obligatorio** al cerrar _(hasta el 25 nov se pedía solo con diferencia ≠ 0; desde el 26 nov se exige siempre, como dice el criterio)_.
 - Fuera de alcance: reporte detallado del corte (va en HU-13).
 
 ### HU-12 · Gestión de cuentas de cajero (5 pts) — Sosa
 > Como administrador quiero añadir, suspender y eliminar cuentas de cajero.
 
 - CA1: Admin crea cajeros (nombre, usuario, contraseña) **solo en su sucursal**.
-- CA2: **Suspender** bloquea el inicio de sesión; se puede reactivar.
+- CA2: **Suspender** bloquea el inicio de sesión; se puede reactivar. _(Desde el 26 nov también corta al momento la sesión que el cajero tenga abierta.)_
 - CA3: **Eliminar es lógico** (estado `ELIMINADO`), se conserva el historial de operaciones.
 - CA4: Admin **solo ve cajeros de su sucursal**.
 - CA5: Admin puede restablecer la contraseña de un cajero (cubre la "recuperación" de HU-01).
@@ -163,7 +164,27 @@
 - Duda para el PO: la semana se toma de lunes a domingo mientras no se indique otra cosa.
 - Nota: cualquier dependencia nueva para el PDF se menciona en el PR.
 
-## Sprint 4 (referencia)
+## Sprint 4 — "Que el jefe administre todas las sucursales" (10 pts)
 
-- **HU-14** Operaciones de admin para jefe (2): permisos de admin al jefe + **selector de sucursal**.
-- **HU-16** Gestión de sucursales (8): crear/suspender/eliminar; sucursal suspendida → bloquea acceso de sus usuarios, el inventario se conserva.
+Criterios tomados del Planning Poker (documento en Drive) y del código existente.
+
+### HU-14 · Operaciones de administrador para el jefe (2 pts) — Sosa
+> Como jefe quiero realizar las mismas operaciones del administrador para administrar el negocio en caso de fallas de los administradores.
+
+- CA1: El jefe puede hacer todo lo que hace un administrador (y, por jerarquía, un cajero): cajeros, productos, inventario, mermas, visitas de proveedores, reporte semanal y caja.
+- CA2: **Selector de sucursal** en la barra superior, visible solo para el jefe, con las sucursales activas.
+- CA3: Todas las pantallas operan sobre la sucursal elegida; la elección se conserva al navegar y al recargar.
+- CA4: El servidor sigue exigiendo la sucursal en cada petición del jefe (`?sucursalId=`); una sucursal que no existe se rechaza.
+- CA5: Administradores y cajeros no ven el selector y siguen operando solo en su sucursal.
+- Nota: el backend ya acepta `?sucursalId=` para el jefe; la historia es sobre todo el selector y quitar los avisos "disponible en HU-14".
+
+### HU-16 · Gestión de sucursales (8 pts) — Miguel
+> Como jefe quiero crear, suspender y eliminar sucursales para llevar una correcta gestión de las activas e inactivas.
+
+- CA1: **Solo el jefe** crea sucursales (nombre obligatorio, dirección opcional) y las ve en una lista con su estado.
+- CA2: **Suspender** bloquea el acceso de los usuarios de esa sucursal (no pueden iniciar sesión); se puede reactivar.
+- CA3: Al suspender o eliminar se **conservan** el inventario y el historial (ventas, turnos, movimientos).
+- CA4: **Eliminar es lógico** (`estado = ELIMINADO`): la sucursal desaparece de la lista y del selector de HU-14, y sus usuarios ya no pueden entrar.
+- CA5: No cambia el modelo de datos: la estructura multisucursal existe desde el Sprint 1.
+- Nota: el inicio de sesión ya rechaza a usuarios de sucursales no activas (HU-01).
+- Decisiones del PO (25 nov): las sesiones abiertas de una sucursal suspendida se cortan en su siguiente petición; se puede suspender o eliminar con cajas abiertas, que se conservan tal como están.

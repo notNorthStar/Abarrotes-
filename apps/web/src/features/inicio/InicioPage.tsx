@@ -5,6 +5,7 @@ import type { Producto } from '../../api/tipos'
 import { useAuth } from '../../auth/AuthContext'
 import { Icono, type NombreIcono } from '../../components/Icono'
 import { Chip, Esqueleto, PaginaConPanel, Tarjeta, Tecla, claseBoton, pesos } from '../../components/ui'
+import { saludo } from '../../lib/saludo'
 import type { Corte, Turno } from '../caja/tipos'
 
 // Inicio: resumen del turno, acciones rápidas, actividad y productos por reponer.
@@ -30,11 +31,6 @@ const porReponer = (p: Producto) => Number(p.existencia) <= (p.unidad === 'KILO'
 
 const METODO: Record<string, string> = { EFECTIVO: 'Efectivo', TARJETA: 'Tarjeta', TRANSFERENCIA: 'Transferencia' }
 
-function saludo() {
-  const h = new Date().getHours()
-  return h < 12 ? 'Buenos días' : h < 19 ? 'Buenas tardes' : 'Buenas noches'
-}
-
 function haceCuanto(fecha: string) {
   const min = Math.round((Date.now() - new Date(fecha).getTime()) / 60000)
   if (min < 1) return 'hace un momento'
@@ -53,7 +49,6 @@ export function InicioPage() {
       const [corte, actividad, productos] = await Promise.all([
         turno ? api.get<Corte>('/caja/actual/corte') : Promise.resolve(null),
         turno ? api.get<Actividad[]>('/caja/actual/actividad') : Promise.resolve([]),
-        // El jefe necesita elegir sucursal (HU-14); para él no se muestra la lista.
         api.get<Producto[]>('/productos').catch(() => null),
       ])
       if (vigente) setDatos({ turno, corte, actividad, reponer: productos ? productos.filter(porReponer) : null })
@@ -103,7 +98,7 @@ export function InicioPage() {
           etiqueta="Por reponer"
           cargando={cargando}
           valor={datos?.reponer ? String(datos.reponer.length) : '—'}
-          nota={datos?.reponer ? 'productos con existencia baja' : 'Selecciona una sucursal'}
+          nota={datos?.reponer ? 'productos con existencia baja' : 'No disponible'}
         />
       </section>
 

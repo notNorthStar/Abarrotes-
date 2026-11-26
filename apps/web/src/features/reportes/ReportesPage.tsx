@@ -1,7 +1,6 @@
 import { useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import Decimal from 'decimal.js'
 import { api, ApiError } from '../../api/client'
-import { useAuth } from '../../auth/AuthContext'
 import { Icono } from '../../components/Icono'
 import {
   Aviso,
@@ -49,25 +48,20 @@ const mensaje = (error: unknown) =>
   error instanceof ApiError
     ? error.message
     : 'No se pudo conectar con el servidor. Intenta de nuevo.'
-type Consulta = { fecha: string; sucursal: string; intento: number }
+type Consulta = { fecha: string; intento: number }
 
 export function ReportesPage() {
-  const { usuario } = useAuth()
-  const jefe = usuario?.rol === 'JEFE'
   const [fecha, setFecha] = useState(hoyMexico)
-  const [sucursal, setSucursal] = useState('')
   const [consulta, setConsulta] = useState<Consulta>(() => ({
     fecha: hoyMexico(),
-    sucursal: '',
     intento: 0,
   }))
   const [reporte, setReporte] = useState<ReporteSemanal | null>(null)
-  const [cargando, setCargando] = useState(!jefe)
+  const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
   const [exportando, setExportando] = useState(false)
   const [errorPdf, setErrorPdf] = useState('')
   const parametros = new URLSearchParams({ fecha: consulta.fecha })
-  if (jefe && consulta.sucursal) parametros.set('sucursalId', consulta.sucursal)
   const query = parametros.toString()
 
   useEffect(() => {
@@ -75,10 +69,6 @@ export function ReportesPage() {
     setReporte(null)
     setError('')
     setErrorPdf('')
-    if (jefe && !consulta.sucursal) {
-      setCargando(false)
-      return
-    }
     setCargando(true)
     api
       .get<ReporteSemanal>(`/reportes/semanal?${query}`)
@@ -94,13 +84,13 @@ export function ReportesPage() {
     return () => {
       vigente = false
     }
-  }, [query, consulta.intento, consulta.sucursal, jefe])
+  }, [query, consulta.intento])
 
   function consultar(e: FormEvent) {
     e.preventDefault()
     setReporte(null)
     setCargando(true)
-    setConsulta((prev) => ({ fecha, sucursal: jefe ? sucursal : '', intento: prev.intento + 1 }))
+    setConsulta((prev) => ({ fecha, intento: prev.intento + 1 }))
   }
 
   async function exportar() {
@@ -157,24 +147,6 @@ export function ReportesPage() {
               onChange={(e) => setFecha(e.target.value)}
             />
           </div>
-          {jefe && (
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="reporte-sucursal" className="text-[13px] font-medium">
-                Número de sucursal
-              </label>
-              <input
-                id="reporte-sucursal"
-                type="number"
-                min="1"
-                step="1"
-                required
-                className="campo num"
-                value={sucursal}
-                disabled={exportando}
-                onChange={(e) => setSucursal(e.target.value)}
-              />
-            </div>
-          )}
           <Boton type="submit" disabled={exportando}>
             Consultar semana
           </Boton>

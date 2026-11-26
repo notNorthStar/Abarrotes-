@@ -85,6 +85,7 @@ model Producto {
   creadoEn     DateTime               @default(now())
   movimientos  MovimientoInventario[]
   renglones    VentaRenglon[]
+  imagenes     Imagen[]
 
   @@unique([sucursalId, codigoBarras])
 }
@@ -154,10 +155,11 @@ model PagoVenta {
 }
 
 model Proveedor {
-  id      Int               @id @default(autoincrement())
-  nombre  String            @unique
-  pagos   PagoProveedor[]
-  visitas VisitaProveedor[]
+  id       Int               @id @default(autoincrement())
+  nombre   String            @unique
+  pagos    PagoProveedor[]
+  visitas  VisitaProveedor[]
+  imagenes Imagen[]
 }
 
 model PagoProveedor {
@@ -181,4 +183,20 @@ model VisitaProveedor {
   sucursal    Sucursal  @relation(fields: [sucursalId], references: [id])
   fecha       DateTime
   nota        String?
+}
+
+// T-34 (Sprint 4): fotos de productos y logotipos de proveedores. Id aleatorio: se sirve sin sesión.
+model Imagen {
+  id          String     @id @default(uuid())
+  tipo        String // image/png, image/jpeg o image/webp
+  datos       Bytes
+  estado      Estado     @default(ACTIVO)
+  productoId  Int?
+  producto    Producto?  @relation(fields: [productoId], references: [id])
+  proveedorId Int?
+  proveedor   Proveedor? @relation(fields: [proveedorId], references: [id])
+  creadoEn    DateTime   @default(now())
+
+  @@index([productoId])
+  @@index([proveedorId])
 }

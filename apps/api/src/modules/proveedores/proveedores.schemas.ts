@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 // Validación de visitas de proveedores (HU-07). Dueño: Gonzalo.
 
-const FECHA_ISO = /^(\d{4})-(\d{2})-(\d{2})(?:T.*)?$/
+const FECHA_ISO = /^(\d{4})-(\d{2})-(\d{2})$/
 
 export function esFechaValida(valor: string): boolean {
   const match = FECHA_ISO.exec(valor)

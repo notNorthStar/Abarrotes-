@@ -1,6 +1,9 @@
 import Decimal from 'decimal.js'
 import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react'
 import { api, ApiError } from '../../api/client'
+import { useConfirmar } from '../../components/Confirmar'
+import { Miniatura } from '../../components/Imagenes'
+import { useLogos } from '../proveedores/LogosProveedores'
 import { avisarCambioCaja } from '../../components/Layout'
 import {
   Aviso,
@@ -13,7 +16,7 @@ import {
   Tarjeta,
   pesos,
 } from '../../components/ui'
-import type { Corte, CorteCerrado, Proveedor, Turno } from './tipos'
+import type { Corte, CorteCerrado, Turno } from './tipos'
 
 // HU-05 (abrir caja, corte y cierre) y HU-09 (pagos a proveedor). Sosa, reasignadas de Gonzalo el 28 oct.
 
@@ -268,16 +271,9 @@ const METODOS_PAGO = [
 
 function PagoProveedor({ corte, onRegistrado }: { corte: Corte; onRegistrado: () => void }) {
   const [form, setForm] = useState(pagoVacio)
-  const [proveedores, setProveedores] = useState<Proveedor[]>([])
+  const { proveedores, recargar: recargarLogos } = useLogos()
   const [error, setError] = useState('')
   const [aviso, setAviso] = useState('')
-
-  useEffect(() => {
-    api
-      .get<Proveedor[]>('/caja/proveedores')
-      .then(setProveedores)
-      .catch(() => setProveedores([]))
-  }, [aviso])
 
   async function registrar(e: FormEvent) {
     e.preventDefault()
@@ -290,6 +286,7 @@ function PagoProveedor({ corte, onRegistrado }: { corte: Corte; onRegistrado: ()
       })
       setAviso(`Pago a ${form.proveedor.trim()} registrado.`)
       setForm(pagoVacio)
+      void recargarLogos()
       onRegistrado()
     } catch (err) {
       setError(mensaje(err))
@@ -404,11 +401,18 @@ function PagoProveedor({ corte, onRegistrado }: { corte: Corte; onRegistrado: ()
                 {pagos.map((p) => (
                   <tr key={p.id} className="hover:bg-hueso">
                     <td className="border-t border-linea px-4 py-3">
-                      <span className="flex flex-col gap-0.5">
-                        <span>{p.proveedor}</span>
-                        {p.comentario && (
-                          <span className="text-xs text-piedra">{p.comentario}</span>
-                        )}
+                      <span className="flex items-center gap-3">
+                        <Miniatura
+                          id={proveedores.find((x) => x.nombre === p.proveedor)?.logoId}
+                          icono="proveedor"
+                          contener
+                        />
+                        <span className="flex flex-col gap-0.5">
+                          <span>{p.proveedor}</span>
+                          {p.comentario && (
+                            <span className="text-xs text-piedra">{p.comentario}</span>
+                          )}
+                        </span>
                       </span>
                     </td>
                     <td className="border-t border-linea px-2 py-2">
@@ -434,6 +438,7 @@ function PagoProveedor({ corte, onRegistrado }: { corte: Corte; onRegistrado: ()
 }
 
 function CerrarCaja({ corte, onCerrada }: { corte: Corte; onCerrada: (c: CorteCerrado) => void }) {
+  const confirmar = useConfirmar()
   const [contado, setContado] = useState('')
   const [comentario, setComentario] = useState('')
   const [error, setError] = useState('')
@@ -445,7 +450,20 @@ function CerrarCaja({ corte, onCerrada }: { corte: Corte; onCerrada: (c: CorteCe
   async function cerrar(e: FormEvent) {
     e.preventDefault()
     setError('')
-    if (!window.confirm('¿Cerrar la caja? Ya no podrás cobrar en este turno.')) return
+    if (!comentario.trim()) {
+      setError(
+        hayDiferencia
+          ? 'Explica la diferencia en el comentario'
+          : 'Escribe un comentario para cerrar la caja',
+      )
+      return
+    }
+    const acepta = await confirmar({
+      titulo: '¿Cerrar la caja?',
+      detalle: 'Ya no podrás cobrar en este turno.',
+      aceptar: 'Cerrar caja',
+    })
+    if (!acepta) return
     try {
       onCerrada(
         await api.post<CorteCerrado>('/caja/actual/cerrar', {
@@ -473,7 +491,7 @@ function CerrarCaja({ corte, onCerrada }: { corte: Corte; onCerrada: (c: CorteCe
       <div className="flex flex-col gap-1">
         <h2 className="text-sm font-semibold">Cerrar caja</h2>
         <p className="text-[13px] leading-relaxed text-piedra">
-          Cuenta el efectivo del cajón. Si no coincide con lo esperado, explica la diferencia.
+          Cuenta el efectivo del cajón y deja un comentario. Si no coincide con lo esperado, explica la diferencia.
         </p>
       </div>
       <CampoMonto etiqueta="Efectivo contado" valor={contado} onCambio={setContado} />
@@ -489,17 +507,13 @@ function CerrarCaja({ corte, onCerrada }: { corte: Corte; onCerrada: (c: CorteCe
       <label className="flex flex-col gap-1.5 text-[13px] font-medium">
         <span className="flex items-center gap-2">
           Comentario
-          {hayDiferencia ? (
-            <Chip tono="chile">obligatorio</Chip>
-          ) : (
-            <span className="font-normal text-piedra">(opcional)</span>
-          )}
+          <Chip tono={hayDiferencia ? 'chile' : 'neutro'}>obligatorio</Chip>
         </span>
         <textarea
           rows={3}
           className="resize-y rounded-lg border border-borde bg-superficie p-2.5 text-sm font-normal text-tinta outline-none focus:border-tinta"
           placeholder={
-            hayDiferencia ? 'Explica la diferencia' : 'Ej. Se dio cambio de más en una venta'
+            hayDiferencia ? 'Explica la diferencia' : 'Ej. Todo en orden, sin incidencias'
           }
           value={comentario}
           onChange={(e) => setComentario(e.target.value)}

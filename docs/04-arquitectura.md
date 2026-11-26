@@ -95,6 +95,15 @@ Base: `/api`. Auth: header `Authorization: Bearer <jwt>`. Payload del JWT: `{ su
 | POST | `/administradores?sucursalId=` | JEFE | 15 |
 | PATCH | `/administradores/:id?sucursalId=` | JEFE | 15 (suspender/reactivar/reset password) |
 | DELETE | `/administradores/:id?sucursalId=` | JEFE | 15 (lógico) |
+| GET / POST | `/sucursales` | JEFE | 16 |
+| PATCH / DELETE | `/sucursales/:id` | JEFE | 16 (suspender o reactivar / lógico) |
+| GET | `/imagenes/:id` | — | T-34 (pública; id UUID) |
+| POST | `/productos/:id/imagenes` | CAJERO | T-34 (PNG, JPG o WebP; máx. 2 MB y 5 por producto) |
+| DELETE | `/productos/:id/imagenes/:imagen` | CAJERO | T-34 (lógico) |
+| GET | `/logos-proveedores` | CAJERO | T-34 |
+| POST / DELETE | `/logos-proveedores/:id` | ADMIN | T-34 |
+
+**Jefe (HU-14):** toda ruta por sucursal exige `?sucursalId=`; el cliente web lo agrega solo con la sucursal elegida. Una que no existe responde 404.
 
 `POST /ventas` body:
 ```json

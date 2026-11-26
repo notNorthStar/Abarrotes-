@@ -3,9 +3,11 @@ import { api, ApiError } from '../../api/client'
 import { useAuth } from '../../auth/AuthContext'
 import { tieneRol } from '../../auth/RequireRol'
 import { Icono } from '../../components/Icono'
+import { Miniatura } from '../../components/Imagenes'
+import { LogosProveedores, useLogos } from './LogosProveedores'
 import { Aviso, Boton, Chip, EncabezadoPagina, Esqueleto, Pagina, Tarjeta } from '../../components/ui'
 import {
-   claveDiaIso,
+  claveDiaIso,
   estadoDeVisita,
   formatearFechaVisita,
   hoyIsoLocal,
@@ -50,15 +52,6 @@ const TEXTO_ESTADO: Record<EstadoVisita, string> = {
 export function ProveedoresPage() {
   const { usuario } = useAuth()
 
-  if (usuario?.rol === 'JEFE') {
-    return (
-      <Pagina>
-        <EncabezadoPagina titulo="Visitas de proveedores" />
-        <Aviso tipo="info">Selecciona una sucursal (disponible en HU-14).</Aviso>
-      </Pagina>
-    )
-  }
-
   return <ContenidoProveedores esAdmin={usuario ? tieneRol(usuario.rol, 'ADMIN') : false} />
 }
 
@@ -69,6 +62,7 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
   const [error, setError] = useState('')
   const [aviso, setAviso] = useState('')
 
+  const logos = useLogos()
   const [busqueda, setBusqueda] = useState('')
   const [filtro, setFiltro] = useState<FiltroVisita>('TODAS')
 
@@ -113,7 +107,7 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
       })
       setForm({ proveedor: '', fecha: hoyIsoLocal(), nota: '' })
       setAviso(`Visita de "${creada.proveedor}" programada para el ${claveDiaIso(creada.fecha)}.`)
-      await cargar()
+      await Promise.all([cargar(), logos.recargar()])
     } catch (err) {
       setErrorForm(mensaje(err))
     } finally {
@@ -222,6 +216,7 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
           <span className="sr-only">Filtrar por proveedor o nota</span>
           <input
             id="buscar-proveedor"
+            data-busqueda
             className="min-w-0 flex-1 bg-transparent text-sm text-tinta outline-none"
             placeholder="Filtrar por proveedor o nota…"
             value={busqueda}
@@ -315,18 +310,17 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
                     <tr key={v.id} className="border-t border-linea first:border-t-0 hover:bg-hueso">
                       <td className="px-4 py-3">
                         <div className="flex flex-col">
-                          <span className="font-medium capitalize">{formatearFechaVisita(v.fecha)}</span>
+                          <span className="font-medium">{formatearFechaVisita(v.fecha)}</span>
                           <span className="num text-xs text-piedra">{claveDiaIso(v.fecha)}</span>
                         </div>
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-2.5">
-                          <span
-                            aria-hidden="true"
-                            className="flex h-8 w-8 flex-none items-center justify-center rounded-lg bg-crema text-grafito"
-                          >
-                            <Icono nombre="proveedor" tamano={16} />
-                          </span>
+                          <Miniatura
+                            id={logos.proveedores.find((p) => p.id === v.proveedorId)?.logoId}
+                            icono="proveedor"
+                            contener
+                          />
                           <span className="font-medium">{v.proveedor}</span>
                         </div>
                       </td>
@@ -341,6 +335,8 @@ function ContenidoProveedores({ esAdmin }: { esAdmin: boolean }) {
           </table>
         </div>
       </Tarjeta>
+
+      {esAdmin && <LogosProveedores proveedores={logos.proveedores} onCambio={logos.recargar} />}
     </Pagina>
   )
 }

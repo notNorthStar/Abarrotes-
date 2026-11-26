@@ -7,6 +7,10 @@
     outline: 2px solid theme('colors.maiz.DEFAULT');
     outline-offset: 2px;
   }
+  /* Edge pinta su propio botón de mostrar contraseña; la app ya tiene el suyo. */
+  input::-ms-reveal {
+    display: none;
+  }
   input::placeholder,
   textarea::placeholder {
     color: #8c877d;

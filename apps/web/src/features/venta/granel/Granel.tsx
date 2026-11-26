@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react'
 import Decimal from 'decimal.js'
-import { api } from '../../../api/client'
 import type { Producto } from '../../../api/tipos'
 import { Icono } from '../../../components/Icono'
+import { Miniatura } from '../../../components/Imagenes'
 import { Boton, Esqueleto, pesos } from '../../../components/ui'
+import { useBusquedaProductos } from '../../../hooks/useBusquedaProductos'
 import { useCarrito } from '../carrito/store'
 import { cantidadValida, precioGranel, type UnidadPeso } from './calculosGranel'
 
@@ -21,10 +22,9 @@ export function Granel({
 }) {
   const agregar = useCarrito((s) => s.agregarProducto)
   const [busqueda, setBusqueda] = useState('')
-  const [consulta, setConsulta] = useState({ texto: '', intento: 0 })
-  const [productos, setProductos] = useState<Producto[]>([])
-  const [cargando, setCargando] = useState(true)
-  const [errorBusqueda, setErrorBusqueda] = useState('')
+  const { productos: resultado, cargando: consultando, error: errorBusqueda, recargar } = useBusquedaProductos(busqueda)
+  const productos = (resultado ?? []).filter((p) => p.unidad === 'KILO')
+  const cargando = resultado === null && consultando
   const [producto, setProducto] = useState<Producto | null>(null)
   const [peso, setPeso] = useState('')
   const [unidad, setUnidad] = useState<UnidadPeso>('kg')
@@ -45,30 +45,6 @@ export function Granel({
     setAviso('')
   }, [productoExterno])
 
-  useEffect(() => {
-    let vigente = true
-    setCargando(true)
-    setErrorBusqueda('')
-    setProductos([])
-    api
-      .get<Producto[]>(`/productos?q=${encodeURIComponent(consulta.texto)}`)
-      .then((datos) => {
-        if (vigente) setProductos(datos.filter((p) => p.unidad === 'KILO'))
-      })
-      .catch((e: unknown) => {
-        if (vigente)
-          setErrorBusqueda(
-            e instanceof Error ? e.message : 'No se pudieron consultar los productos.',
-          )
-      })
-      .finally(() => {
-        if (vigente) setCargando(false)
-      })
-    return () => {
-      vigente = false
-    }
-  }, [consulta])
-
   let kilos = ''
   let subtotal = ''
   if (producto && peso.trim()) {
@@ -80,9 +56,18 @@ export function Granel({
     }
   }
 
-  function buscar(e: FormEvent) {
-    e.preventDefault()
-    setConsulta((actual) => ({ texto: busqueda.trim(), intento: actual.intento + 1 }))
+  function elegir(p: Producto) {
+    setProducto(p)
+    setPeso('')
+    setUnidad('kg')
+    setErrorPeso('')
+    setAviso('')
+  }
+
+  function cancelar() {
+    setProducto(null)
+    setErrorPeso('')
+    onFinalizar?.()
   }
 
   function confirmar(e: FormEvent) {
@@ -108,6 +93,9 @@ export function Granel({
       {producto && (
         <form
           onSubmit={confirmar}
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') cancelar()
+          }}
           aria-labelledby="titulo-captura-granel"
           className="flex flex-col gap-3 rounded-xl border border-maiz-borde bg-maiz-claro p-4"
         >
@@ -178,11 +166,7 @@ export function Granel({
               <Boton
                 variante="secundario"
                 className="h-11"
-                onClick={() => {
-                  setProducto(null)
-                  setErrorPeso('')
-                  onFinalizar?.()
-                }}
+                onClick={cancelar}
               >
                 Cancelar
               </Boton>
@@ -206,7 +190,7 @@ export function Granel({
         aria-labelledby="titulo-granel"
         className="flex flex-col gap-3 rounded-xl border border-linea bg-superficie p-4"
       >
-        <form onSubmit={buscar} className="flex flex-wrap items-end gap-2">
+        <div className="flex flex-wrap items-end gap-2">
           <div className="flex min-w-0 flex-[1_1_240px] flex-col gap-1">
             <h2 id="titulo-granel" className="text-sm font-semibold">
               Productos a granel
@@ -220,13 +204,15 @@ export function Granel({
               onChange={(e) => setBusqueda(e.target.value)}
               placeholder="Buscar por nombre o código"
               className="campo"
+              autoComplete="off"
+              data-flechas-a="lista-granel"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && productos[0]) elegir(productos[0])
+                else if (e.key === 'Escape') setBusqueda('')
+              }}
             />
           </div>
-          <Boton type="submit" variante="secundario">
-            <Icono nombre="buscar" />
-            Buscar granel
-          </Boton>
-        </form>
+        </div>
         <div aria-live="polite" aria-busy={cargando}>
           {cargando && (
             <div role="status" className="flex flex-wrap gap-2">
@@ -245,7 +231,7 @@ export function Granel({
               <button
                 type="button"
                 className="font-medium underline"
-                onClick={() => setConsulta((c) => ({ ...c, intento: c.intento + 1 }))}
+                onClick={recargar}
               >
                 Reintentar
               </button>
@@ -258,27 +244,24 @@ export function Granel({
           )}
         </div>
         {!cargando && !errorBusqueda && productos.length > 0 && (
-          <ul className="flex flex-wrap gap-2">
+          <ul id="lista-granel" data-flechas className="flex flex-wrap gap-2">
             {productos.map((p) => (
               <li key={p.id}>
                 <button
                   type="button"
-                  onClick={() => {
-                    setProducto(p)
-                    setPeso('')
-                    setUnidad('kg')
-                    setErrorPeso('')
-                    setAviso('')
-                  }}
-                  className={`flex min-h-[44px] flex-col items-start justify-center rounded-lg border px-3 py-1.5 text-left text-sm transition-colors ${
+                  onClick={() => elegir(p)}
+                  className={`flex min-h-[44px] items-center gap-2.5 rounded-lg border px-3 py-1.5 text-left text-sm transition-colors ${
                     producto?.id === p.id
                       ? 'border-maiz-borde bg-maiz-claro'
                       : 'border-linea bg-hueso hover:border-borde hover:bg-superficie'
                   }`}
                 >
-                  {p.nombre}
-                  <span className="num text-xs text-piedra">
-                    ${new Decimal(p.precio).toFixed(2)}/kg · {p.codigoBarras}
+                  {p.imagenes?.[0] && <Miniatura id={p.imagenes[0].id} />}
+                  <span className="flex flex-col">
+                    {p.nombre}
+                    <span className="num text-xs text-piedra">
+                      ${new Decimal(p.precio).toFixed(2)}/kg · {p.codigoBarras}
+                    </span>
                   </span>
                 </button>
               </li>

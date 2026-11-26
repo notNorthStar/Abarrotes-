@@ -54,7 +54,7 @@ describe('proveedores (HU-07 · visitas de proveedores)', () => {
       expect(conNota.body.fecha).toContain('2026-11-12')
 
       const sinNota = await request(app)
-        .post('/api/proveedores')
+        .post('/api/proveedores/visitas')
         .set(auth(adminCentro))
         .send({
           proveedor: 'Sabritas Distribución',
@@ -85,7 +85,7 @@ describe('proveedores (HU-07 · visitas de proveedores)', () => {
       ).toBe(401)
     })
 
-    it('valida proveedor y fecha obligatorios y formato de fecha real → 400', async () => {
+    it('valida proveedor y fecha obligatorios y formato estricto AAAA-MM-DD → 400', async () => {
       const sinProveedor = await request(app)
         .post('/api/proveedores/visitas')
         .set(auth(adminCentro))
@@ -103,6 +103,12 @@ describe('proveedores (HU-07 · visitas de proveedores)', () => {
         .set(auth(adminCentro))
         .send({ proveedor: 'Bimbo', fecha: '2026-02-31' })
       expect(fechaInvalida.status).toBe(400)
+
+      const fechaConHora = await request(app)
+        .post('/api/proveedores/visitas')
+        .set(auth(adminCentro))
+        .send({ proveedor: 'Bimbo', fecha: '2026-11-15T12:00:00.000Z' })
+      expect(fechaConHora.status).toBe(400)
     })
   })
 
@@ -126,10 +132,21 @@ describe('proveedores (HU-07 · visitas de proveedores)', () => {
         { fecha: '2026-11-12', proveedor: 'Bimbo' },
       ])
 
-      const filtrado = await request(app).get('/api/proveedores?q=coca').set(auth(cajeroCentro))
+      const filtrado = await request(app).get('/api/proveedores/visitas?q=coca').set(auth(cajeroCentro))
       expect(filtrado.status).toBe(200)
       expect(filtrado.body).toHaveLength(1)
       expect(filtrado.body[0].proveedor).toBe('Coca-Cola FEMSA')
+
+      // T-31: las rutas raíz duplicadas (/api/proveedores) ya no existen
+      expect((await request(app).get('/api/proveedores').set(auth(cajeroCentro))).status).toBe(404)
+      expect(
+        (
+          await request(app)
+            .post('/api/proveedores')
+            .set(auth(adminCentro))
+            .send({ proveedor: 'Bimbo', fecha: '2026-11-15' })
+        ).status,
+      ).toBe(404)
     })
 
     it('el catálogo devuelve la lista de proveedores registrados ordenada alfabéticamente', async () => {

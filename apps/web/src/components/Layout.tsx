@@ -1,11 +1,15 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { api } from '../api/client'
-import type { Rol } from '../api/tipos'
+import { sucursalInicial, sucursalStore } from '../api/sucursal'
+import type { Rol, Sucursal } from '../api/tipos'
 import { useAuth } from '../auth/AuthContext'
 import { tieneRol } from '../auth/RequireRol'
 import { Icono, type NombreIcono } from './Icono'
-import { Tecla } from './ui'
+import { Logo } from './Logo'
+import { useTeclado } from '../hooks/teclado'
+import { useCarrito } from '../features/venta/carrito/store'
+import { Aviso, Esqueleto, Pagina, Tecla } from './ui'
 
 // Shell "Mostrador": barra lateral oscura, barra superior con migas, paleta de comandos (Ctrl K) y estado de caja.
 
@@ -21,6 +25,7 @@ const DESTINOS: Destino[] = [
   { to: '/proveedores', texto: 'Proveedores', icono: 'proveedor', minimo: 'CAJERO', grupo: 'Catálogo' },
   { to: '/usuarios', texto: 'Cajeros', icono: 'cajeros', minimo: 'ADMIN', grupo: 'Administración' },
   { to: '/administradores', texto: 'Administradores', icono: 'candado', minimo: 'JEFE', grupo: 'Administración' },
+  { to: '/sucursales', texto: 'Sucursales', icono: 'inicio', minimo: 'JEFE', grupo: 'Administración' },
   { to: '/reportes', texto: 'Reporte semanal', icono: 'recibo', minimo: 'ADMIN', grupo: 'Administración' },
 ]
 
@@ -34,12 +39,16 @@ const iniciales = (nombre: string) =>
     .join('')
 
 const EVENTO_CAJA = 'abarrotes:caja'
+const EVENTO_SUCURSALES = 'abarrotes:sucursales'
+
+/** HU-16: refresca las sucursales activas después de gestionar una sucursal. */
+export const avisarCambioSucursales = () => window.dispatchEvent(new Event(EVENTO_SUCURSALES))
 
 /** Avisa al indicador de la barra superior que la caja se abrió o se cerró. */
 export const avisarCambioCaja = () => window.dispatchEvent(new Event(EVENTO_CAJA))
 
 /** Estado de la caja del usuario, para el indicador de la barra superior. */
-function useCajaAbierta(ruta: string) {
+function useCajaAbierta(ruta: string, sucursalId: number | null) {
   const [abiertaDesde, setAbiertaDesde] = useState<string | null | undefined>(undefined)
   const [version, setVersion] = useState(0)
   useEffect(() => {
@@ -56,8 +65,57 @@ function useCajaAbierta(ruta: string) {
     return () => {
       vigente = false
     }
-  }, [ruta, version])
+  }, [ruta, version, sucursalId])
   return abiertaDesde
+}
+
+/** HU-14: sucursales activas y la elegida por el jefe. Para los demás roles no consulta nada. */
+function useSucursalJefe(esJefe: boolean) {
+  const [sucursales, setSucursales] = useState<Sucursal[] | null>(null)
+  const [elegida, setElegida] = useState<number | null>(null)
+  const [error, setError] = useState('')
+  const vaciarCarrito = useCarrito((s) => s.vaciar)
+  const [version, setVersion] = useState(0)
+  useEffect(() => {
+    const actualizar = () => setVersion((v) => v + 1)
+    window.addEventListener(EVENTO_SUCURSALES, actualizar)
+    return () => window.removeEventListener(EVENTO_SUCURSALES, actualizar)
+  }, [])
+
+  useEffect(() => {
+    if (!esJefe) return
+    let vigente = true
+    // Sin sucursal guardada: si la anterior ya no existe, la API rechazaría incluso esta consulta.
+    const guardada = sucursalStore.get()
+    sucursalStore.clear()
+    api
+      .get<Sucursal[]>('/administradores/sucursales')
+      .then((lista) => {
+        if (!vigente) return
+        const id = sucursalInicial(lista, guardada)
+        if (id !== null) sucursalStore.set(id)
+        if (guardada !== id) vaciarCarrito()
+        setError('')
+        setSucursales(lista)
+        setElegida(id)
+      })
+      .catch(() => {
+        if (guardada !== null) sucursalStore.set(guardada)
+        if (vigente) setError('No se pudieron consultar las sucursales. Recarga la página.')
+      })
+    return () => {
+      vigente = false
+      if (sucursalStore.get() === null && guardada !== null) sucursalStore.set(guardada)
+    }
+  }, [esJefe, version, vaciarCarrito])
+
+  function elegir(id: number) {
+    sucursalStore.set(id)
+    vaciarCarrito() // los productos de la cuenta son de la sucursal anterior
+    setElegida(id)
+  }
+
+  return { sucursales, elegida, elegir, error }
 }
 
 export function Layout() {
@@ -66,7 +124,11 @@ export function Layout() {
   const { pathname } = useLocation()
   const [paleta, setPaleta] = useState(false)
   const [menuMovil, setMenuMovil] = useState(false)
-  const abiertaDesde = useCajaAbierta(pathname)
+  const esJefe = usuario?.rol === 'JEFE'
+  const gestionSucursales = pathname.replace(/\/+$/, '') === '/sucursales'
+  const sucursal = useSucursalJefe(esJefe)
+  useTeclado()
+  const abiertaDesde = useCajaAbierta(pathname, sucursal.elegida)
 
   const destinos = useMemo(
     () => (usuario ? DESTINOS.filter((d) => tieneRol(usuario.rol, d.minimo)) : []),
@@ -81,7 +143,7 @@ export function Layout() {
       } else if (e.key === 'F2') {
         e.preventDefault()
         navigate('/venta')
-      }
+      } else if (e.key === 'Escape') setMenuMovil(false)
     }
     window.addEventListener('keydown', atajos)
     return () => window.removeEventListener('keydown', atajos)
@@ -94,6 +156,12 @@ export function Layout() {
 
   return (
     <div className="flex min-h-screen bg-papel">
+      <a
+        href="#contenido"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-50 focus:rounded-lg focus:bg-superficie focus:px-4 focus:py-2 focus:text-sm"
+      >
+        Saltar al contenido
+      </a>
       <Barra
         destinos={destinos}
         nombre={usuario.nombre}
@@ -123,7 +191,26 @@ export function Layout() {
             </svg>
           </button>
           <nav aria-label="Ruta" className="flex items-center gap-2 text-[13px] text-piedra">
-            <span>{usuario.rol === 'JEFE' ? 'Todas las sucursales' : 'Mi sucursal'}</span>
+            {esJefe ? (
+              sucursal.sucursales && (
+                <select
+                  aria-label="Sucursal"
+                  disabled={sucursal.sucursales.length === 0}
+                  value={sucursal.elegida ?? ''}
+                  onChange={(e) => sucursal.elegir(Number(e.target.value))}
+                  className="h-9 max-w-[180px] rounded-lg border border-linea bg-superficie px-2 text-[13px] font-medium text-tinta"
+                >
+                  {sucursal.sucursales.length === 0 && <option value="">Sin sucursales activas</option>}
+                  {sucursal.sucursales.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.nombre}
+                    </option>
+                  ))}
+                </select>
+              )
+            ) : (
+              <span>Mi sucursal</span>
+            )}
             <span aria-hidden="true">/</span>
             <span className="font-medium text-tinta">{actual?.texto ?? 'Abarrotes+'}</span>
           </nav>
@@ -140,8 +227,23 @@ export function Layout() {
           <EstadoCaja abiertaDesde={abiertaDesde} />
         </header>
 
-        <main className="min-w-0 flex-1">
-          <Outlet />
+        <main id="contenido" tabIndex={-1} className="min-w-0 flex-1 outline-none">
+          {gestionSucursales || !esJefe || sucursal.elegida !== null ? (
+            // La clave recarga la pantalla con los datos de la sucursal elegida.
+            <div key={gestionSucursales ? 'sucursales' : sucursal.elegida ?? 'propia'} className="h-full">
+              <Outlet />
+            </div>
+          ) : (
+            <Pagina>
+              {sucursal.error ? (
+                <Aviso tipo="error">{sucursal.error}</Aviso>
+              ) : sucursal.sucursales ? (
+                <Aviso tipo="info">No hay sucursales activas.</Aviso>
+              ) : (
+                <Esqueleto className="h-10 w-64" />
+              )}
+            </Pagina>
+          )}
         </main>
       </div>
 
@@ -201,16 +303,11 @@ function Barra({
   return (
     <nav
       aria-label="Principal"
+      data-flechas
       className={`w-[240px] flex-none flex-col gap-6 overflow-y-auto bg-riel px-3 py-4 text-riel-texto ${className}`}
     >
-      <div className="flex items-center gap-2.5 px-1.5 pt-1">
-        <span
-          aria-hidden="true"
-          className="num flex h-7 w-7 items-center justify-center rounded-[7px] bg-maiz text-xs font-semibold text-tinta"
-        >
-          A+
-        </span>
-        <span className="text-[15px] font-semibold tracking-tight text-white">Abarrotes+</span>
+      <div className="px-1.5 pt-1">
+        <Logo />
       </div>
 
       {grupos.map((grupo) => (
@@ -275,18 +372,27 @@ function PaletaComandos({
   const entrada = useRef<HTMLInputElement>(null)
   const opciones = destinos.filter((d) => d.texto.toLowerCase().includes(texto.trim().toLowerCase()))
 
-  useEffect(() => entrada.current?.focus(), [])
+  useEffect(() => {
+    const anterior = document.activeElement
+    entrada.current?.focus()
+    return () => {
+      if (anterior instanceof HTMLElement) anterior.focus()
+    }
+  }, [])
   useEffect(() => setIndice(0), [texto])
 
   function teclas(e: React.KeyboardEvent) {
     if (e.key === 'Escape') onCerrar()
-    else if (e.key === 'ArrowDown') {
+    else if (e.key === 'ArrowDown' || (e.key === 'Tab' && !e.shiftKey)) {
       e.preventDefault()
       setIndice((i) => Math.min(i + 1, opciones.length - 1))
-    } else if (e.key === 'ArrowUp') {
+    } else if (e.key === 'ArrowUp' || e.key === 'Tab') {
       e.preventDefault()
       setIndice((i) => Math.max(i - 1, 0))
-    } else if (e.key === 'Enter' && opciones[indice]) onElegir(opciones[indice].to)
+    } else if (e.key === 'Enter' && opciones[indice]) {
+      e.preventDefault()
+      onElegir(opciones[indice].to)
+    }
   }
 
   return (

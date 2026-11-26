@@ -32,9 +32,10 @@ export function proveedores() {
 }
 
 /** HU-09: registra un pago a proveedor ligado al turno abierto. El proveedor se crea si no existe. */
-export async function registrarPagoProveedor(usuarioId: number, datos: PagoProveedor) {
+export async function registrarPagoProveedor(usuarioId: number, sucursalId: number, datos: PagoProveedor) {
   return prisma.$transaction(async (tx) => {
     const turno = await exigirTurnoAbierto(usuarioId, tx)
+    if (turno.sucursalId !== sucursalId) throw new AppError(409, 'Tu caja abierta es de otra sucursal')
     const proveedor = await tx.proveedor.upsert({
       where: { nombre: datos.proveedor },
       update: {},
@@ -155,17 +156,19 @@ export async function actividadActual(usuarioId: number, limite = 8) {
 
 /**
  * HU-05 CA4–CA5: cierra la caja con el efectivo contado y guarda la diferencia (+ sobrante, − faltante).
- * El comentario es obligatorio cuando hay diferencia (interpretación documentada en el backlog).
+ * El comentario siempre es obligatorio (CA5, decisión del 26 de noviembre); si hay diferencia, debe explicarla.
  */
 export async function cerrar(usuarioId: number, datos: CerrarCaja) {
   return prisma.$transaction(async (tx) => {
     const turno = await exigirTurnoAbierto(usuarioId, tx)
     const corte = await calcularCorte(turno, tx)
     const diferencia = round2(D(datos.efectivoContado).minus(corte.efectivoEsperado))
-    if (!diferencia.isZero() && !datos.comentario) {
+    if (!datos.comentario) {
       throw new AppError(
         400,
-        'Hay una diferencia en el efectivo: explica el motivo en el comentario',
+        diferencia.isZero()
+          ? 'Escribe un comentario para cerrar la caja'
+          : 'Hay una diferencia en el efectivo: explica el motivo en el comentario',
       )
     }
     const cerrado = await tx.turnoCaja.update({

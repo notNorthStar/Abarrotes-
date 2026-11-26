@@ -161,8 +161,18 @@ describe('caja · HU-05 y HU-09', () => {
       expect(res.body.pagosProveedor.detalle).toHaveLength(2)
     })
 
-    it('HU-05 CA4: cierra sin diferencia y sin comentario', async () => {
+    it('HU-05 CA5: sin comentario no cierra, aunque la caja cuadre', async () => {
       const res = await post('hu05.turno', '/caja/actual/cerrar', { efectivoContado: '517.00' })
+      expect(res.status).toBe(400)
+      expect(res.body.error).toMatch(/comentario/)
+      expect((await get('hu05.turno', '/caja/actual')).body.turno).not.toBeNull()
+    })
+
+    it('HU-05 CA4: cierra sin diferencia con su comentario', async () => {
+      const res = await post('hu05.turno', '/caja/actual/cerrar', {
+        efectivoContado: '517.00',
+        comentario: 'Todo en orden',
+      })
       expect(res.status).toBe(200)
       expect(res.body).toMatchObject({
         efectivoEsperado: '517.00',

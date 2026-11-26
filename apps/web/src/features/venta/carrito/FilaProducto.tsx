@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import Decimal from 'decimal.js'
 import { Icono } from '../../../components/Icono'
+import { Miniatura } from '../../../components/Imagenes'
 import { pesos } from '../../../components/ui'
 import { useCarrito, type Renglon } from './store'
 
@@ -48,6 +49,12 @@ export function FilaProducto({
           setCantidad(e.target.value)
           setError('')
         }}
+        onKeyDown={(e) => {
+          // ↑ ↓ ajustan las piezas; Enter las aplica.
+          if (esKilo || (e.key !== 'ArrowUp' && e.key !== 'ArrowDown') || !/^\d+$/.test(cantidad)) return
+          e.preventDefault()
+          setCantidad(String(Math.max(1, Number(cantidad) + (e.key === 'ArrowUp' ? 1 : -1))))
+        }}
         inputMode={esKilo ? 'decimal' : 'numeric'}
         aria-invalid={!!error}
         aria-describedby={error ? `error-${r.productoId}` : undefined}
@@ -62,7 +69,10 @@ export function FilaProducto({
   return (
     <tr className="hover:bg-[#FAF9F6]">
       <th scope="row" className={`${celda} px-4 py-3 font-normal`}>
-        {r.nombre}
+        <span className="flex items-center gap-3">
+          <Miniatura id={r.imagenId} />
+          {r.nombre}
+        </span>
       </th>
       <td className={`${celda} p-2`}>
         <form onSubmit={guardar}>

@@ -1,9 +1,10 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Decimal from 'decimal.js'
-import { api, ApiError } from '../../api/client'
 import type { Producto } from '../../api/tipos'
 import { Icono } from '../../components/Icono'
+import { GaleriaProducto, Miniatura } from '../../components/Imagenes'
+import { useBusquedaProductos } from '../../hooks/useBusquedaProductos'
 import {
   Boton,
   Chip,
@@ -38,43 +39,11 @@ const pasaFiltro = (p: Producto, filtro: Filtro) =>
 
 export function InventarioPage() {
   const [texto, setTexto] = useState('')
-  const [consulta, setConsulta] = useState({ texto: '', intento: 0 })
-  const [productos, setProductos] = useState<Producto[]>([])
-  const [cargando, setCargando] = useState(true)
-  const [error, setError] = useState('')
+  const { productos: resultado, cargando: consultando, error, recargar } = useBusquedaProductos(texto)
+  const productos = resultado ?? []
+  const cargando = resultado === null && consultando
   const [filtro, setFiltro] = useState<Filtro>('TODOS')
   const [seleccionId, setSeleccionId] = useState<number | null>(null)
-
-  useEffect(() => {
-    let vigente = true
-    setCargando(true)
-    setError('')
-    setProductos([])
-    api
-      .get<Producto[]>(`/productos?q=${encodeURIComponent(consulta.texto)}`)
-      .then((resultado) => {
-        if (vigente) setProductos(resultado)
-      })
-      .catch((err: unknown) => {
-        if (vigente)
-          setError(
-            err instanceof ApiError
-              ? err.message
-              : 'No se pudo consultar el inventario. Intenta de nuevo.',
-          )
-      })
-      .finally(() => {
-        if (vigente) setCargando(false)
-      })
-    return () => {
-      vigente = false
-    }
-  }, [consulta])
-
-  function buscar(e: FormEvent) {
-    e.preventDefault()
-    setConsulta((actual) => ({ texto: texto.trim(), intento: actual.intento + 1 }))
-  }
 
   const visibles = productos.filter((p) => pasaFiltro(p, filtro))
   const seleccionado = productos.find((p) => p.id === seleccionId) ?? null
@@ -82,14 +51,14 @@ export function InventarioPage() {
   return (
     <PaginaConPanel
       etiquetaPanel="Detalle del producto"
-      panel={<Detalle producto={seleccionado} />}
+      panel={<Detalle producto={seleccionado} onCambio={recargar} />}
     >
       <EncabezadoPagina
         titulo="Inventario"
         subtitulo={
           cargando
             ? 'Consultando los precios y existencias de tu sucursal'
-            : `${productos.length} ${productos.length === 1 ? 'producto' : 'productos'}${consulta.texto ? ` para “${consulta.texto}”` : ''}`
+            : `${productos.length} ${productos.length === 1 ? 'producto' : 'productos'}${texto.trim() ? ` para “${texto.trim()}”` : ''}`
         }
         acciones={
           <Link to="/productos/nuevo" className={claseBoton('primario')}>
@@ -100,7 +69,7 @@ export function InventarioPage() {
       />
 
       <div className="flex flex-wrap items-center gap-2.5">
-        <form onSubmit={buscar} className="flex min-w-0 flex-[1_1_280px] items-center gap-2">
+        <div className="flex min-w-0 flex-[1_1_280px] items-center gap-2">
           <label
             htmlFor="buscar-inventario"
             className="flex h-10 min-w-0 flex-1 items-center gap-2.5 rounded-lg border border-borde bg-superficie px-3 text-piedra focus-within:border-tinta"
@@ -109,27 +78,25 @@ export function InventarioPage() {
             <span className="sr-only">Buscar por nombre o código de barras</span>
             <input
               id="buscar-inventario"
+              data-busqueda
+              data-flechas-a="lista-inventario"
+              autoComplete="off"
               className="min-w-0 flex-1 bg-transparent text-sm text-tinta outline-none"
               placeholder="Nombre o código de barras"
               value={texto}
               onChange={(e) => setTexto(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') setTexto('')
+                else if (e.key === 'Enter' && visibles[0]) setSeleccionId(visibles[0].id)
+              }}
             />
           </label>
-          <Boton type="submit" variante="secundario">
-            Buscar
-          </Boton>
-          {consulta.texto && (
-            <Boton
-              variante="fantasma"
-              onClick={() => {
-                setTexto('')
-                setConsulta((actual) => ({ texto: '', intento: actual.intento + 1 }))
-              }}
-            >
+          {texto && (
+            <Boton variante="fantasma" onClick={() => setTexto('')}>
               Mostrar todos
             </Boton>
           )}
-        </form>
+        </div>
         <div
           role="group"
           aria-label="Filtrar productos"
@@ -154,7 +121,7 @@ export function InventarioPage() {
         </div>
       </div>
 
-      <div aria-live="polite" aria-busy={cargando} className="flex flex-col gap-3">
+      <div aria-live="polite" aria-busy={consultando} className="flex flex-col gap-3">
         {cargando && (
           <p role="status" className="sr-only">
             Consultando inventario…
@@ -169,7 +136,7 @@ export function InventarioPage() {
             <Boton
               variante="secundario"
               tamano="sm"
-              onClick={() => setConsulta((actual) => ({ ...actual, intento: actual.intento + 1 }))}
+              onClick={recargar}
             >
               Reintentar
             </Boton>
@@ -179,7 +146,7 @@ export function InventarioPage() {
           <Tarjeta className="px-4 py-10 text-center text-sm text-piedra">
             {productos.length > 0
               ? 'Ningún producto coincide con este filtro.'
-              : consulta.texto
+              : texto.trim()
                 ? 'No se encontraron productos con ese nombre o código.'
                 : 'No hay productos disponibles en tu sucursal.'}
           </Tarjeta>
@@ -211,7 +178,7 @@ export function InventarioPage() {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="lista-inventario" data-flechas>
                   {cargando
                     ? ['42%', '34%', '50%', '38%', '46%', '30%'].map((ancho) => (
                         <tr key={ancho}>
@@ -248,8 +215,9 @@ export function InventarioPage() {
                                 type="button"
                                 aria-pressed={activo}
                                 onClick={() => setSeleccionId(activo ? null : producto.id)}
-                                className={`min-h-12 w-full px-4 text-left text-sm ${activo ? 'font-medium' : ''}`}
+                                className={`flex min-h-12 w-full items-center gap-3 px-4 py-1.5 text-left text-sm ${activo ? 'font-medium' : ''}`}
                               >
+                                <Miniatura id={producto.imagenes?.[0]?.id} />
                                 {producto.nombre}
                               </button>
                             </th>
@@ -288,7 +256,7 @@ export function InventarioPage() {
   )
 }
 
-function Detalle({ producto }: { producto: Producto | null }) {
+function Detalle({ producto, onCambio }: { producto: Producto | null; onCambio: () => void }) {
   if (!producto) {
     return (
       <div className="flex flex-col items-center gap-3 rounded-xl bg-hueso px-5 py-10 text-center">
@@ -332,6 +300,13 @@ function Detalle({ producto }: { producto: Producto | null }) {
           {porReponer(producto) && <dd className="text-xs text-chile-texto">Por reponer</dd>}
         </div>
       </dl>
+      <GaleriaProducto
+        key={producto.id}
+        productoId={producto.id}
+        nombre={producto.nombre}
+        imagenes={producto.imagenes ?? []}
+        onCambio={onCambio}
+      />
       <Link to="/mermas" className={`${claseBoton('secundario')} h-11`}>
         <Icono nombre="menos" tamano={16} />
         Registrar merma

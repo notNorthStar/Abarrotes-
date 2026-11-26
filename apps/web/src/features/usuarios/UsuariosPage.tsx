@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useState, type FormEvent, type ReactNode } from 'react'
+import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { api, ApiError } from '../../api/client'
 import type { CuentaUsuario, EstadoCuenta } from '../../api/tipos'
-import { useAuth } from '../../auth/AuthContext'
+import { useConfirmar } from '../../components/Confirmar'
 import { Icono } from '../../components/Icono'
 import { Aviso, Boton, Chip, EncabezadoPagina, Esqueleto, Pagina, Tarjeta } from '../../components/ui'
 
@@ -36,32 +36,20 @@ const claseEliminar =
   'inline-flex h-9 items-center justify-center gap-1.5 rounded-lg px-3 text-sm text-chile-texto transition-colors hover:bg-chile-claro'
 
 export function UsuariosPage() {
-  const { usuario } = useAuth()
-
-  if (usuario?.rol === 'JEFE') {
-    return (
-      <Pagina>
-        <EncabezadoPagina titulo="Cuentas de cajero" />
-        <Aviso tipo="info">Selecciona una sucursal (disponible en HU-14).</Aviso>
-      </Pagina>
-    )
-  }
-  return <GestionCuentas ruta="/usuarios" singular="cajero" plural="cajeros" ambito="tu sucursal" />
+  return <GestionCuentas ruta="/usuarios" singular="cajero" plural="cajeros" ambito="la sucursal" />
 }
 
 type GestionProps = {
   /** Recurso de la API: '/usuarios' (cajeros) o '/administradores'. */
   ruta: string
-  /** Query que se agrega a cada petición, p. ej. '?sucursalId=3' para el jefe. */
-  consulta?: string
   singular: string
   plural: string
-  /** Dónde viven las cuentas, para los textos: "tu sucursal", "Norte". */
+  /** Dónde viven las cuentas, para los textos: "la sucursal". */
   ambito: string
-  acciones?: ReactNode
 }
 
-export function GestionCuentas({ ruta, consulta = '', singular, plural, ambito, acciones }: GestionProps) {
+export function GestionCuentas({ ruta, singular, plural, ambito }: GestionProps) {
+  const confirmar = useConfirmar()
   const [cajeros, setCajeros] = useState<CuentaUsuario[]>([])
   const [cargando, setCargando] = useState(true)
   const [error, setError] = useState('')
@@ -71,20 +59,20 @@ export function GestionCuentas({ ruta, consulta = '', singular, plural, ambito, 
   const [guardando, setGuardando] = useState(false)
   const [resetId, setResetId] = useState<number | null>(null)
 
-  const url = (id?: number) => `${ruta}${id === undefined ? '' : `/${id}`}${consulta}`
+  const url = (id?: number) => `${ruta}${id === undefined ? '' : `/${id}`}`
   const mayuscula = (texto: string) => texto[0].toUpperCase() + texto.slice(1)
   const Singular = mayuscula(singular)
 
   const cargar = useCallback(async () => {
     try {
-      setCajeros(await api.get<CuentaUsuario[]>(`${ruta}${consulta}`))
+      setCajeros(await api.get<CuentaUsuario[]>(ruta))
       setError('')
     } catch (err) {
       setError(mensaje(err))
     } finally {
       setCargando(false)
     }
-  }, [ruta, consulta])
+  }, [ruta])
 
   useEffect(() => {
     setCargando(true)
@@ -130,13 +118,14 @@ export function GestionCuentas({ ruta, consulta = '', singular, plural, ambito, 
     )
   }
 
-  function eliminar(c: CuentaUsuario) {
-    if (
-      !window.confirm(
-        `¿Eliminar la cuenta de ${c.nombre}? Su historial de operaciones se conserva.`,
-      )
-    )
-      return
+  async function eliminar(c: CuentaUsuario) {
+    const acepta = await confirmar({
+      titulo: `¿Eliminar la cuenta de ${c.nombre}?`,
+      detalle: 'Su historial de operaciones se conserva.',
+      aceptar: 'Eliminar',
+      peligro: true,
+    })
+    if (!acepta) return
     void accion(() => api.delete(url(c.id)), `${c.nombre} fue eliminado.`)
   }
 
@@ -147,7 +136,7 @@ export function GestionCuentas({ ruta, consulta = '', singular, plural, ambito, 
 
   return (
     <Pagina>
-      <EncabezadoPagina titulo={`Cuentas de ${singular}`} subtitulo={subtitulo} acciones={acciones} />
+      <EncabezadoPagina titulo={`Cuentas de ${singular}`} subtitulo={subtitulo} />
 
       <Tarjeta className="p-5">
         <form onSubmit={crear} aria-labelledby="h-nuevo-cajero" className="flex flex-col gap-4">
@@ -226,7 +215,7 @@ export function GestionCuentas({ ruta, consulta = '', singular, plural, ambito, 
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody data-flechas>
               {cargando &&
                 ['36%', '28%', '42%'].map((ancho) => (
                   <tr key={ancho} className="border-t border-linea first:border-t-0">
@@ -262,7 +251,7 @@ export function GestionCuentas({ ruta, consulta = '', singular, plural, ambito, 
                   cajero={c}
                   restableciendo={resetId === c.id}
                   onCambiarEstado={() => cambiarEstado(c)}
-                  onEliminar={() => eliminar(c)}
+                  onEliminar={() => void eliminar(c)}
                   onAbrirReset={() => setResetId(resetId === c.id ? null : c.id)}
                   onRestablecer={async (password) => {
                     await api.patch(url(c.id), { password })

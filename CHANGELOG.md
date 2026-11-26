@@ -1,5 +1,31 @@
 # Changelog
 
+## v1.0.0 — Cierre del Sprint 4 y entrega final · 26 nov 2026
+
+2 historias, 10 puntos. Producto completo: **16 de 16 historias, 80 de 80 puntos**.
+
+### Historias de usuario
+- **HU-14** El jefe opera como administrador en cualquier sucursal: selector en la barra superior que se conserva al navegar y recargar; el servidor valida la sucursal. (#70, Sosa)
+- **HU-16** Gestión de sucursales: crear, suspender, reactivar y eliminar (lógico); sus usuarios no pueden entrar y sus sesiones se cortan en la siguiente petición. (#87, Miguel)
+
+### Mejoras (sin puntos)
+- Búsqueda de productos con coincidencias en vivo, sin Enter (T-32, #72).
+- Operación con teclado: flechas, Tab, atajos y confirmaciones con Enter o Esc (T-33, #72).
+- Fotos de productos y logotipos de proveedores guardados en la base de datos (tabla `Imagen`) (T-34, #73).
+- Logotipo de la aplicación y acceso con galería de arte, saludo y mostrar contraseña (T-35, T-36; #74, #81, #83–#86).
+- Folio automático al pagar con tarjeta (T-36, #81).
+
+### Correcciones
+- Revisión de HU-07: rutas duplicadas, validación de fecha y mayúsculas (T-31, #69, Gonzalo).
+- Cerrar la caja exige comentario siempre (HU-05 CA5) y la sesión de una cuenta suspendida o eliminada se corta al instante (T-37, #90).
+- Más margen a las transacciones simultáneas (#88).
+
+### Documentación Scrum
+- Casos de uso y capturas del Sprint 4 (D-06, #91); review, retrospectiva, burndown y documento Scrum final (D-07).
+
+### Calidad
+- 243 pruebas automatizadas (39 web + 204 API), lint, tipos y build correctos en cada PR.
+
 ## v0.3.0 — Cierre del Sprint 3 · 15 nov 2026
 
 5 historias, 23 puntos, integradas el 9 de noviembre. Producto acumulado: 70 de 80 puntos.

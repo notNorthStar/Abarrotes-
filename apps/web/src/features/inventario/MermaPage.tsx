@@ -1,8 +1,9 @@
-import { useRef, useState, type FormEvent } from 'react'
-import { useAuth } from '../../auth/AuthContext'
+import { useState, type FormEvent } from 'react'
 import { api, ApiError } from '../../api/client'
 import type { Producto } from '../../api/tipos'
 import { Icono } from '../../components/Icono'
+import { Miniatura } from '../../components/Imagenes'
+import { useBusquedaProductos } from '../../hooks/useBusquedaProductos'
 import {
   Aviso,
   Boton,
@@ -14,45 +15,25 @@ import {
 } from '../../components/ui'
 
 export function MermaPage() {
-  const { usuario } = useAuth()
   const [texto, setTexto] = useState('')
-  const [sucursal, setSucursal] = useState('')
-  const [productos, setProductos] = useState<Producto[]>([])
+  const { productos: resultado, cargando, error: errorBusqueda, recargar } = useBusquedaProductos(texto)
+  const productos = resultado ?? []
+  const buscando = resultado === null && cargando
   const [producto, setProducto] = useState<Producto | null>(null)
   const [cantidad, setCantidad] = useState('')
   const [motivo, setMotivo] = useState('')
   const [comentario, setComentario] = useState('')
-  const [buscando, setBuscando] = useState(false)
-  const [buscado, setBuscado] = useState(false)
   const [enviando, setEnviando] = useState(false)
   const [aviso, setAviso] = useState<{ tipo: 'ok' | 'error'; texto: string } | null>(null)
-  const version = useRef(0)
-  const jefe = usuario?.rol === 'JEFE'
-  const consultaSucursal = jefe ? `&sucursalId=${encodeURIComponent(sucursal)}` : ''
   const errorDe = (e: unknown) =>
     e instanceof ApiError ? e.message : 'No se pudo completar la operación. Intenta de nuevo.'
 
-  async function buscar(e: FormEvent) {
-    e.preventDefault()
-    const intento = ++version.current
-    setBuscando(true)
-    setBuscado(false)
-    setProductos([])
-    setProducto(null)
+  function elegir(p: Producto) {
+    setProducto(p)
+    setCantidad('')
+    setMotivo('')
+    setComentario('')
     setAviso(null)
-    try {
-      const lista = await api.get<Producto[]>(
-        `/productos?q=${encodeURIComponent(texto.trim())}${consultaSucursal}`,
-      )
-      if (intento === version.current) {
-        setProductos(lista)
-        setBuscado(true)
-      }
-    } catch (err) {
-      if (intento === version.current) setAviso({ tipo: 'error', texto: errorDe(err) })
-    } finally {
-      if (intento === version.current) setBuscando(false)
-    }
   }
 
   async function registrar(e: FormEvent) {
@@ -62,10 +43,10 @@ export function MermaPage() {
     setAviso(null)
     try {
       const actualizado = await api.post<Producto>(
-        `/productos/${producto.id}/mermas${jefe ? `?sucursalId=${encodeURIComponent(sucursal)}` : ''}`,
+        `/productos/${producto.id}/mermas`,
         { cantidad, motivo, ...(comentario.trim() && { comentario: comentario.trim() }) },
       )
-      setProductos((lista) => lista.map((p) => (p.id === actualizado.id ? actualizado : p)))
+      recargar()
       setProducto(actualizado)
       setCantidad('')
       setMotivo('')
@@ -104,6 +85,8 @@ export function MermaPage() {
               <label className="flex flex-col gap-1.5 text-[13px] font-medium">
                 Cantidad que se retira ({producto.unidad === 'KILO' ? 'kg' : 'piezas'})
                 <input
+                  key={producto.id}
+                  autoFocus
                   className="campo num"
                   inputMode={producto.unidad === 'KILO' ? 'decimal' : 'numeric'}
                   value={cantidad}
@@ -159,28 +142,7 @@ export function MermaPage() {
         subtitulo="Retira productos caducados o dañados de tu inventario."
       />
       {aviso && <Aviso tipo={aviso.tipo}>{aviso.texto}</Aviso>}
-      <form onSubmit={buscar} className="flex flex-wrap items-end gap-3">
-        {jefe && (
-          <label className="flex flex-col gap-1.5 text-[13px] font-medium">
-            Número de sucursal
-            <input
-              className="campo num"
-              type="number"
-              min="1"
-              required
-              value={sucursal}
-              disabled={enviando}
-              onChange={(e) => {
-                ++version.current
-                setSucursal(e.target.value)
-                setProducto(null)
-                setProductos([])
-                setBuscado(false)
-                setBuscando(false)
-              }}
-            />
-          </label>
-        )}
+      <div className="flex flex-wrap items-end gap-3">
         <label className="flex min-w-0 flex-1 flex-col gap-1.5 text-[13px] font-medium">
           Nombre o código de barras
           <input
@@ -188,14 +150,18 @@ export function MermaPage() {
             value={texto}
             onChange={(e) => setTexto(e.target.value)}
             placeholder="Busca el producto"
+            data-busqueda
+            data-flechas-a="lista-merma"
+            autoFocus
+            autoComplete="off"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && productos[0]) elegir(productos[0])
+              else if (e.key === 'Escape') setTexto('')
+            }}
             disabled={enviando}
           />
         </label>
-        <Boton type="submit" variante="secundario" disabled={buscando || enviando}>
-          <Icono nombre="buscar" tamano={16} />
-          Buscar
-        </Boton>
-      </form>
+      </div>
       <div aria-busy={buscando} aria-live="polite">
         {buscando ? (
           <Tarjeta className="flex flex-col gap-4 p-5">
@@ -217,7 +183,7 @@ export function MermaPage() {
                     <th className="px-4 py-3 text-right">Existencia</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="lista-merma" data-flechas>
                   {productos.map((p) => (
                     <tr
                       key={p.id}
@@ -226,17 +192,12 @@ export function MermaPage() {
                       <th className="border-t border-linea text-left font-normal">
                         <button
                           type="button"
-                          className="min-h-12 w-full px-4 py-3 text-left"
+                          className="flex min-h-12 w-full items-center gap-3 px-4 py-1.5 text-left"
                           disabled={enviando}
                           aria-pressed={producto?.id === p.id}
-                          onClick={() => {
-                            setProducto(p)
-                            setCantidad('')
-                            setMotivo('')
-                            setComentario('')
-                            setAviso(null)
-                          }}
+                          onClick={() => elegir(p)}
                         >
+                          <Miniatura id={p.imagenes?.[0]?.id} />
                           {p.nombre}
                         </button>
                       </th>
@@ -254,9 +215,7 @@ export function MermaPage() {
           </Tarjeta>
         ) : (
           <Tarjeta className="p-8 text-center text-sm text-piedra">
-            {buscado
-              ? 'No se encontraron productos. Prueba otro nombre o código.'
-              : 'Busca para consultar las existencias de tu sucursal.'}
+            {errorBusqueda || 'No se encontraron productos. Prueba otro nombre o código.'}
           </Tarjeta>
         )}
       </div>

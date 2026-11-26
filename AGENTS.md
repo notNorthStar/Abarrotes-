@@ -4,7 +4,7 @@ Instrucciones para cualquier agente de IA (Claude Code, Cursor, Copilot, Codex, 
 
 ## Proyecto
 
-POS web multisucursal para una tienda de abarrotes. Proyecto escolar en **Scrum simulado** con 3 integrantes: **Luis David Sosa Fernández** (Scrum Master + dev), **Gonzalo Mendoza Herrera** y **Miguel Angel Marcelo Taracena**. Estamos en el **Sprint 3 (2 al 15 de noviembre de 2026)**; la siguiente entrega es `v0.3.0` el 15 de noviembre. El trabajo debe ser **colaborativo y verificable en GitHub**.
+POS web multisucursal para una tienda de abarrotes. Proyecto escolar en **Scrum simulado** con 3 integrantes: **Luis David Sosa Fernández** (Scrum Master + dev), **Gonzalo Mendoza Herrera** y **Miguel Angel Marcelo Taracena**. El proyecto se **entregó completo** en `v1.0.0` el 26 de noviembre de 2026 (cierre del Sprint 4, el último). El trabajo debe ser **colaborativo y verificable en GitHub**.
 
 ## Antes de trabajar, lee
 
@@ -18,7 +18,7 @@ POS web multisucursal para una tienda de abarrotes. Proyecto escolar en **Scrum 
 | Schema Prisma y fórmulas (venta, cambio, corte) | `docs/05-modelo-datos.md` |
 | Git, PRs, reglas de colaboración | `docs/06-flujo-trabajo.md` |
 | Documento Scrum que pide la maestra | `docs/07-scrum-entregables.md` |
-| Estado de tareas | [Tablero de GitHub Projects](https://github.com/users/notNorthStar/projects/1/views/2) |
+| Estado de tareas | [Tablero de GitHub Projects](https://github.com/users/notNorthStar/projects/1/views/5) |
 
 Prompts reutilizables (para cualquier herramienta): `docs/prompts/`.
 

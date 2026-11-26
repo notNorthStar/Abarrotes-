@@ -208,6 +208,19 @@ describe('usuarios (HU-12 · cuentas de cajero)', () => {
       expect([401, 403]).toContain((await login('hu12.susplogin', 'secreto1')).status)
     })
 
+    it('la sesión abierta de un cajero suspendido deja de funcionar al instante', async () => {
+      await crearCajero('hu12.sesionviva')
+      const token = (await login('hu12.sesionviva', 'secreto1')).body.token
+      expect((await request(app).get('/api/auth/me').set(auth(token))).status).toBe(200)
+      const c = await prisma.usuario.findUniqueOrThrow({ where: { usuario: 'hu12.sesionviva' } })
+      await request(app).patch(`/api/usuarios/${c.id}`).set(auth(admin)).send({ estado: 'SUSPENDIDO' })
+      const res = await request(app).get('/api/productos').set(auth(token))
+      expect(res.status).toBe(401)
+      expect(res.body.error).toMatch(/cuenta ya no está activa/)
+      await request(app).patch(`/api/usuarios/${c.id}`).set(auth(admin)).send({ estado: 'ACTIVO' })
+      expect((await request(app).get('/api/auth/me').set(auth(token))).status).toBe(200)
+    })
+
     it('no acepta ELIMINADO como estado en PATCH → 400', async () => {
       const c = await crearCajero('hu12.estado')
       const res = await request(app)
