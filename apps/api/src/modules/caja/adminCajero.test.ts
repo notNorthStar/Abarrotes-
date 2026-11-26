@@ -101,7 +101,10 @@ describe('HU-11 · el administrador opera como cajero', () => {
   })
 
   it('CA3: cerrar la caja del administrador no cierra la del cajero', async () => {
-    const cierre = await post('hu11.admin', '/caja/actual/cerrar', { efectivoContado: '517.00' })
+    const cierre = await post('hu11.admin', '/caja/actual/cerrar', {
+      efectivoContado: '517.00',
+      comentario: 'Cierre del administrador',
+    })
     expect(cierre.status).toBe(200)
     expect(cierre.body.diferencia).toBe('0.00')
     expect((await get('hu11.admin', '/caja/actual')).body.turno).toBeNull()

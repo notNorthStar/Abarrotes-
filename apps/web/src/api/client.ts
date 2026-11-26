@@ -3,6 +3,8 @@
 import { conSucursal, sucursalStore } from './sucursal'
 
 const TOKEN_KEY = 'abarrotes.token'
+/** Se emite cuando el servidor rechaza un token ya guardado (expiró o la cuenta se suspendió). */
+export const SESION_TERMINADA = 'abarrotes:sesion-terminada'
 
 export const tokenStore = {
   get: () => localStorage.getItem(TOKEN_KEY),
@@ -32,6 +34,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
     body: body === undefined ? undefined : esArchivo ? body : JSON.stringify(body),
   })
   const data = await res.json().catch(() => ({}))
+  if (res.status === 401 && token) window.dispatchEvent(new Event(SESION_TERMINADA))
   if (!res.ok) throw new ApiError(res.status, data.error ?? 'Error de conexión')
   return data as T
 }

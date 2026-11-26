@@ -450,6 +450,14 @@ function CerrarCaja({ corte, onCerrada }: { corte: Corte; onCerrada: (c: CorteCe
   async function cerrar(e: FormEvent) {
     e.preventDefault()
     setError('')
+    if (!comentario.trim()) {
+      setError(
+        hayDiferencia
+          ? 'Explica la diferencia en el comentario'
+          : 'Escribe un comentario para cerrar la caja',
+      )
+      return
+    }
     const acepta = await confirmar({
       titulo: '¿Cerrar la caja?',
       detalle: 'Ya no podrás cobrar en este turno.',
@@ -483,7 +491,7 @@ function CerrarCaja({ corte, onCerrada }: { corte: Corte; onCerrada: (c: CorteCe
       <div className="flex flex-col gap-1">
         <h2 className="text-sm font-semibold">Cerrar caja</h2>
         <p className="text-[13px] leading-relaxed text-piedra">
-          Cuenta el efectivo del cajón. Si no coincide con lo esperado, explica la diferencia.
+          Cuenta el efectivo del cajón y deja un comentario. Si no coincide con lo esperado, explica la diferencia.
         </p>
       </div>
       <CampoMonto etiqueta="Efectivo contado" valor={contado} onCambio={setContado} />
@@ -499,17 +507,13 @@ function CerrarCaja({ corte, onCerrada }: { corte: Corte; onCerrada: (c: CorteCe
       <label className="flex flex-col gap-1.5 text-[13px] font-medium">
         <span className="flex items-center gap-2">
           Comentario
-          {hayDiferencia ? (
-            <Chip tono="chile">obligatorio</Chip>
-          ) : (
-            <span className="font-normal text-piedra">(opcional)</span>
-          )}
+          <Chip tono={hayDiferencia ? 'chile' : 'neutro'}>obligatorio</Chip>
         </span>
         <textarea
           rows={3}
           className="resize-y rounded-lg border border-borde bg-superficie p-2.5 text-sm font-normal text-tinta outline-none focus:border-tinta"
           placeholder={
-            hayDiferencia ? 'Explica la diferencia' : 'Ej. Se dio cambio de más en una venta'
+            hayDiferencia ? 'Explica la diferencia' : 'Ej. Todo en orden, sin incidencias'
           }
           value={comentario}
           onChange={(e) => setComentario(e.target.value)}

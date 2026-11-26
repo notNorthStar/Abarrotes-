@@ -84,14 +84,14 @@
 - CA2: El corte muestra totales **separados por forma de pago** (efectivo, tarjeta, transferencia).
 - CA3: **Efectivo esperado = monto inicial + ventas en efectivo (neto de cambio) − pagos a proveedor en efectivo**.
 - CA4: Al cerrar, el cajero captura el **efectivo contado**; el sistema muestra la **diferencia** (sobrante/faltante).
-- CA5: **Comentario obligatorio** al cerrar _(interpretación: obligatorio cuando la diferencia ≠ 0; confirmar con PO)_.
+- CA5: **Comentario obligatorio** al cerrar _(hasta el 25 nov se pedía solo con diferencia ≠ 0; desde el 26 nov se exige siempre, como dice el criterio)_.
 - Fuera de alcance: reporte detallado del corte (va en HU-13).
 
 ### HU-12 · Gestión de cuentas de cajero (5 pts) — Sosa
 > Como administrador quiero añadir, suspender y eliminar cuentas de cajero.
 
 - CA1: Admin crea cajeros (nombre, usuario, contraseña) **solo en su sucursal**.
-- CA2: **Suspender** bloquea el inicio de sesión; se puede reactivar.
+- CA2: **Suspender** bloquea el inicio de sesión; se puede reactivar. _(Desde el 26 nov también corta al momento la sesión que el cajero tenga abierta.)_
 - CA3: **Eliminar es lógico** (estado `ELIMINADO`), se conserva el historial de operaciones.
 - CA4: Admin **solo ve cajeros de su sucursal**.
 - CA5: Admin puede restablecer la contraseña de un cajero (cubre la "recuperación" de HU-01).

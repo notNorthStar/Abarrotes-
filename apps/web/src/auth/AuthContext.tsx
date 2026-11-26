@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
-import { api, tokenStore } from '../api/client'
+import { api, SESION_TERMINADA, tokenStore } from '../api/client'
 import { sucursalStore } from '../api/sucursal'
 import type { Usuario } from '../api/tipos'
 
@@ -41,6 +41,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     sucursalStore.clear()
     setUsuario(null)
   }, [])
+
+  // Si el servidor deja de aceptar el token (cuenta suspendida o sesión vencida), vuelve al login.
+  useEffect(() => {
+    window.addEventListener(SESION_TERMINADA, cerrarSesion)
+    return () => window.removeEventListener(SESION_TERMINADA, cerrarSesion)
+  }, [cerrarSesion])
 
   return (
     <AuthContext.Provider value={{ usuario, cargando, iniciarSesion, cerrarSesion }}>
